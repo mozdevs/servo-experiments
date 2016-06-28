@@ -26,16 +26,14 @@ function Demo() {
         if (iframes[n - 1] === selected) { 
             // Collapse if already elected
             selected.collapse().start();
-            select = dummyIFrame;
+            selected = dummyIFrame;
             return;
         }
-        var collapse = selected.collapse();
+        
+        var collapse = selected.collapse().start();
         selected = iframes[n - 1];
-        var expand = selected.expand();
-        collapse.chain(expand); // Expand tween follows from collapse
+        var expand = selected.expand().start()
 
-        // Let the party start
-        collapse.start();
     }
 
     this.animate = function(t) {
