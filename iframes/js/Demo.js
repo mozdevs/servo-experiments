@@ -4,42 +4,48 @@ function Demo() {
 	
 	var urls = [
 		'https://en.wikipedia.org/wiki/Mozilla',
-		'https://en.wikipedia.org/wiki/Servo_(layout_engine)'
+		'https://en.wikipedia.org/wiki/Servo_(layout_engine)',
+		'https://en.wikipedia.org/wiki/Rust_(programming_language)',
+		'https://en.wikipedia.org/wiki/Compiler'
 	];
 
 	iframes = urls.map((url) => {
 		var iframe = document.createElement('iframe');
 		iframe.style.display = 'block';
+		iframe.className = 'dormant';
 		iframe.src = url;
 		iframe.innerText = url;
+
+
 		return iframe;
 	});
 
+	var selected = null;
+
 	iframes.forEach(appender(el));
+	window.addEventListener('keydown', onNumberKeyPress(_.partial(setSelected)));
+
+	function setSelected(n) {
+		(selected || {}).className = 'dormant';
+		selected = iframes[n - 1];
+		selected.className = '';
+	}
 
 	this.animate = function(t) {
 		var t_ = t * 0.0025;
 		var radius = 100;
 		var num = iframes.length;
-		
 		var alpha = 0;
 		var angIncrease = Math.PI * 2 / num;
-
-		for (var i = 0; i < num; i++) {
+		iframes.forEach(function(iframe) {
 			var beta = t_ + alpha;
 			var x = Math.round(radius * Math.sin(beta));
 			var y = Math.round(radius * Math.cos(beta));
-			var iframe = iframes[i];
-			var transform = 'translateX(' + x + 'px) translateY(' + y + 'px)';
-			applyTranslate(iframe, x, y);
-			//iframe.style.transform = transform;
-			//iframe.style.left = x + 'px';
-			//iframe.style.top = y + 'px';
-			iframe.width = 100;
+			//applyTranslate(iframe, x, y);
 			
 			alpha += angIncrease;
-
-		}
+		});
+		
 	};
 
 	this.dom = el;
