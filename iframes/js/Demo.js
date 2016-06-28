@@ -9,6 +9,10 @@ function Demo() {
         'https://en.wikipedia.org/wiki/Compiler'
     ];
 
+    _.times(50, function() {
+        urls.push('https://en.wikipedia.org/wiki/Special:Random');
+    });
+
     iframes = urls.map((url) => {
         return new DemoIFrame(url);
     });
@@ -22,14 +26,19 @@ function Demo() {
 
     window.addEventListener('keydown', onNumberKeyPress(_.partial(setSelected)));
 
+    var curr = 1;
+  /*  setInterval(function() {
+       setSelected(curr);
+       curr = (curr % urls.length) + 1;
+    }, 150);*/
     function setSelected(n) {
         if (iframes[n - 1] === selected) { 
             // Collapse if already elected
-            selected.collapse().start();
-            selected = dummyIFrame;
+            // selected.collapse().start();
+            // selected = dummyIFrame;
             return;
         }
-        
+
         var collapse = selected.collapse().start();
         selected = iframes[n - 1];
         var expand = selected.expand().start()

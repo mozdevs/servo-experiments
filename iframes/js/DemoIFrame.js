@@ -7,7 +7,7 @@ function DemoIFrame(url) {
     iframe.src = url;
     iframe.innerText = url;
 
-    var animTime = 400;
+    var animTime = 150;
     var size = {w: 0, h: 0};
     var pos = {x: 0, y: 0};
     this.el = iframe;
