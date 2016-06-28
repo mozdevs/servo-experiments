@@ -40,14 +40,16 @@ body, html {
 }
 
 #demo iframe { 
-	width: 50vw;
-	height: 50vh;
+	width: 0vw;
+	height: 0vh;
 	border: none;
-	float: left;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 .dormant {
-	opacity: 0.6;
+	opacity: 1;
 }
 
 .active {

@@ -13,7 +13,8 @@ function Demo() {
         return new DemoIFrame(url);
     });
 
-    var selected = new DemoIFrame(); // Dummy IFrame
+    var dummyIFrame = new DemoIFrame();
+    var selected = dummyIFrame; // Dummy IFrame
 
     iframes.forEach((iframe) => {
         el.appendChild(iframe.el);
@@ -22,16 +23,28 @@ function Demo() {
     window.addEventListener('keydown', onNumberKeyPress(_.partial(setSelected)));
 
     function setSelected(n) {
-        selected.toggleDormant();
+        if (iframes[n - 1] === selected) { 
+            // Collapse if already elected
+            selected.collapse().start();
+            select = dummyIFrame;
+            return;
+        }
+        var collapse = selected.collapse();
         selected = iframes[n - 1];
-        selected.toggleDormant();
-        var tween = new TWEEN.Tween(selected, 200)
-            .to({x: 500, y: 100}).start();
+        var expand = selected.expand();
+        collapse.chain(expand); // Expand tween follows from collapse
+
+        // Let the party start
+        collapse.start();
     }
 
     this.animate = function(t) {
         TWEEN.update(t);
+        
+        // Animate all IFrames
         iframes.forEach((iframe) => {iframe.animate(t);});
+        // Animate container
+        // el.style.transform = 'rotateX(' + props.rotY + 'deg)';
    /*     var t_ = t * 0.0025;
         var radius = 100;
         var num = iframes.length;
