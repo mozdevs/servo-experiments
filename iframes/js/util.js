@@ -21,3 +21,16 @@ function onNumberKeyPress (f) {
 		}
 	}
 }
+
+
+function tweenSize(el, newWidth, newHeight, animTime, wSuffix, hSuffix) {
+	wSuffix = wSuffix || 'vw';
+	hSuffix = hSuffix || 'vh';
+
+    return new TWEEN.Tween(size).to({w: newWidth, h: newHeight}, animTime)
+    .easing(TWEEN.Easing.Exponential.InOut)
+    .onUpdate(function() {
+        el.style.width = size.w + wSuffix;
+        iframe.style.height = size.h + hSuffix;
+    });
+}
