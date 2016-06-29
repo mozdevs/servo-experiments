@@ -67,6 +67,8 @@ function View(type, url) {
 
     this.setOpposite = (ov) => oppositeView = ov;
     this.getOpposite = () => oppositeView;
+
+    this.setSrc = (src) => iframe.src = src;
 }
 
 View.TOP = 'topView';

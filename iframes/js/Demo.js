@@ -17,10 +17,30 @@ function Demo() {
     _.values(views).forEach((v) => {el.appendChild(v.el)});
   
     var vm = new ViewManager(views);
-  
+    
+    var cb = new ControlBar();
+    el.appendChild(cb.el);
+
+
+    cb.addEventListener('query', function (evt) {
+        var query = evt.detail.query;
+        vm.setSrc('https://en.wikipedia.org/wiki/' + query);
+    });
+
+    listener.simple_combo('shift space', function() {
+        cb.toggle();
+    });
+
+    listener.simple_combo('esc', function() {
+        if (cb.isActive()) {
+            cb.toggle();
+        }
+    });
+
     window.addEventListener('keydown', onNumberKeyPress((n) => {
         vm.sizeChange((n === '0') ? 100 : (n * 10));
     }));
+
 /*    var urls = [
         'https://en.wikipedia.org/wiki/Mozilla',
         'https://en.wikipedia.org/wiki/Servo_(layout_engine)',

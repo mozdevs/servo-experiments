@@ -1,4 +1,4 @@
-function appender(parent) { // Creates function that appends to given element
+function appender(parent) { // Creates function that appends to hgiven element
 		return function(newChild) {
 			parent.appendChild(newChild);
 		};
@@ -16,7 +16,7 @@ function addListener(elem, evt, f) {
 function onNumberKeyPress (f) {
 	return function(evt) {
 		var ch = String.fromCharCode(evt.keyCode);
-		if (ch >= 0 && ch <= 9) {
+		if (ch >= 0 && ch <= 9 && evt.keyCode !== 13) {
 			f(ch);
 		}
 	}

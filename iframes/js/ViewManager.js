@@ -1,6 +1,6 @@
 function ViewManager(views) {
     var dummyView = new View(View.DUMMY);
-    dummyView.setOpposite(dummyView);
+        dummyView.setOpposite(dummyView);
 
     var selected = dummyView;
 
@@ -14,6 +14,9 @@ function ViewManager(views) {
         });
     });
 
+    function isViewSelected() {
+        return selected != dummyView;
+    }
     function selectView(view) {
         if (view === selected) { 
             // Do nothing if view is already selected
@@ -45,6 +48,16 @@ function ViewManager(views) {
         opp.initSizeChange(100 - perc).start();
     }
 
+    function setSrc(src) { // sets the src of currently selected view
+        // If no view is selected then select one so that something happens
+        if (!isViewSelected()) {
+            selectView(views.top); 
+        }
+
+        selected.setSrc(src);
+    }
+
     this.sizeChange = sizeChange;
+    this.setSrc = setSrc;
 
 }
