@@ -15,8 +15,9 @@ function addListener(elem, evt, f) {
 
 function onNumberKeyPress (f) {
 	return function(evt) {
+		console.log(evt.keyCode);
 		var ch = String.fromCharCode(evt.keyCode);
-		if (ch >= 0 && ch <= 9 && evt.keyCode !== 13) {
+		if (ch >= 0 && ch <= 9 && evt.keyCode !== 13 && evt.keyCode !== 32) {
 			f(ch);
 		}
 	}
