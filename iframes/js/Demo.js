@@ -7,8 +7,8 @@ function Demo() {
 
     var randWikiURL = 'https://en.wikipedia.org/wiki/Special:Random';
     var views = {
-        top: new View(View.TOP, randWikiURL),
-        bottom:  new View(View.BOTTOM, randWikiURL)
+        top: new View(View.TOP, 'https://en.wikipedia.org/wiki/JavaScript'),
+        bottom:  new View(View.BOTTOM, 'https://en.wikipedia.org/wiki/Python')
     };
 
     views.top.setOpposite(views.bottom);
