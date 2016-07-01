@@ -120,6 +120,7 @@ function Demo() {
                     // IFrame
                     var iframe = document.createElement('iframe');
                     iframe.className = 'hidden';
+                    iframe.src = card.FirstURL;
                     el.appendChild(iframe);
                     var iframePa = new PerspectiveAnimatable(iframe, 200);
 
@@ -127,7 +128,6 @@ function Demo() {
                         if (iframePa.isActive()) {
                             iframePa.toggle(() => {
                                 iframe.className = 'hidden';
-                                // iframe.src = '';
                             });
                         } else {
                             iframe.className = '';
