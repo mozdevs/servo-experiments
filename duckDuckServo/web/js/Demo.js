@@ -71,7 +71,7 @@ function Demo() {
     }
 
 
-    var currentCardSet = [];
+    var allPas = [];
     function processQuery(query) {
         Http.get('http://localhost:3000/q/' + query, handleQueryResponse);
     }
@@ -100,6 +100,7 @@ function Demo() {
                     var cardDiv = cardTemplate.cloneNode(true);
                     cardDiv.id = '';
 
+                    cardDiv.querySelector('.mdl-card__title').style.backgroundColor = randomColor({hue: 'blue'});
                     // Heading
                     var heading = cardDiv.querySelector('h2');
                     heading.textContent = queryStr;
@@ -114,12 +115,35 @@ function Demo() {
 
                     // Text
                     var p = cardDiv.querySelector('.card-text');
-                    // p.innerHTML = card.Text;
+                    p.innerHTML = card.Text;
 
                     // IFrame
                     var iframe = document.createElement('iframe');
-                    iframe.src = card.FirstURL;
-                    p.appendChild(iframe);
+                    iframe.className = 'hidden';
+                    el.appendChild(iframe);
+                    var iframePa = new PerspectiveAnimatable(iframe, 200);
+
+                    cardDiv.addEventListener('click', () => {
+                        if (iframePa.isActive()) {
+                            iframePa.toggle(() => {
+                                iframe.className = 'hidden';
+                                // iframe.src = '';
+                            });
+                        } else {
+                            iframe.className = '';
+                            if (iframe.src) {
+                                iframePa.toggle();
+                            } else {
+                                iframe.src = card.FirstURL;
+                                iframe.onload = () => {
+                                    iframePa.toggle();
+                                };                                            
+                            }
+                        }
+                      
+                    });
+
+                    // p.appendChild(iframe);
 
 
                     // Actions
@@ -127,17 +151,23 @@ function Demo() {
                     actions.textContent = 'Read More';
                     actions.setAttribute('href', card.FirstURL);
 
-                    return new PerspectiveAnimatable(cardDiv);
+                    return new PerspectiveAnimatable(cardDiv, 400);
                 });
            
             cardPas.forEach((cardPa) => {
                     el.appendChild(cardPa.el);
+                    allPas.push(cardPa);
                     cardPa.toggle();
             });
 
             currentCardSet = cardPas;
-
     }
+
+    setTimeout(() => {
+        allPas.forEach((cardPa) => {
+            // cardPa.transitionZ(-3000).start();
+        });
+    }, 2000);
 
     Http.get('http://localhost:3000/qs', function (res) {
         // Res is a list of all historical query results
@@ -150,10 +180,16 @@ function Demo() {
     });
 
 
-    listener.simple_combo('shift space', () => {cb.toggle();});
+
+    listener.simple_combo('shift space', cb.toggle.bind(cb));
+    listener.simple_combo('esc', () => {
+        if (cb.isActive()) {
+            cb.toggle();
+        }
+    });
 
     this.dom = el;
     this.animate = function(t) {
         TWEEN.update(t);
-    }
+    };
 }

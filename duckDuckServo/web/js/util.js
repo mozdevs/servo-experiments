@@ -22,7 +22,6 @@ function onNumberKeyPress (f) {
 	}
 }
 
-
 function tweenSize(el, newWidth, newHeight, animTime, wSuffix, hSuffix) {
 	wSuffix = wSuffix || 'vw';
 	hSuffix = hSuffix || 'vh';

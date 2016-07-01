@@ -38,8 +38,16 @@ function PerspectiveAnimatable(elem, animTime) {
         return active;
     }
 
+    function transitionZ(newZ) {
+        return new TWEEN.Tween(transform)
+            .to({translateZ: newZ})
+            .easing(TWEEN.Easing.Sinusoidal.Out)
+            .onUpdate(updateTransform);
+    }
+
     this.el = elem;
     this.toggle = toggle;
     this.isActive = isActive;
     this.addEventListener = elem.addEventListener.bind(elem);
+    this.transitionZ = transitionZ;
 }
