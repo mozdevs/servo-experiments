@@ -12,7 +12,7 @@ module.exports = function(ns) {
 
     return {
         add: function (item) {
-            items.push();
+            items.push(item);
             update();
         },
         clear: function (item) {
@@ -21,6 +21,14 @@ module.exports = function(ns) {
         },
         get: function() {
             return items;
-        }
+        },
+        filter: function(pred) {
+            items = items.filter(pred);
+            update();
+        },
+        size: function() {
+            return items.length;
+        },
+        splice: items.splice.bind(items)
     }
 }
