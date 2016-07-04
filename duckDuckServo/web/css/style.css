@@ -2,6 +2,7 @@ body {
     background-color: #FAFAFA;
 
 }
+
 .servo-stats {
     font-family: Helvetica, sans;
     position: fixed;
@@ -17,7 +18,6 @@ body {
 .servo-stats li {
     list-style: none;
 }
-
 
 .hidden {
     visibility: hidden;
@@ -78,6 +78,7 @@ iframe {
     left: 30vw;
     z-index: 999;
 }
+
 .card .mdl-card__media {
     background: none;
     text-align: center;

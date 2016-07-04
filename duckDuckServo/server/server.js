@@ -35,7 +35,7 @@ app.get('/q/:q', function (req, res) {
         return res.json(qs.other[query]);
     }
     ddg.query(query, function (err, data) {
-        if (err) { 
+        if (err || data.RelatedTopics.length === 0) { 
             return res.status(400).end();
         }
 
@@ -82,6 +82,12 @@ app.get('/imgs', function (req, res) {
 });
 
 app.get('/qs', function (req, res) {
+    var allQueries = qStore.get();
+    if (allQueries.length === 0) {
+        res.status(400).end();
+        return;
+    }
+
     res.json(qStore.get());
 });
 

@@ -18,7 +18,6 @@ function Demo() {
                     img.src = data.Image;
                     div.style.width = img.width + 'px';
                     div.style.height = img.height + 'px';
-                    console.log(img.width, img.height);
                     // div.appendChild(img);
                     return div;
                 })
@@ -70,16 +69,31 @@ function Demo() {
         });
     }
 
+    var snackbarNotification = (function() {
+        var sbc = document.querySelector('#notification-snackbar');
+        componentHandler.upgradeElement(sbc);
+        return function(msg, actionText, handler) {
+            var data = {
+                message: msg,
+                timeout: 2000,
+                actionHandler: handler,
+                actionText: actionText
+            };
+            sbc.MaterialSnackbar.showSnackbar(data);
+        };
+    })();
 
+    snackbarNotification('Shift-Space to search.');
+   
     var allPas = [];
     function processQuery(query) {
-        Http.get('http://localhost:3000/q/' + query, handleQueryResponse);
+        Http.get('http://localhost:3000/q/' + query, handleQueryResponse, function() {
+                snackbarNotification('No DuckDuckGo search results for the query ' + query +'.');
+        });
     }
-
     function handleQueryResponse(res) {
             var queryStr = res.query;
             res = res.data;
-
             var allCards = []; 
             // Partition related topics into cards and further topics
             var [cards, topics] = _.partition(res.RelatedTopics, (item) => 'Text' in item);
@@ -92,6 +106,11 @@ function Demo() {
 
             // Filter out the cards without images
             allCards = allCards.filter((card) => card.Icon.URL);
+            if (_.isEmpty(allCards)) {
+                // Display message
+                // snackbarNotification('No DuckDuckGo Search results for the query ' + queryStr +'.');
+                return;
+            }
 
             var cardTemplate = document.getElementById('cardTemplate');
 
@@ -120,7 +139,7 @@ function Demo() {
                     // IFrame
                     var iframe = document.createElement('iframe');
                     iframe.className = 'hidden';
-                    iframe.src = card.FirstURL;
+                    // iframe.src = card.FirstURL;
                     el.appendChild(iframe);
                     var iframePa = new PerspectiveAnimatable(iframe, 200);
 
@@ -145,7 +164,6 @@ function Demo() {
 
                     // p.appendChild(iframe);
 
-
                     // Actions
                     var actions = cardDiv.querySelector('.card-actions > a');
                     actions.textContent = 'Read More';
@@ -160,14 +178,9 @@ function Demo() {
                     cardPa.toggle();
             });
 
+            
             currentCardSet = cardPas;
     }
-
-    setTimeout(() => {
-        allPas.forEach((cardPa) => {
-            // cardPa.transitionZ(-3000).start();
-        });
-    }, 2000);
 
     Http.get('http://localhost:3000/qs', function (res) {
         // Res is a list of all historical query results
@@ -178,8 +191,6 @@ function Demo() {
         var query = evt.detail.query;
         processQuery(query);
     });
-
-
 
     listener.simple_combo('shift space', cb.toggle.bind(cb));
     listener.simple_combo('esc', () => {
