@@ -119,7 +119,7 @@ function Demo() {
                     var cardDiv = cardTemplate.cloneNode(true);
                     cardDiv.id = '';
 
-                    cardDiv.querySelector('.mdl-card__title').style.backgroundColor = randomColor({hue: 'blue'});
+                    cardDiv.querySelector('.mdl-card__title').style.backgroundColor = '#417BBA';
                     // Heading
                     var heading = cardDiv.querySelector('h2');
                     heading.textContent = queryStr;

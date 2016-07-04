@@ -1,7 +1,6 @@
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener('load', init);
 
 function init() {
-
 	var stats = new ServoStats();
 	// document.body.appendChild(stats.dom);
 
