@@ -84,7 +84,7 @@ function Demo() {
             Http.get('http://localhost:3000' + query, window.location.reload.bind(window.location), () => {});
         } else {
             Http.get('http://localhost:3000/q/' + query, handleQueryResponse, function() {
-                    notification('No DuckDuckGo search results for the query ' + query +'.');
+                    notification('No DuckDuckGo search results for the query <i>' + query +'</i>.');
             });
         }
     }
