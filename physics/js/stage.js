@@ -3,7 +3,7 @@ function Stage(el, world) {
     var w = document.body.clientWidth,
         h = document.body.clientHeight;
 
-    var domBodies = [];
+    var domBodies = []; // List of all DOM Physics Bodies to be rendered
 
     return {
         width: w,
