@@ -83,3 +83,25 @@ iframe {
     background: none;
     text-align: center;
 }
+
+.notificationBar {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 0;
+    z-index: 999;
+    color: white;
+    transition: height 0.25s ease-in-out;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.notificationInner {
+    margin: auto;
+    width: auto;
+    height: 30px;
+    text-align: center;
+    background-color: #3D3D3D;
+    padding-top: 8px;
+    color: white;
+}

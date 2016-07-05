@@ -69,27 +69,24 @@ function Demo() {
         });
     }
 
-    var snackbarNotification = (function() {
-        var sbc = document.querySelector('#notification-snackbar');
-        componentHandler.upgradeElement(sbc);
-        return function(msg, actionText, handler) {
-            var data = {
-                message: msg,
-                timeout: 2000,
-                actionHandler: handler,
-                actionText: actionText
-            };
-            sbc.MaterialSnackbar.showSnackbar(data);
-        };
-    })();
 
-    snackbarNotification('Shift-Space to search.');
+    var ns = new NotificationService(2000);
+    el.appendChild(ns.el);
+
+    var notification = ns.emit.bind(ns);
+
+    notification('Shift-Space to search.');
    
     var allPas = [];
     function processQuery(query) {
-        Http.get('http://localhost:3000/q/' + query, handleQueryResponse, function() {
-                snackbarNotification('No DuckDuckGo search results for the query ' + query +'.');
-        });
+        if (query.charAt(0) === '/') {
+            // In this case, consider it a command for the server
+            Http.get('http://localhost:3000' + query, window.location.reload.bind(window.location), () => {});
+        } else {
+            Http.get('http://localhost:3000/q/' + query, handleQueryResponse, function() {
+                    notification('No DuckDuckGo search results for the query ' + query +'.');
+            });
+        }
     }
     function handleQueryResponse(res) {
             var queryStr = res.query;
@@ -162,7 +159,6 @@ function Demo() {
                       
                     });
 
-                    // p.appendChild(iframe);
 
                     // Actions
                     var actions = cardDiv.querySelector('.card-actions > a');
@@ -178,13 +174,15 @@ function Demo() {
                     cardPa.toggle();
             });
 
-            
-            currentCardSet = cardPas;
     }
 
     Http.get('http://localhost:3000/qs', function (res) {
         // Res is a list of all historical query results
         res.forEach(handleQueryResponse);
+    }, () => {
+        if (!cb.isActive()) {
+            cb.toggle();
+        }
     });
 
     cb.addEventListener('query', function (evt) {

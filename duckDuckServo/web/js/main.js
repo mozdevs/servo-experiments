@@ -1,6 +1,7 @@
 window.addEventListener('load', init);
-
 function init() {
+	ES6Promise.polyfill(); // Promise polyfill
+	
 	var stats = new ServoStats();
 	// document.body.appendChild(stats.dom);
 
