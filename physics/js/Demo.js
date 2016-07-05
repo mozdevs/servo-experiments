@@ -22,14 +22,13 @@ function Demo() {
 
     // Pressing space adds an IFrame at a random point
     listener.simple_combo('space', function() {
-
         var x =_.random(stage.left, stage.right);
         var y = _.random(stage.top, 0);
         addIFrame(x, y, 400, 400);
     });
 
+    // Pressing r makes it rain IFRames for 5 seconds
     listener.simple_combo('r', function () {
-        // rain
         var i = setInterval(() => {
             addIFrame(_.random(stage.left, stage.right), stage.top - 80, 80, 80);
             setTimeout(() => {
