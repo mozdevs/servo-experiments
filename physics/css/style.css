@@ -1,0 +1,38 @@
+body {
+    background-color: #FAFAFA;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.servo-stats {
+    font-family: Helvetica, sans;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    background: #666;
+    color: #fff;
+    display: inline-block;
+    z-index: 1000;
+}
+
+.servo-stats li {
+    list-style: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.PIFrame {
+    width: 40vw;
+    height: 60vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    border: none;
+}
