@@ -2,7 +2,7 @@ function Demo() {
     var el = document.createElement('div');
     var listener = new window.keypress.Listener();
 
-    PIFrame.ROT_ENABLED = true; // Use to enable/disable rotations when rendering
+    PIFrame.ROT_ENABLED = false; // Use to enable/disable rotations when rendering
 
     var world = new p2.World({gravity: [0, -200]});
     var stage = new Stage(el, world);
@@ -21,10 +21,21 @@ function Demo() {
     }
 
     // Pressing space adds an IFrame at a random point
-    listener.simple_combo('space', function(evt) {
+    listener.simple_combo('space', function() {
+
         var x =_.random(stage.left, stage.right);
         var y = _.random(stage.top, 0);
         addIFrame(x, y, 400, 400);
+    });
+
+    listener.simple_combo('r', function () {
+        // rain
+        var i = setInterval(() => {
+            addIFrame(_.random(stage.left, stage.right), stage.top - 80, 80, 80);
+            setTimeout(() => {
+                clearInterval(i);
+            }, 5000);
+        }, 500);
     });
 
     // Clicking the mouse adds an IFrame at the point of clicking
