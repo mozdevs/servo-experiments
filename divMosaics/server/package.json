@@ -1,0 +1,25 @@
+{
+  "name": "div-mosaics-server",
+  "version": "1.0.0",
+  "description": "Server for DIV Mosaics experiment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mozdevs/servo-experiments.git"
+  },
+  "author": "Sam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mozdevs/servo-experiments/issues"
+  },
+  "homepage": "https://github.com/mozdevs/servo-experiments#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jimp": "^0.2.24",
+    "underscore": "^1.8.3"
+  }
+}

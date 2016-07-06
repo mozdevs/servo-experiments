@@ -24,12 +24,17 @@ function Demo() {
     var barsX = Math.ceil(document.body.clientWidth / barWidth),
         barsY = Math.ceil(document.body.clientHeight / barHeight);
 
-    function paint(rows) {
+    var imgName = 'firefox.png' || 'red.png' || 'bars.jpg';
+    Http.get('http://localhost:3000/c/' + imgName + '?width=' + barsX +'&height=' + barsY, paint, (err) => {
+        console.error(err);
+    });
+    function paint(grid) {
         bars.forEach(removeBar);
-        bars.splice(0, bars.length);
+        bars = [];
+
         _.times(barsY, (y) => {
             _.times(barsX, (x) => {
-                var color = rows[y][x];
+                var color = grid[y][x];
                 var dx = x * barWidth,
                     dy = y * barHeight;
                 var b = createBar(_.random(document.body.clientWidth), document.body.clientHeight, barWidth, barHeight, color);
@@ -46,20 +51,19 @@ function Demo() {
     }
 
     function randomColorGrid(hue) {
-         var rows = [];
+         var grid = [];
         _.times(barsY, () => {
-            var r = [];
+            var row = [];
 
             _.times(barsX, () => {
                 r.push(hue ? randomColor({hue: hue}): randomColor());
             });
 
-            rows.push(r);
+            grid.push(row);
         });
-        return rows;
+        return grid;
     }
    
-    paint(randomColorGrid('purple'));
 
     this.animate = function(t) {
         TWEEN.update(t);
