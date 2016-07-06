@@ -55,6 +55,7 @@ function Demo() {
                         tx: _.random(0, 10),
                         ty: _.random(0, 10)
                     };
+
                     var transform = {tx: 0, ty: 0};
                     new TWEEN.Tween(transform)
                         .to(randDest, 800)
@@ -158,7 +159,6 @@ function Demo() {
                         }
                       
                     });
-
 
                     // Actions
                     var actions = cardDiv.querySelector('.card-actions > a');
