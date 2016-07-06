@@ -30,7 +30,6 @@ function Demo() {
             var x = (i / nBars) * Math.PI;
             var newHeight = calcBarHeight(x + tx);
             bar.qTween(bar.tweenSize(barWidth, newHeight, 100));
-
         });
         tx = (tx + 0.001) % 360;
 
