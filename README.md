@@ -1,5 +1,6 @@
 # servo-experiments
-A collection of experiments for Servo.
+#####A collection of experiments for Servo.  [Get Servo Nightly](https://servo-builds.s3.amazonaws.com/index.html)
+
 ---
 ## DuckDuckServo
 1. Animated user interface for searching the web using DuckDuckGo.
@@ -18,6 +19,7 @@ Navigate to web/index.html in Servo.
 <img alt="DuckDuckServo search bar" width="250" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/duckDuckServo/searchBar.png?raw=true" />
 <img alt="DuckDuckServo search results" width="250" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/duckDuckServo/searchResults.png?raw=true" />
 <img alt="DuckDuckServo results expand" width="250" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/duckDuckServo/resultsExpand.png?raw=true" />
+
 ---
 ## Physics IFrames Sandbox
 1. Physics simulations using wikipedia IFrames as the 'entities'.
@@ -29,6 +31,7 @@ Navigate to web/index.html in Servo.
 Navigate to index.html in Servo. 
 
 <img alt="Physics IFrames Pileup" width="500" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/physics/pileup.png?raw=true" />
+
 ---
 ## DIV Waves
 1. Animated wave effect using HTML div elements and TWEEN js.
