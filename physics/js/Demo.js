@@ -2,7 +2,7 @@ function Demo() {
     var el = document.createElement('div');
     var listener = new window.keypress.Listener();
 
-    PIFrame.ROT_ENABLED = false; // Use to enable/disable rotations when rendering
+    PIFrame.ROT_ENABLED = true; // Use to enable/disable rotations when rendering
 
     var world = new p2.World({gravity: [0, -200]});
     var stage = new Stage(el, world);

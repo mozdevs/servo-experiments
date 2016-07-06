@@ -53,6 +53,10 @@
 
         this.rot = setRot;
 
+        this.width = function(w) {
+            el.style.width = w + 'px';
+        };
+
         this.hide = function() {
             el.className = 'PIFrame hidden';
         };
