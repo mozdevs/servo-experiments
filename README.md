@@ -20,10 +20,10 @@ Navigate to web/index.html in Servo.
 <img alt="DuckDuckServo results expand" width="250" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/duckDuckServo/resultsExpand.png?raw=true" />
 ---
 ## Physics IFrames Sandbox
-1. Physics simulations using wikipedia IFrames as the 'entities'
-2. Pressing space spawns a big IFrame at random position
-3. Clicking the mouse spawns a small IFrame at mouse position
-4. Press 'r' to make it rain IFrames
+1. Physics simulations using wikipedia IFrames as the 'entities'.
+2. Pressing space spawns a big IFrame at random position.
+3. Clicking the mouse spawns a small IFrame at mouse position.
+4. Press 'r' to make it rain IFrames.
 
 ####To run:
 Navigate to index.html in Servo. 
