@@ -29,3 +29,12 @@ Navigate to web/index.html in Servo.
 Navigate to index.html in Servo. 
 
 <img alt="Physics IFrames Pileup" width="500" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/physics/pileup.png?raw=true" />
+---
+## DIV Waves
+1. Animated wave effect using HTML div elements and TWEEN js.
+
+####To run:
+Navigate to index.html. 
+
+<img alt="DIV Waves" width="500" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/divWaves/waves.png?raw=true" />
+
