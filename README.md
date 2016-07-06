@@ -34,7 +34,7 @@ Navigate to index.html in Servo.
 
 ---
 ## DIV Waves
-1. Animated wave effect using HTML div elements and TWEEN js.
+1. Animated wave effect using HTML div elements and [tween.js](https://github.com/tweenjs/tween.js/).
 
 ####To run:
 Navigate to index.html. 
