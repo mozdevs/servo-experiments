@@ -51,6 +51,7 @@ Navigate to index.html.
 Run `node server.js` in server directory. <br /> 
 Navigate to web/index.html.
 
+###Example
 Original source image: <br />
 <img alt="DIV Mosaics" width="300" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/divMosaics/banksyOriginal.jpg?raw=true" />
 
