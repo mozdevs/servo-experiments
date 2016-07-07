@@ -13,18 +13,18 @@ function Demo() {
         el.removeChild(bar.el);
     }
 
-    var resolution = 20;
+    var resolution = 15;
     // display width and display height - ensure these are a multiple of resolution for best display
     var dw = 1020, // Servo default width is 1024
         dh = 740; // Servo default height is 740
-    window.resizeTo(dw, dh);
+    // window.resizeTo(dw, dh);
     var barWidth  = resolution,
         barHeight = resolution;
 
     var barsX = Math.ceil(document.body.clientWidth / barWidth),
         barsY = Math.ceil(document.body.clientHeight / barHeight);
 
-    var imgName = 'firefox.png' || 'red.png' || 'bars.jpg';
+    var imgName = 'banksy2.jpg' || 'banksy1.jpg' || 'sunset.jpg' || 'firefox.png' || 'red.png' || 'bars.jpg';
     Http.get('http://localhost:3000/c/' + imgName + '?width=' + barsX +'&height=' + barsY, paint, (err) => {
         console.error(err);
     });
@@ -38,7 +38,6 @@ function Demo() {
                 var dx = x * barWidth,
                     dy = y * barHeight;
                 var b = createBar(_.random(document.body.clientWidth), document.body.clientHeight, barWidth, barHeight, color);
-
                 // b.tweenOpacity(0, 0).start(); // Set opacity to 0 (hacky for now)
                 setTimeout(() => {
                     b.tweenPos(dx, dy, 1000).start();

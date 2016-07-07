@@ -25,13 +25,16 @@ app.get('/c/:url', function (req, res) {
             return res.status(404).send(err);
         }
         image = image.resize(width, height);
-        // image.write('test.jpg');
+        image.write('test.jpg');
         
         var grid = [];
         _.times(image.bitmap.height, (y) => {
             var row = [];
             _.times(image.bitmap.width, (x) => {
                 var hexColor = image.getPixelColor(x, y).toString(16);
+                    if (hexColor.length > 6) {
+                        hexColor = hexColor.substr(0, 6);
+                    }
                 row.push('#' + hexColor);
             });
 
