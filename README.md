@@ -5,7 +5,7 @@
 ## DuckDuckServo
 1. Animated user interface for searching the web using DuckDuckGo.
 2. Shift-Space toggles the search bar.
-3. Clicking on a search result gives more info, presented an IFrame.
+3. Clicking on a search result gives more info, presented in an IFrame.
 4. To perform queries, the front end contacts a simple node server which interfaces with the DuckDuckGo API.
 5. Historical queries are cached and retrieved on page load.
 
