@@ -13,7 +13,7 @@ function Demo() {
         el.removeChild(bar.el);
     }
 
-    var resolution = 10;
+    var resolution = 20;
     // display width and display height - ensure these are a multiple of resolution for best display
     var dw = 1020, // Servo default width is 1024
         dh = 740; // Servo default height is 740
@@ -29,15 +29,35 @@ function Demo() {
         console.error(err);
     });
 
+    // TimerBar to display timer progress when nothing is happening
+    // var tb = new TimerBar(0, 0, document.body.clientWidth, 2);
+    // el.appendChild(tb.el);
+
+    // Progress Bar to display loading progress
+    var pb = new ProgressBar(0, 0, document.body.clientWidth, 2, 0);
+    el.appendChild(pb.el);
+
     function paint(grid) {
+        var waitTime = 1000; // Time before starting animation
         bars.forEach(removeBar);
         bars = [];
         var zi = 1; // zIndex to assign to bar when interacted with
+
+        var calcPaintProgress = (() => { // Function to determine % of cells that have been processed
+            var nCells = grid.length * grid[0].length;
+
+            return (x, y) => {
+                var nProcessed = (y * grid[0].length) + x;
+                return (nProcessed / nCells) * 100;
+            };
+        })();
+
         _.times(barsY, (y) => {
             _.times(barsX, (x) => {
                 var color = grid[y][x];
                 var dx = x * barWidth,
                     dy = y * barHeight;
+
                 var b = createBar(_.random(document.body.clientWidth), document.body.clientHeight, barWidth, barHeight, color);
                 
                 b.addEventListener('mouseover', () => {
@@ -47,13 +67,16 @@ function Demo() {
                         .start();
                 });
 
-                setTimeout(() => {
+                setTimeout(() => { // Start animating the bar into place after a fixed amount of time
                     b.tweenPos(dx, dy, 1000)
-                        .start();    
-                }, 2000);
+                    .start(); 
+                }, waitTime);
 
+                // Display progress
+                pb.set(calcPaintProgress(x, y));
             });
         });
+
     }
 
     function randomColorGrid(hue) {

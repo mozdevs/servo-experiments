@@ -16,7 +16,6 @@ function Bar(x, y, w, h, color) {
     function updateSize() {
         div.style.width = size.w + 'px';
         div.style.height = size.h + 'px';
-        document.body.background = 'none';
     }
 
     function updatePos() {
