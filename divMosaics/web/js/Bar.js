@@ -9,12 +9,14 @@ function Bar(x, y, w, h, color) {
 
     var curTween;
     var animTime = 100;
+
     updatePos();
     updateSize();
     
     function updateSize() {
         div.style.width = size.w + 'px';
         div.style.height = size.h + 'px';
+        document.body.background = 'none';
     }
 
     function updatePos() {
@@ -24,7 +26,7 @@ function Bar(x, y, w, h, color) {
 
     function tweenSize(newW, newH, animTime) {
         return new TWEEN.Tween(size).to({w: newW, h: newH}, animTime)
-        .easing(TWEEN.Easing.Linear.None)
+        .easing(TWEEN.Easing.Sinusoidal.InOut)
         .onUpdate(updateSize);
     }    
 
@@ -61,4 +63,5 @@ function Bar(x, y, w, h, color) {
     this.tweenSize = tweenSize;
     this.tweenOpacity = tweenOpacity;
     this.qTween = qTween;
+    this.addEventListener = div.addEventListener.bind(div);
 }
