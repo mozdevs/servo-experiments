@@ -42,21 +42,18 @@ Navigate to index.html.
 <img alt="DIV Waves" width="500" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/divWaves/waves.png?raw=true" />
 
 ---
-## DIV Waves
+## DIV Mosaics
 1. Animated image mosaic effect using HTML div elements and [tween.js](https://github.com/tweenjs/tween.js/).
 2. Client requests and downloads colour information of a selected image from the server and animates the construction of a low-res mosaic rendition.
+
 ####To run:
 
 Run `node server.js` in server directory. <br /> 
 Navigate to web/index.html.
 
 Original source image: <br />
-<div style="text-align:center">
 <img alt="DIV Mosaics" width="300" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/divMosaics/banksyOriginal.jpg?raw=true" />
-</div>
 
-DIV Mosaic construction and final result: <br />
-<div style="text-align:center">
+DIV Mosaic construction and final result in browser: <br />
 <img alt="DIV Mosaics" width="250" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/divMosaics/banksyConstruction.png?raw=true" />
 <img alt="DIV Mosaics" width="250" src="https://github.com/mozdevs/servo-experiments/blob/master/screens/divMosaics/banksyMosaic.png?raw=true" />
-</div>
