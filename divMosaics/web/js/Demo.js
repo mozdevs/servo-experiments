@@ -24,14 +24,21 @@ function Demo() {
     var barsX = Math.ceil(document.body.clientWidth / barWidth),
         barsY = Math.ceil(document.body.clientHeight / barHeight);
 
-    var imgName = 'banksy2.jpg' || 'chrome.jpg' || 'servo.jpg' || 'banksy1.jpg' || 'sunset.jpg' || 'firefox.png' || 'red.png' || 'bars.jpg';
-    Http.get('http://localhost:3000/c/' + imgName + '?width=' + barsX +'&height=' + barsY, paint, (err) => {
-        console.error(err);
+    Http.get('http://localhost:3000/images', (imageURLs) => {
+        // imageURLs is a list of image routes corresponding to available images to display
+        var imgSelector = new ImageSelector(imageURLs.map((url) => 'http://localhost:3000/' + url));
+        el.appendChild(imgSelector.el);
+        imgSelector.addEventListener('imageSelected', (evt) => {
+            displayMosaic(evt.detail.image.src);
+        });
     });
 
-    // TimerBar to display timer progress when nothing is happening
-    // var tb = new TimerBar(0, 0, document.body.clientWidth, 2);
-    // el.appendChild(tb.el);
+    function displayMosaic(imgUrl) {
+        // To get image in the form of colour grid data, need to add a 'c' get param onto the imgURL
+        Http.get(imgUrl + '?c=true&width=' + barsX +'&height=' + barsY, paint, (err) => {
+            console.error(err);
+        });
+    }
 
     // Progress Bar to display loading progress
     var pb = new ProgressBar(0, 0, document.body.clientWidth, 2, 0);

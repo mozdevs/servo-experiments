@@ -50,12 +50,10 @@ function ServoStats() {
 		msEl.innerHTML = Math.round(ms);
 	};
 
-
 	function makeGetNowFunction() {
 		var timerObject = performance || Date;
 		return function() {
 			return timerObject.now();
 		}
 	}
-
 }
