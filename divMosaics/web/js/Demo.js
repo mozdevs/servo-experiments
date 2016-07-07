@@ -24,7 +24,7 @@ function Demo() {
     var barsX = Math.ceil(document.body.clientWidth / barWidth),
         barsY = Math.ceil(document.body.clientHeight / barHeight);
 
-    var imgName = 'chrome.jpg' || 'servo.jpg' || 'banksy2.jpg' || 'banksy1.jpg' || 'sunset.jpg' || 'firefox.png' || 'red.png' || 'bars.jpg';
+    var imgName = 'banksy2.jpg' || 'chrome.jpg' || 'servo.jpg' || 'banksy1.jpg' || 'sunset.jpg' || 'firefox.png' || 'red.png' || 'bars.jpg';
     Http.get('http://localhost:3000/c/' + imgName + '?width=' + barsX +'&height=' + barsY, paint, (err) => {
         console.error(err);
     });

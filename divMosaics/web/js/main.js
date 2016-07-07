@@ -2,7 +2,7 @@ window.addEventListener('load', init);
 
 function init() {
 	var stats = new ServoStats();
-	document.body.appendChild(stats.dom);
+	// document.body.appendChild(stats.dom);
 
 	var demo = new Demo();
 	var demoContainer = document.getElementById('demo');
