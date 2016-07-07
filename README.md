@@ -46,6 +46,9 @@ Navigate to index.html.
 1. Animated image mosaic effect using HTML div elements and [tween.js](https://github.com/tweenjs/tween.js/).
 2. Client requests and downloads colour information of a selected image from the server and animates the construction of a low-res mosaic rendition.
 
+####Installation:
+`npm install` in server directory.
+
 ####To run:
 
 Run `node server.js` in server directory. <br /> 
