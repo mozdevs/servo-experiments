@@ -96,4 +96,6 @@ function getColorGrid(imgURL, width, height, onComplete) {
     });
 }
 
+app.use(express.static(__dirname + '/../web'));
+
 app.listen(3000);

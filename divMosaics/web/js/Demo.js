@@ -5,7 +5,8 @@ function Demo() {
     var bars = [];
 
     var barFactory = new BarFactory(); // Provides unused, free, bar elements on demand and handles their reuse them
-    
+    barFactory.populate(1000); // Create 1000 bars, ready to be used
+
     function addBar(bar) { // Adds a child to dom and bars list
         el.appendChild(bar.el);
         bars.push(bar);
@@ -40,11 +41,12 @@ function Demo() {
         });
     }
 
-    var resolution = 10;
+    var resolution = 40;
     // display width and display height - ensure these are a multiple of resolution for best display
     var dw = 1020, // Servo default width is 1024
         dh = 740; // Servo default height is 740
     window.resizeTo(dw, dh);
+
     var barWidth  = resolution,
         barHeight = resolution;
 
@@ -61,13 +63,22 @@ function Demo() {
         });
         imgSelector.addEventListener('imageSelected', (evt) => {
             imgSelector.toggle(() => {
-                displayMosaic(evt.detail.image.src);
+                displayMosaic(evt.detail.image);
             });
         });
     });
 
-    function displayMosaic(imgUrl) {
-        // To get image in the form of colour grid data, need to add a 'c' get param onto the imgURL
+    function displayMosaic(image) {
+        // Experimental: Use canvas colour picking to get colour colour grid representing image
+        var icp = new ImageColorPicker(image);
+        var grid = icp.getColorGrid(barsX);
+        resetBars(() => {
+            paint(grid);
+        });
+
+        // Using server to get colour grid representing image
+        /*
+        var imgUrl = 'http://localhost:3000/' + image.src;
         Http.get(imgUrl + '?c=true&width=' + barsX +'&height=' + barsY, (grid) => {
             // Clear current display, if any
             resetBars(() => {
@@ -76,7 +87,7 @@ function Demo() {
             });
         }, (err) => {
             console.error(err);
-        });
+        });*/
     }
 
 

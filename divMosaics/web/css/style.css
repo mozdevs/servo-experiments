@@ -49,3 +49,7 @@ body {
     box-shadow: 1px 1px 1px 1px #ccc;
     height: 100px;
 }
+
+canvas {
+    border: 1px solid black;
+}
