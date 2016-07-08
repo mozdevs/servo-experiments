@@ -1,13 +1,11 @@
 // ImageSelector component - displays multiple images for selection.
 function ImageSelector(imageURLs) {
     var el = document.createElement('div');
-
+    el.className = 'imageSelector';
     imageURLs
         .map((url) => {
             var img = new Image();
             img.src = url;
-            img.width = 200;
-            img.height = 200;
             img.addEventListener('click', () => {
                 el.dispatchEvent(new CustomEvent('imageSelected', {detail: {
                     image: img
@@ -16,7 +14,8 @@ function ImageSelector(imageURLs) {
             return img;
         })
         .forEach(el.appendChild.bind(el));      
-
+    var pa = new PerspectiveAnimatable(el, 150);
     this.el = el;
+    this.toggle = pa.toggle.bind(pa);
     this.addEventListener = el.addEventListener.bind(el);
 }
