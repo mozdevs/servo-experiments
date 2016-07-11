@@ -71,14 +71,14 @@ function Demo() {
     function displayMosaic(image) {
         // Experimental: Use canvas colour picking to get colour colour grid representing image
         var icp = new ImageColorPicker(image);
-        var grid = icp.getColorGrid(barsX);
+        var grid = icp.getColorGrid(barsX, barsY);
         resetBars(() => {
             paint(grid);
         });
 
         // Using server to get colour grid representing image
-        /*
-        var imgUrl = 'http://localhost:3000/' + image.src;
+        
+     /*   var imgUrl = image.src;
         Http.get(imgUrl + '?c=true&width=' + barsX +'&height=' + barsY, (grid) => {
             // Clear current display, if any
             resetBars(() => {
