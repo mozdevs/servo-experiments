@@ -2,21 +2,29 @@ function Demo(config) {
     var el = document.createElement('div');
     var listener = new window.keypress.Listener();
 
-    // display width and display height - ensure these are a multiple of config.resolution for best display
-    var dw = 1020, // Servo default width is 1024
-        dh = 740; // Servo default height is 740
-    
-    window.resizeTo(dw, dh);
-    
+  
+    var size = function() {
+        // display width and display height - ensure these are a multiple of config.resolution for best display
+        var dw = 1020, // Servo default width is 1024
+            dh = 740; // Servo default height is 740
+            window.resizeTo(dw, dh);
+
+        var size = {width: dw, height: dh};
+        window.addEventListener('resize', function() {
+            size.width = document.body.clientWidth;
+            size.height = document.body.clientHeight;
+        });
+
+        return size;
+    }();
+
+
     var bars = []; // Array to store all 
     var barFactory = new BarFactory(); // Provides unused, free, bar elements on demand and handles their reuse
-    barFactory.populate(1000); // Create 1000 bars, ready to be used
+    barFactory.populate(3000); // Create 1000 bars, ready to be used
 
     var barWidth  = config.resolution,
         barHeight = config.resolution;
-
-    var barsX = Math.ceil(document.body.clientWidth / barWidth), // Number of bars (tiles) across x axis
-        barsY = Math.ceil(document.body.clientHeight / barHeight); // Number of bars (tiles) across y axis
 
     initImageSelector(config.images);
 
@@ -45,7 +53,7 @@ function Demo(config) {
     function displayMosaic(image) {
         // Experimental: Use canvas colour picking to get colour colour grid representing image
         var icp = new ImageColorPicker(image);
-        var grid = icp.getColorGrid({height: barsY});
+        var grid = icp.getColorGrid({height: Math.round(size.height / barHeight)});
          // Clear the previously displayed bars and paint the new grid when ready
         resetBars(() => {
             paint(grid);
@@ -53,36 +61,41 @@ function Demo(config) {
     }
 
     function paint(grid) {
-        var waitTime = 0; // Time before starting animation
-
         // Caclulate offset required for mosaic to be displayed in centre of screen
-        var offsetX = Math.max((document.body.clientWidth - (grid[0].length * barWidth)) / 2, 0);
-        var offsetY = Math.max((document.body.clientHeight - (grid.length * barHeight)) / 2, 0);
+        var gridWidth = grid[0].length,
+            gridHeight = grid.length;
 
-        var cw = document.body.clientWidth,
-            ch = document.body.clientHeight;
+        var offsetX = Math.max((size.width - (gridWidth * barWidth)) / 2, 0);
+        var offsetY = Math.max((size.height - (gridHeight * barHeight)) / 2, 0);
 
-        _.times(barsY, (y) => {
-            _.times(barsX, (x) => {
+        var cw = size.width,
+            ch = size.height;
+
+        _.times(gridHeight, (y) => {
+            _.times(gridWidth, (x) => {
                 var color = grid[y][x];
 
+                // If the color is white or completely transparent, then don't bother
+                if ((color.r === 255 && color.g === 255 && color.b === 255) || color.a === 0) {
+                    // console.log('Skipping...');
+                    return;
+                }                
                 // Request and add a bar object from the bar factory
-                var b = barFactory.bar(_.random(cw), ch, barWidth, barHeight, color);
+                var b = barFactory.bar(_.random(0, cw), ch, barWidth, barHeight, 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')' );
                 addBar(b);
 
-                // setTimeout(() => { // Start animating the bar into place after a fixed amount of time
-                    var dx = offsetX + (x * barWidth),
-                        dy = offsetY + (y * barHeight);
-                    b.tweenPos(dx, dy, 1000)
-                    .start(); 
-                // }, waitTime);
+                var dx = offsetX + (x * barWidth),
+                    dy = offsetY + (y * barHeight);
 
+                b.tweenPos(dx, dy, 1000)
+                .start(); 
             });
         });
     }
 
     function addBar(bar) { // Adds bar to dom and bars list
-        if (bar.el.parentNode !== el) {
+        if (!bar.inDOM) {
+            bar.inDOM = true;
             el.appendChild(bar.el); // Add the bar if needed
         }
 
@@ -109,9 +122,12 @@ function Demo(config) {
 
         var cw = document.body.clientWidth,
             ch = document.body.clientHeight;
+    
         bars.forEach((bar) => {
             // Fade out each bar
-            bar.tweenPos(_.random(0, cw), ch, 1000)
+            var animTime = _.random(300, 1000),
+                delay = 200;
+            bar.tweenPos(_.random(0, cw), ch, animTime)
                 .onComplete(() => {
                     // When fadeout is complete, remove the bar
                     removeBar(bar);

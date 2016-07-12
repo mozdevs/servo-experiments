@@ -9,7 +9,6 @@ function ImageColorPicker(img) {
     function getColorGrid(config) {
         // Require that one of width and height are specified:
         console.assert(config.width || config.height);
-        console.time('canvas');
 
         var width = config.width || (function () {
             var ratio = img.width / img.height;
@@ -28,23 +27,19 @@ function ImageColorPicker(img) {
 
         var data = ctx.getImageData(0, 0, width, height).data,
             xPos = 0,
-            grid = [];
+            grid = [],
+            row;
+
         for (var i = 0; i < data.length; i += 4) {
             if (xPos % width === 0) {
                 row = [];
                 grid.push(row);
                 xPos  =  0;
             }
-            var r = data[i],
-                g = data[i + 1],
-                b = data[i + 2],
-                a = data[i + 3];
 
-            row.push('rgba(' + r + ', ' + g + ', ' + b  + ', ' + a + ' )');
-
+            row.push({r: data[i], g: data[i + 1], b: data[i + 2], a: data[i + 3]});
             xPos += 1;
         }
-        console.timeEnd('canvas');
 
         return grid;
     }

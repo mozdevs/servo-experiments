@@ -14,7 +14,7 @@ function BarFactory() {
 			// Create new bar
 			bar = new Bar(x, y, w, h, color);
 		}
-		bar.free = function() { // To be called when bar can be re-used
+		bar.free = bar.free || function() { // To be called when bar can be re-used
 			free.push(bar);
 		};
 		return bar;
