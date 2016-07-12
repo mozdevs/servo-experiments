@@ -1,34 +1,51 @@
-
+// ImageColorPicker component - gets colour information from a given html image element 
 function ImageColorPicker(img) {
 
-	var c = document.createElement('canvas'),
-		ctx = c.getContext('2d');
-	function getColorGrid(width, height) {
-		c.width = width;
-		c.height = height;
-		ctx.drawImage(img, 0, 0, width, height);
+    var c = document.createElement('canvas'),
+        ctx = c.getContext('2d');
 
-		var data = ctx.getImageData(0, 0, width, height).data,
-			xPos = 0,
-			grid = [],
-			row = [];
-		for (var i = 0; i < data.length; i += 4) {
-			var r = data[i].toString(16),
-				g = data[i + 1].toString(16),
-				b = data[i + 2].toString(16);
+    var ratio = img.width / img.height;
+    
+    function getColorGrid(config) {
+        // Require that one of width and height are specified:
+        console.assert(config.width || config.height);
 
-			row.push('#' + r + g + b);
-			if (xPos % width === 0) {
-				row = [];
-				grid.push(row);
-				xPos  = 0;
-			}
-			xPos += 1;
+        var width = config.width || (function () {
+            var ratio = img.width / img.height;
+            return Math.round(config.height * ratio);
+        })();
 
-		}
-		console.log(grid);
-		return grid;
-	}
+        var height = config.height || (function () {
+            var ratio = img.width / img.height;
+            return Math.round(config.width / ratio);
+        })();
+        
+        c.width = width;
+        c.height = height;
+        ctx.clearRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
 
-	this.getColorGrid = getColorGrid;
+        var data = ctx.getImageData(0, 0, width, height).data,
+            xPos = 0,
+            grid = [];
+        for (var i = 0; i < data.length; i += 4) {
+            if (xPos % width === 0) {
+                row = [];
+                grid.push(row);
+                xPos  =  0;
+            }
+            var r = data[i],
+                g = data[i + 1],
+                b = data[i + 2],
+                a = data[i + 3];
+
+            row.push('rgba(' + r + ', ' + g + ', ' + b  + ', ' + a + ' )');
+
+            xPos += 1;
+        }
+        return grid;
+    }
+
+    this.el = c; // expose canvas (useful for debugging)
+    this.getColorGrid = getColorGrid;
 }

@@ -28,6 +28,7 @@ function Demo() {
                 .onComplete(() => {
                     // When fadeout is complete, remove the bar from the dom
                     el.removeChild(bar.el);
+                    bar.el.style.background = 'none';
 
                     bar.free(); // Mark the bar as available for re-use
                     nComplete += 1;
@@ -41,7 +42,7 @@ function Demo() {
         });
     }
 
-    var resolution = 40;
+    var resolution = 20;
     // display width and display height - ensure these are a multiple of resolution for best display
     var dw = 1020, // Servo default width is 1024
         dh = 740; // Servo default height is 740
@@ -53,9 +54,9 @@ function Demo() {
     var barsX = Math.ceil(document.body.clientWidth / barWidth),
         barsY = Math.ceil(document.body.clientHeight / barHeight);
 
-    Http.get('http://localhost:3000/images', (imageURLs) => {
+    ((imageURLs) => {
         // imageURLs is a list of image routes corresponding to available images to display
-        var imgSelector = new ImageSelector(imageURLs.map((url) => 'http://localhost:3000/' + url));
+        var imgSelector = new ImageSelector(imageURLs);
         el.appendChild(imgSelector.el);
         imgSelector.toggle();
         listener.simple_combo('space', () => {
@@ -66,12 +67,12 @@ function Demo() {
                 displayMosaic(evt.detail.image);
             });
         });
-    });
+    })(['images/banksy1.jpg', 'images/banksy2.jpg', 'images/bars.jpg', 'images/chrome.jpg','images/firefox.png', 'images/red.png','images/servo.jpg', 'images/sunset.jpg']);
 
     function displayMosaic(image) {
         // Experimental: Use canvas colour picking to get colour colour grid representing image
         var icp = new ImageColorPicker(image);
-        var grid = icp.getColorGrid(barsX, barsY);
+        var grid = icp.getColorGrid({height: barsY});
         resetBars(() => {
             paint(grid);
         });
@@ -93,7 +94,7 @@ function Demo() {
 
     // Progress Bar to display loading progress
     var pb = new ProgressBar(0, 0, document.body.clientWidth, 2, 0);
-    el.appendChild(pb.el);
+    // el.appendChild(pb.el);
 
     function paint(grid) {
         var waitTime = 1000; // Time before starting animation
@@ -108,11 +109,14 @@ function Demo() {
             };
         })();
 
+        // Caclulate offset required for mosaic to be displayed in centre of screen
+        var offsetX = Math.max((document.body.clientWidth - (grid[0].length * barWidth)) / 2, 0);
+        var offsetY = Math.max((document.body.clientHeight - (grid.length * barHeight)) / 2, 0);
         _.times(barsY, (y) => {
             _.times(barsX, (x) => {
                 var color = grid[y][x];
-                var dx = x * barWidth,
-                    dy = y * barHeight;
+                var dx = offsetX + (x * barWidth),
+                    dy = offsetY + (y * barHeight);
 
                 var b = barFactory.bar(_.random(document.body.clientWidth), document.body.clientHeight, barWidth, barHeight, color);
                 addBar(b);
