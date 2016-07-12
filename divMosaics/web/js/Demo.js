@@ -53,35 +53,47 @@ function Demo(config) {
     }
 
     function paint(grid) {
-        var waitTime = 1000; // Time before starting animation
+        var waitTime = 0; // Time before starting animation
 
         // Caclulate offset required for mosaic to be displayed in centre of screen
         var offsetX = Math.max((document.body.clientWidth - (grid[0].length * barWidth)) / 2, 0);
         var offsetY = Math.max((document.body.clientHeight - (grid.length * barHeight)) / 2, 0);
 
+        var cw = document.body.clientWidth,
+            ch = document.body.clientHeight;
+
         _.times(barsY, (y) => {
             _.times(barsX, (x) => {
                 var color = grid[y][x];
 
-                var dx = offsetX + (x * barWidth),
-                    dy = offsetY + (y * barHeight);
-
                 // Request and add a bar object from the bar factory
-                var b = barFactory.bar(_.random(document.body.clientWidth), document.body.clientHeight, barWidth, barHeight, color);
+                var b = barFactory.bar(_.random(cw), ch, barWidth, barHeight, color);
                 addBar(b);
 
-                setTimeout(() => { // Start animating the bar into place after a fixed amount of time
+                // setTimeout(() => { // Start animating the bar into place after a fixed amount of time
+                    var dx = offsetX + (x * barWidth),
+                        dy = offsetY + (y * barHeight);
                     b.tweenPos(dx, dy, 1000)
                     .start(); 
-                }, waitTime);
+                // }, waitTime);
 
             });
         });
     }
 
-    function addBar(bar) { // Adds a to dom and bars list
-        el.appendChild(bar.el);
+    function addBar(bar) { // Adds bar to dom and bars list
+        if (bar.el.parentNode !== el) {
+            el.appendChild(bar.el); // Add the bar if needed
+        }
+
+        bar.el.style.visibility = 'visible';
         bars.push(bar);
+    }
+
+    function removeBar(bar) {
+        bar.el.style.visibility = 'hidden';
+        bar.el.style.background = 'none';
+        bar.free(); // Mark the bar as available
     }
 
     function resetBars(onComplete) {
@@ -95,15 +107,14 @@ function Demo(config) {
         var nComplete = 0,
             nTotal = bars.length;
 
+        var cw = document.body.clientWidth,
+            ch = document.body.clientHeight;
         bars.forEach((bar) => {
             // Fade out each bar
-            bar.tweenPos(_.random(0, document.body.clientWidth), document.body.clientHeight, 1000)
+            bar.tweenPos(_.random(0, cw), ch, 1000)
                 .onComplete(() => {
-                    // When fadeout is complete, remove the bar from the dom
-                    el.removeChild(bar.el);
-                    bar.el.style.background = 'none';
-
-                    bar.free(); // Mark the bar as available for re-use
+                    // When fadeout is complete, remove the bar
+                    removeBar(bar);
                     nComplete += 1;
                     // If this was the last bar, empty the bars array, and signal completion
                     if (nComplete === nTotal) {
@@ -113,6 +124,7 @@ function Demo(config) {
                 })
                 .start();
         });
+    
     }
 
     this.animate = function(t) {

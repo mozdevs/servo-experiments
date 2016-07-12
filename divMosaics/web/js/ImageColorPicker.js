@@ -9,6 +9,7 @@ function ImageColorPicker(img) {
     function getColorGrid(config) {
         // Require that one of width and height are specified:
         console.assert(config.width || config.height);
+        console.time('canvas');
 
         var width = config.width || (function () {
             var ratio = img.width / img.height;
@@ -19,7 +20,7 @@ function ImageColorPicker(img) {
             var ratio = img.width / img.height;
             return Math.round(config.width / ratio);
         })();
-        
+
         c.width = width;
         c.height = height;
         ctx.clearRect(0, 0, width, height);
@@ -43,6 +44,8 @@ function ImageColorPicker(img) {
 
             xPos += 1;
         }
+        console.timeEnd('canvas');
+
         return grid;
     }
 
