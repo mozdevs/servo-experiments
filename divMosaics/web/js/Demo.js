@@ -2,7 +2,6 @@ function Demo(config) {
     var el = document.createElement('div');
     var listener = new window.keypress.Listener();
 
-  
     var size = function() {
         // display width and display height - ensure these are a multiple of config.resolution for best display
         var dw = 1020, // Servo default width is 1024
@@ -18,11 +17,9 @@ function Demo(config) {
         return size;
     }();
 
-
     var bars = []; // Array to store all 
     var barFactory = new BarFactory(); // Provides unused, free, bar elements on demand and handles their reuse
     barFactory.populate(3000); // Create 1000 bars, ready to be used
-
     var barWidth  = config.resolution,
         barHeight = config.resolution;
 
@@ -67,7 +64,6 @@ function Demo(config) {
 
         var offsetX = Math.max((size.width - (gridWidth * barWidth)) / 2, 0);
         var offsetY = Math.max((size.height - (gridHeight * barHeight)) / 2, 0);
-
         var cw = size.width,
             ch = size.height;
 
@@ -79,7 +75,8 @@ function Demo(config) {
                 if ((color.r === 255 && color.g === 255 && color.b === 255) || color.a === 0) {
                     // console.log('Skipping...');
                     return;
-                }                
+                }  
+
                 // Request and add a bar object from the bar factory
                 var b = barFactory.bar(_.random(0, cw), ch, barWidth, barHeight, 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')' );
                 addBar(b);

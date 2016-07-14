@@ -2,7 +2,6 @@ function Bar(x, y, w, h, color) {
     var div = document.createElement('div');
     div.className = 'bar';
     div.style.backgroundColor = color || '#c10a15';
-
     var size = {w: w, h: h};
     var pos = {x: x, y: y};
     var opacity = {opacity: 1};
