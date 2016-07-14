@@ -13,7 +13,6 @@ Http.get = function(url, cb, onError) {
 
             return;
         }
-
         cb(req.response);
     });
 

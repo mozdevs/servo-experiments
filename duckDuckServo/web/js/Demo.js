@@ -5,72 +5,6 @@ function Demo() {
     var cb = new ControlBar();
     el.appendChild(cb.el);
 
-    function fetchImages() {
-        Http.get('http://localhost:3000/imgs', function (imgs) {
-            if (!imgs) { return; }
-            _.pluck(imgs, 'data')
-                .map((data) => {
-                    var div = document.createElement('div');
-                    div.className = 'floatingImg';
-                    div.style.backgroundImage = 'url(' + data.Image + ')';
-                    div.appendChild(document.createTextNode(data.AbstractText));
-                    var img = new Image();
-                    img.src = data.Image;
-                    div.style.width = img.width + 'px';
-                    div.style.height = img.height + 'px';
-                    // div.appendChild(img);
-                    return div;
-                })
-                .forEach((img) => {
-                    el.appendChild(img);
-
-                    // Now tween
-                  /*  img.addEventListener('mouseover', (evt) => {
-                        var scale = {sx: 1, sy: 1};
-                        var r = 4;
-                        var enlargeTween = new TWEEN.Tween(scale)
-                        .to({sx: r, sy: r}, 300)
-                        .easing(TWEEN.Easing.Sinusoidal.In)
-                        .onUpdate(() => {
-                            img.style.transform = 'scale(' + scale.sx + ',' +  scale.sy + ')';
-                        })
-                        .start();
-
-                        img.addEventListener('mouseout', (evt) => {
-                            enlargeTween.stop();
-                            new TWEEN.Tween(scale)
-                            .to({sx: 1, sy: 1}, 300)
-                            .easing(TWEEN.Easing.Sinusoidal.Out)
-                            .onUpdate(() => {
-                                img.style.transform = 'scale(' + scale.sx + ',' +  scale.sy + ')';
-                            })
-                            .start();
-                        });
-                    });*/
-
-
-
-                    img.style.position = 'absolute';
-                    var randDest = {
-                        tx: _.random(0, 10),
-                        ty: _.random(0, 10)
-                    };
-
-                    var transform = {tx: 0, ty: 0};
-                    new TWEEN.Tween(transform)
-                        .to(randDest, 800)
-                        .easing(TWEEN.Easing.Sinusoidal.InOut)
-                        .onUpdate(() => {
-                            // img.style.transform = 'translate(' + transform.tx + 'px,' +  transform.ty + 'px)';
-                            img.style.left = transform.tx + 'vw';
-                            img.style.top = transform.ty + 'vh';
-                        })
-                        .start();
-                })
-        });
-    }
-
-
     var ns = new NotificationService(2000);
     el.appendChild(ns.el);
 
@@ -79,20 +13,30 @@ function Demo() {
     notification('Shift-Space to search.');
    
     var allPas = [];
+
+    function noResultsNotification(query) {
+        notification('No DuckDuckGo search results for the query <i>' + query +'</i>.');
+    }
     function processQuery(query) {
         if (query.charAt(0) === '/') {
-            // In this case, consider it a command for the server
-            Http.get('http://localhost:3000' + query, window.location.reload.bind(window.location), () => {});
+            // In this case, consider it a command
+            if (query === '/clear') { // Remove all cards
+                allPas.forEach((pa) => {pa.toggle(() => {
+                    el.removeChild(pa.el);
+                })});
+                allPas.splice(0, allPas.length);
+            }
         } else {
-            Http.get('http://localhost:3000/q/' + query, handleQueryResponse, function() {
-                    notification('No DuckDuckGo search results for the query <i>' + query +'</i>.');
-            });
+            Ddg.query(query, handleQueryResponse, _.partial(noResultsNotification, query));
         }
     }
     function handleQueryResponse(res) {
             var queryStr = res.query;
             res = res.data;
             var allCards = []; 
+            if(res.RelatedTopics.length === 0) { // Stop if there are no results
+                return noResultsNotification(queryStr);
+            }
             // Partition related topics into cards and further topics
             var [cards, topics] = _.partition(res.RelatedTopics, (item) => 'Text' in item);
             allCards = allCards.concat(cards);
@@ -175,15 +119,6 @@ function Demo() {
             });
 
     }
-
-    Http.get('http://localhost:3000/qs', function (res) {
-        // Res is a list of all historical query results
-        res.forEach(handleQueryResponse);
-    }, () => {
-        if (!cb.isActive()) {
-            cb.toggle();
-        }
-    });
 
     cb.addEventListener('query', function (evt) {
         var query = evt.detail.query;
