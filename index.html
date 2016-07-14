@@ -1,16 +1,120 @@
 <html>
 
 <head>
-	<style>
-		body {
-			font-family: helvetica;
-		}
-	</style>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: lintel; /* TODO: Add lintel.otf and reference here */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
+        #container {
+            width: 60vw;
+            margin: auto;
+        }
+
+        header {
+            margin: auto;
+            text-align: center;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-weight: lighter;
+        }
+
+        .header-inner {
+            width: 540px;
+            margin: auto;
+        }
+        .header-logo {
+            float: left;
+        }
+
+        .header-logo {
+            margin-top:0.6em;
+        }
+
+        .header-main {
+            font-size:28px;
+        }
+
+        .header-tagline {
+            color: #696969;
+        }
+
+        .experiment-preview {
+            display: block;
+            width: 500px;
+            height: 40px;
+            background-color: #e6e6e6;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition:background-color 0.25s ease-in-out;
+            margin-left: 100%;
+        }
+
+        .experiment-preview:hover {
+            background-color: #a4e6ff;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        main .heading {
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+    
+        #experimentPreviewTemplate {
+            display: none;
+        }
+    </style>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="js/tween/tween.js"></script>
+
+    <script src="js/ExperimentPreview.js"></script>
+    <script src="index.js"></script>
 </head>
 
 <body>
-<h1>Hello Servo</h1>
+
+<div id="container">
+
+<header>
+    <div class="header-inner">
+        <div class="header-logo">
+            <img width="85" src="servo.png" />
+        </div>
+        <div class="header-main">
+            <h1>servo-experiments</h1>
+        </div>
+        <div class="header-tagline">
+            <h3><i>a collection of experiments for the Servo browser engine.</i></h3>
+        </div>
+
+    </div>
+</header>
+
+<main>
+<h3 class="heading">Latest Experiments</h3>
+</main>
+
+<section id="experimentPreviewTemplate" class="experiment-preview">
+<h4 class="experiment-text">duckDuckServo - </h4>
+</section>
+
+</div>
+
 </body>
 
 </html>

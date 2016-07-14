@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.servo-stats {
+    font-family: Helvetica, sans;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    background: #666;
+    color: #fff;
+    display: inline-block;
+}
+
+.servo-stats li {
+    list-style: none;
+}
+
+#demo {
+    width: 100vw;
+    height: 100vh;
+}
+
+.bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+}
+
+.imageSelector {
+    position: absolute;
+    top: calc(50vh - 100px);
+    left: 0;
+
+    z-index: 9999;
+    width: 100vw;
+    text-align: center;
+}
+
+.imageSelector img {
+    border: 1px solid black;
+    box-shadow: 1px 1px 1px 1px #ccc;
+    height: 100px;
+}
+
+canvas {
+    border: 1px solid black;
+}

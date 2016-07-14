@@ -1,0 +1,15 @@
+{
+    "experiments": [
+        {
+            "name": "duckDuckServo",
+            "desc": "a fancy interface for duckDuckGo queries",
+            "href": "duckDuckServo"
+        },
+        {
+            "name": "DIVMosaics",
+            "desc": "rendering images using <div>'s as pixels",
+            "href": "divMosacis"
+        }
+    ]
+
+}
