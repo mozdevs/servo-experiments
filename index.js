@@ -21,7 +21,6 @@ window.addEventListener('load', function() {
         var eps = data.experiments
             .map((info) => new ExperimentPreview(info))
 
-
         // Add the preview elements to dom        
         eps.forEach((ep) => main.appendChild(ep.el));
 
