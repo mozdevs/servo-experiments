@@ -8,14 +8,10 @@ Http.get = function(url, cb) {
     req.send();
 };
 
-function ExperimentPreview() {
-    return 
-}
 
-window.addEventListener('load', function() {
-    var main = document.querySelector('main');
+window.addEventListener('load', function() {    var main = document.querySelector('main');
 
-    var ExperimentPreview = ExperimentPreviewModule(document.getElementById('experimentPreviewTemplate'));
+    var ExperimentPreview = experimentPreviewModule(document.getElementById('experimentPreviewTemplate'));
 
     Http.get('experiments.json', function(data) {
         var eps = data.experiments

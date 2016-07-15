@@ -1,4 +1,4 @@
-var ExperimentPreviewModule = (function(template) {
+var experimentPreviewModule = (function(template) {
         var count = 0; // Number of templates so far - used to calculate margin
         return function(expInfo) {
             var cw = document.body.clientWidth,
