@@ -8,7 +8,7 @@
         {
             "name": "DIVMosaics",
             "desc": "rendering images using <div>'s as pixels",
-            "href": "experiments/divMosacis/web"
+            "href": "experiments/divMosaics/web"
         }
     ]
 
