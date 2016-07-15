@@ -24,10 +24,10 @@ var experimentPreviewModule = (function(template) {
                 var newCount = count++;
 
                 var inAnim = new TWEEN.Tween(margins)
-                    .to({marginLeft: (newCount * 50)}, 600)
+                    .to({marginLeft: 0}, 600)
                     .easing(TWEEN.Easing.Sinusoidal.InOut)
                     .onUpdate(() => {
-                        el.style.marginLeft = margins.marginLeft + 'px';
+                        el.style.marginLeft = 'calc(' + margins.marginLeft + '% + ' + (newCount * 2) + '%';
                     })
 
                 var opacityAnim = new TWEEN.Tween(fx)

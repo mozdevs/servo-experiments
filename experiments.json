@@ -1,4 +1,11 @@
 {
+    "featured": [
+        {
+            "name": "DIVMosaics",
+            "desc": "rendering images using <div>'s as pixels",
+            "href": "experiments/divMosaics/web"
+        }
+    ], 
     "experiments": [
         {
             "name": "duckDuckServo",

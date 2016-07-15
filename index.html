@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +14,7 @@
         }
 
         #container {
-            width: 60vw;
+            width: 70vw;
             margin: auto;
         }
 
@@ -28,19 +29,18 @@
         }
 
         .header-inner {
-            width: 540px;
+            min-width: 320px;
+            max-width: 540px;
             margin: auto;
-        }
-        .header-logo {
-            float: left;
         }
 
         .header-logo {
-            margin-top:0.6em;
+            float: left;
+            margin-top:0.2em;
         }
 
         .header-main {
-            font-size:28px;
+            font-size:150%;
         }
 
         .header-tagline {
@@ -49,14 +49,14 @@
 
         .experiment-preview {
             display: block;
-            width: 500px;
-            height: 40px;
             background-color: #e6e6e6;
+            width: 500px;
             padding: 10px;
             text-align: center;
             cursor: pointer;
             transition:background-color 0.25s ease-in-out;
             margin-left: 100%;
+            margin-top: 3px;
         }
 
         .experiment-preview:hover {
@@ -64,7 +64,7 @@
         }
 
         main {
-            padding: 20px;
+            padding: 2%;
         }
 
         main .heading {
@@ -75,6 +75,19 @@
     
         #experimentPreviewTemplate {
             display: none;
+        }
+
+        @media all and (max-width: 520px) {
+            #container {
+                width: 100vw;
+            }
+            .experiment-preview {
+                width: 100%;
+            }
+            .header-logo {
+                display: none;
+                float: none;
+            }
         }
     </style>
 
@@ -96,6 +109,7 @@
             <img width="85" src="servo.png" />
         </div>
         <div class="header-main">
+
             <h1>servo-experiments</h1>
         </div>
         <div class="header-tagline">
