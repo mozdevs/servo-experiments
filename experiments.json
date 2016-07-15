@@ -1,9 +1,9 @@
 {
     "experiments": [
         {
-            "name": "experiments/duckDuckServo/web",
+            "name": "duckDuckServo",
             "desc": "a fancy interface for duckDuckGo queries",
-            "href": "duckDuckServo"
+            "href": "experiments/duckDuckServo/web"
         },
         {
             "name": "DIVMosaics",
