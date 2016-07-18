@@ -125,6 +125,7 @@ function Demo() {
         processQuery(query);
     });
 
+    cb.toggle(); // Activated by default;
     listener.simple_combo('shift space', cb.toggle.bind(cb));
     listener.simple_combo('esc', () => {
         if (cb.isActive()) {
