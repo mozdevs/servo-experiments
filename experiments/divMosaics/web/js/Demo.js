@@ -8,7 +8,7 @@ function Demo(config) {
             dh = 740; // Servo default height is 740
             window.resizeTo(dw, dh);
 
-        var size = {width: dw, height: dh};
+        var size = {width: document.body.clientWidth, height: document.body.clientHeight};
         window.addEventListener('resize', function() {
             size.width = document.body.clientWidth;
             size.height = document.body.clientHeight;
