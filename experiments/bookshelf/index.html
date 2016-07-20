@@ -14,16 +14,17 @@
 
         .bg {
             position: absolute;
-            top: 0;
+            bottom: 0;
             right: 0;
             float: right;
             padding: 13px;
-            opacity: 0.8;
+            opacity: 0.6;
             transition: opacity 0.5s ease-in-out;
             z-index: 100;
         }
 
-        /* .bg:hover {
+        /* Disable due to improper behaviour in Servo
+        /*.bg:hover {
             opacity: 1;
         }*/
 
@@ -38,11 +39,17 @@
             /*border-radius: 8px;*/
             float: left;
             transform: translateX(100vw);
-
+            cursor: pointer;
+            border: 1px solid black;
+            border-top: 2px solid black;
         }
 
-        .book-tab:last-of-type{
-            box-shadow: 2px 2px 2px #808080; /* Apply box shadow only to last book tab */
+        .book-tab:first-of-type {
+            border-left: 2px solid black;
+        }
+        .book-tab:last-of-type {
+            /*box-shadow: 2px 2px 2px #808080; */
+            border-right: 2px solid black;
         }
 
         .book-tab-1 {
@@ -85,8 +92,10 @@
          }
 
          .book-tab-main {
-            width: 100%;
+            width: calc(100% - 10px);
             height: 95%;
+            padding: 5px;
+            padding-top: 0;
          }
 
          .book-tab-content {
@@ -98,8 +107,8 @@
             border: none;
             width: 100%;
             height: 100%;
-            pointer-events: none;
             margin: auto;
+            pointer-events: none;
          }
 
         .vertical-text {
@@ -213,9 +222,12 @@
                     if (active) {
                         el.style.width = '120px';
                         content.style.opacity = '0';
+                        content.style.pointerEvents = 'none';
                     } else {
-                        el.style.width = 'calc(100vw - 480px - 2px)';
+                        el.style.width = 'calc(100vw - 480px - 12px - 2px)';
                         content.style.opacity = '1';
+                        content.style.pointerEvents = 'auto';
+
                     }
                     active = !active;
                 },
@@ -224,10 +236,12 @@
         })
         .forEach((tab) => {
 
+            // Animate in the book tab
             setTimeout(() => {
                 tab.el.style.transform = 'translateX(0vw)'
             }, 500);
-            tab.el.addEventListener('click', function() {
+
+            tab.el.addEventListener('click', function(evt) {
                 if (selected === tab) {
                     selected = noneSelected;
                     return tab.toggle();
@@ -240,5 +254,4 @@
 })();
 </script>
 </body>
-
 </html>
