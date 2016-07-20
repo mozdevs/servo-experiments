@@ -47,11 +47,26 @@
             color: #696969;
         }
 
+        .experiments-list {
+            list-style-type: none;
+        }
+        .experiments-list li {
+            margin: none;
+            margin-top: 10px;
+            background-color: #e6e6e6;
+            padding: 10px;
+            cursor: pointer;
+            transition:transform 0.5s ease-in-out, background-color 0.25s ease-in-out;
+            transform: translateX(100vw);
+        }
+
+        .experiments-list li:hover {
+            background-color: #a4e6ff;
+        }
+
         .experiment-preview {
             display: block;
             background-color: #e6e6e6;
-            width: 500px;
-            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition:background-color 0.25s ease-in-out;
@@ -106,7 +121,7 @@
 <header>
     <div class="header-inner">
         <div class="header-logo">
-            <img width="85" src="servo.png" />
+            <a href="http://servo.org"><img width="85" src="servo.png" /></a>
         </div>
         <div class="header-main">
 
@@ -121,11 +136,14 @@
 
 <main>
 <h3 class="heading">Latest Experiments</h3>
+<ul class="experiments-list">
+
+</ul>
 </main>
 
-<section id="experimentPreviewTemplate" class="experiment-preview">
-<h4 class="experiment-text">duckDuckServo - </h4>
-</section>
+<li id="experimentPreviewTemplate" class="experiment-preview">
+<h4 class="experiment-text"></h4>
+</li>
 
 </div>
 

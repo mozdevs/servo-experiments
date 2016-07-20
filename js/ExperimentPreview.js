@@ -28,14 +28,14 @@ var experimentPreviewModule = (function(template) {
                     .easing(TWEEN.Easing.Sinusoidal.InOut)
                     .onUpdate(() => {
                         el.style.marginLeft = 'calc(' + margins.marginLeft + '% + ' + (newCount * 2) + '%';
-                    })
+                    });
 
                 var opacityAnim = new TWEEN.Tween(fx)
                     .to({opacity: 1}, 1200)
                     .easing(TWEEN.Easing.Sinusoidal.InOut)
                     .onUpdate(() => {
                         el.style.opacity = fx.opacity;
-                    })
+                    });
 
               var fullTween = { // Object representing the full tween
                     play: () => {
