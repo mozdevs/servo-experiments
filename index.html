@@ -51,13 +51,22 @@
             list-style-type: none;
         }
         .experiments-list li {
+            display: inline-block;
             margin: none;
             margin-top: 10px;
             background-color: #e6e6e6;
             padding: 10px;
             cursor: pointer;
-            transition:transform 0.5s ease-in-out, background-color 0.25s ease-in-out;
-            transform: translateX(100vw);
+            transition: opacity 0.5s ease-in-out, background-color 0.25s ease-in-out;
+            /*transform: translateX(100vw);*/
+            margin-left: 10px;
+            opacity: 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .experiments-list li h3 {
+            margin-bottom: 10px;
         }
 
         .experiments-list li:hover {

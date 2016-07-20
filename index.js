@@ -17,18 +17,26 @@ window.addEventListener('load', function() {
         var eps = data.experiments
             .map((info) => {
                 var li = document.createElement('li');
-                li.textContent = info.name;
+
+                var h3 = document.createElement('h3');
+                h3.textContent = info.name;
                 li.addEventListener('click', function() {
                     window.location.href = info.href; 
-                })
+                });
+
+                var screen = document.createElement('img');
+                screen.src = info.href + 'thumb.png';
+                screen.width = 256;
+                li.appendChild(h3);
+                li.appendChild(screen);
                 return li;
                 // new ExperimentPreview(info);
             });
 
         eps.forEach((li, i) => {
                 setTimeout(() => {
-                li.style.transform = 'translateX(' + (i * 2) + '%)'; // Cause the element to be animated in
-                }, (i + 1) * 150);
+                    li.style.opacity = '1';
+                }, 150 + ((i + 2) * 150));
             });
 
         // Add the preview elements to dom        

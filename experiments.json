@@ -3,24 +3,24 @@
         {
             "name": "DIVMosaics",
             "desc": "rendering images using <div>'s as pixels",
-            "href": "experiments/divMosaics/web"
+            "href": "experiments/divMosaics/web/"
         }
     ], 
     "experiments": [
         {
             "name": "Servo Bookshelf",
             "desc": "Interactive animated bookshelf",
-            "href": "experiments/bookshelf"
+            "href": "experiments/bookshelf/"
         },
         {
             "name": "DIVMosaics",
             "desc": "rendering images using <div>'s as pixels",
-            "href": "experiments/divMosaics/web"
+            "href": "experiments/divMosaics/web/"
         },
         {
             "name": "duckDuckServo",
             "desc": "a fancy interface for duckDuckGo queries",
-            "href": "experiments/duckDuckServo/web"
+            "href": "experiments/duckDuckServo/web/"
         }
     ]
 
