@@ -11,34 +11,63 @@
             overflow: hidden;
             background-color: #4b4b55;
         }
-        
+
+        .bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            float: right;
+            padding: 13px;
+            opacity: 0.8;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 100;
+        }
+
+        /* .bg:hover {
+            opacity: 1;
+        }*/
+
+        .bg-small {
+            position: absolute;
+            width: 20%;
+        }
+
         .book-tab {
             width: 120px;
             height: 100vh;
-            box-shadow: 2px 2px 2px #808080;
             /*border-radius: 8px;*/
-            transition: width 0.25s ease-in-out;
             float: left;
+            transform: translateX(100vw);
+
+        }
+
+        .book-tab:last-of-type{
+            box-shadow: 2px 2px 2px #808080; /* Apply box shadow only to last book tab */
         }
 
         .book-tab-1 {
             background-color: #DD545C;
+            transition: width 0.25s ease-in-out 0s, transform 0.5s ease-in-out 0s;
         }
 
         .book-tab-2 {
             background-color: #9C5865;
+            transition: width 0.25s ease-in-out 0s, transform 0.5s ease-in-out 0.2s;
         }
 
         .book-tab-3 {
             background-color: #6C5662;
+            transition: width 0.25s ease-in-out 0s, transform 0.5s ease-in-out 0.4s;
         }
 
         .book-tab-4 {
             background-color: #7C6D68;
+            transition: width 0.25s ease-in-out 0s, transform 0.5s ease-in-out 0.6s;
         }
 
         .book-tab-5 {
             background-color: #9D7D6E;
+            transition: width 0.25s ease-in-out 0s, transform 0.5s ease-in-out 0.8s;
         }
 
         .book-tab-header {
@@ -52,8 +81,7 @@
          }
 
          .book-tab-header-inner {
-            padding-top: 15px;
-            padding-bottom: 15px;
+            padding: 15px;
          }
 
          .book-tab-main {
@@ -81,20 +109,31 @@
             transform-origin: top left 0;
             width: 100vh;
         }
+
+        .opacity-40 {
+            opacity: 0.4;
+        }
     </style>
 
 </head>
 
 <body>
+<div class="bg">
+<a href="http://servo.org">
+    <img width="64" src="servo.png" />
+</a>
+</div>
+<section class="books">
 <article data-book-num="1" class="book-tab book-tab-1">
     <div class="book-tab-header">
         <div class="book-tab-header-inner">
-            <strong>1984</strong>
+            <strong>The Picture of Doran Gray</strong>
         </div>
     </div>
 
     <div class="book-tab-main">
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Nineteen_Eighty-Four"></iframe>
+        <!-- books/doriangray.html -->
+        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/The_Picture_of_Dorian_Gray"></iframe>
     </div>
 </article>
 
@@ -102,12 +141,13 @@
     <div class="book-tab-header">
 
         <div class="book-tab-header-inner">
-                <strong>Hard Times</strong>
+                <strong>The Importance of Being Earnest</strong>
         </div>
     </div>
 
     <div class="book-tab-main">
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Hard_Times"></iframe>
+    <!-- books/importanceofbeingearnest.html -->
+        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/The_Importance_of_Being_Earnest"></iframe>
     </div>
 </article>
 
@@ -115,24 +155,26 @@
     <div class="book-tab-header">
 
          <div class="book-tab-header-inner">
-                <strong>Othello</strong>
+                <strong>The Hound of the Baskervilles</strong>
         </div>
     </div>
 
     <div class="book-tab-main">
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Othello"></iframe>
+        <!-- books/houndofthebaskervilles.html -->
+        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/The_Hound_of_the_Baskervilles"></iframe>
     </div>
 </article>
 
 <article data-book-num="4" id="b4" href="#b4" class="book-tab book-tab-4">
     <div class="book-tab-header">
          <div class="book-tab-header-inner">
-                <strong>Hamlet</strong>
+                <strong>Paradise Lost</strong>
         </div>
     </div>
 
     <div class="book-tab-main">
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Hamlet"></iframe>
+    <!-- books/paradiselost.html -->
+        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Paradise_Lost"></iframe>
     </div>
 </article>
 
@@ -141,15 +183,16 @@
     <div class="book-tab-header">
      
         <div class="book-tab-header-inner">
-            <strong>Sonnets</strong>
+            <strong>Henry V</strong>
         </div>
     </div>
 
     <div class="book-tab-main">
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Shakespeare%27s_sonnets"></iframe>
+        <!-- books/henryv.html -->
+        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Henry_V_(play)"></iframe>
     </div>
 </article>
-
+</section>
 <script>
 (function() {
     var noneSelected = {
@@ -162,8 +205,9 @@
 
     Array.from(document.querySelectorAll('.book-tab'))
         .map((el) => {
-            var content = el.querySelector('.book-tab-content');
-            var active = false;
+            var content = el.querySelector('.book-tab-content'),
+                active = false;
+
             return {
                 toggle: function () {
                     if (active) {
@@ -179,6 +223,10 @@
             };
         })
         .forEach((tab) => {
+
+            setTimeout(() => {
+                tab.el.style.transform = 'translateX(0vw)'
+            }, 500);
             tab.el.addEventListener('click', function() {
                 if (selected === tab) {
                     selected = noneSelected;
