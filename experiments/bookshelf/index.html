@@ -13,7 +13,7 @@
         }
         
         .book-tab {
-            width: 10vw;
+            width: 120px;
             height: 100vh;
             box-shadow: 2px 2px 2px #808080;
             /*border-radius: 8px;*/
@@ -151,20 +151,46 @@
 </article>
 
 <script>
-Array.from(document.querySelectorAll('.book-tab')).forEach((tab) => {
-    var active = false;
-    var content = tab.querySelector('.book-tab-content');
-    tab.addEventListener('click', function() {
-        if (active) {
-            tab.style.width = '10vw';
-            content.style.opacity = '0';
-        } else {
-            tab.style.width = '60vw';
-            content.style.opacity = '1';
-        }
-        active = !active;
+
+(function() {
+    var noneSelected = {
+            el: document.createElement('div'),
+            active: true,
+            toggle: () => {}
+    }; // dummy 
+
+    var selected = noneSelected;
+
+    Array.from(document.querySelectorAll('.book-tab'))
+        .map((el) => {
+            var content = el.querySelector('.book-tab-content');
+            var active = false;
+            return {
+                toggle: function () {
+                    if (active) {
+                        el.style.width = '120px';
+                        content.style.opacity = '0';
+                    } else {
+                        el.style.width = 'calc(100vw - 480px - 2px)';
+                        content.style.opacity = '1';
+                    }
+                    active = !active;
+                },
+                el: el
+            };
+        })
+        .forEach((tab) => {
+            tab.el.addEventListener('click', function() {
+                if (selected === tab) {
+                    selected = noneSelected;
+                    return tab.toggle();
+                }   
+                selected.toggle();
+                tab.toggle();
+                selected = tab;
+        });
     });
-});
+})();
 </script>
 </body>
 
