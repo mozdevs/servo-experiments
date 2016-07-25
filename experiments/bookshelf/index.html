@@ -8,8 +8,8 @@
             font-family:  'Palatino Linotype', 'Book Antiqua', Palatino, serif;
             margin: 0;
             padding: 0;
-            overflow: hidden;
             background-color: #4b4b55;
+            overflow: hidden;
         }
 
         .bg {
@@ -34,14 +34,15 @@
         }
 
         .book-tab {
-            width: 120px;
-            height: 100vh;
+            width: 140px;
+            height: 99vh; /* 2px for each border on top and bottom */
             /*border-radius: 8px;*/
             float: left;
             transform: translateX(100vw);
             cursor: pointer;
             border: 1px solid black;
             border-top: 2px solid black;
+            padding-bottom: 10px;
         }
 
         .book-tab:first-of-type {
@@ -94,7 +95,7 @@
 
          .book-tab-main {
             width: calc(100% - 10px);
-            height: 95%;
+            height: 92%;
             padding: 5px;
             padding-top: 0;
          }
@@ -112,6 +113,15 @@
             pointer-events: none;
          }
 
+         .book-tab-author {
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            width: 100%;
+            height: calc(3% - 5px);
+            padding-top: 0.5%;
+         }
+
         .vertical-text {
             position: relative;
             top: 100%;
@@ -119,7 +129,6 @@
             transform-origin: top left 0;
             width: 100vh;
         }
-
         .opacity-40 {
             opacity: 0.4;
         }
@@ -143,8 +152,12 @@
 
     <div class="book-tab-main">
         <!-- books/doriangray.html -->
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/The_Picture_of_Dorian_Gray"></iframe>
+        <iframe class="book-tab-content" src="books/doriangray.html"></iframe>
     </div>
+
+    <div class="book-tab-author">
+    Oscar Wilde
+   </div>
 </article>
 
 <article data-book-num="2" class="book-tab book-tab-2">
@@ -157,8 +170,13 @@
 
     <div class="book-tab-main">
     <!-- books/importanceofbeingearnest.html -->
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/The_Importance_of_Being_Earnest"></iframe>
+        <iframe class="book-tab-content" src="books/importanceofbeingearnest.html"></iframe>
     </div>
+
+    <div class="book-tab-author">
+    Oscar Wilde
+   </div>
+
 </article>
 
 <article data-book-num="3" class="book-tab book-tab-3">
@@ -171,8 +189,13 @@
 
     <div class="book-tab-main">
         <!-- books/houndofthebaskervilles.html -->
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/The_Hound_of_the_Baskervilles"></iframe>
+        <iframe class="book-tab-content" src="books/houndofthebaskervilles.html"></iframe>
     </div>
+
+    <div class="book-tab-author">
+    A. Conan Doyle
+   </div>
+
 </article>
 
 <article data-book-num="4" id="b4" href="#b4" class="book-tab book-tab-4">
@@ -184,8 +207,13 @@
 
     <div class="book-tab-main">
     <!-- books/paradiselost.html -->
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Paradise_Lost"></iframe>
+        <iframe class="book-tab-content" src="books/paradiselost.html"></iframe>
     </div>
+
+    <div class="book-tab-author">
+     Milton
+   </div>
+
 </article>
 
 <article data-book-num="5" class="book-tab book-tab-5">
@@ -199,8 +227,14 @@
 
     <div class="book-tab-main">
         <!-- books/henryv.html -->
-        <iframe class="book-tab-content" src="https://en.wikipedia.org/wiki/Henry_V_(play)"></iframe>
+        <iframe class="book-tab-content" src="books/henryv.html"></iframe>
+        
     </div>
+
+   <div class="book-tab-author">
+    Shakespeare
+   </div>
+
 </article>
 </section>
 <script>
@@ -221,11 +255,11 @@
             return {
                 toggle: function () {
                     if (active) {
-                        el.style.width = '120px';
+                        el.style.width = '140px';
                         content.style.opacity = '0';
                         content.style.pointerEvents = 'none';
                     } else {
-                        el.style.width = 'calc(100vw - 480px - 12px - 2px)';
+                        el.style.width = 'calc(100vw - 560px - 12px - 2px)';
                         content.style.opacity = '1';
                         content.style.pointerEvents = 'auto';
 
