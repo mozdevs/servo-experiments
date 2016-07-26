@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<title>Reading View</title>
+<script src="js/Readability.js"></script>
+
+<meta charset="utf-8" />
+
+</head>
+
+<body>
+<script>
+var loc = document.location;
+console.log(loc);
+var uri = {
+  spec: loc.href,
+  host: loc.host,
+  prePath: loc.protocol + "//" + loc.host,
+  scheme: loc.protocol.substr(0, loc.protocol.indexOf(":")),
+  pathBase: loc.protocol + "//" + loc.host + loc.pathname.substr(0, loc.pathname.lastIndexOf("/") + 1)
+};
+console.log(uri);
+var article = new Readability(uri, document);
+console.log(article);
+article._maxElemsToParse = 5000;
+console.log(article.parse());
+</script>
+<div>
+<h1> HI</h1>
+</div>
+<div>Lol</div>
+<h3>Lol</h3>
+</body>
+</html>
