@@ -17,10 +17,21 @@
             bottom: 0;
             right: 0;
             float: right;
-            padding: 13px;
-            opacity: 0.6;
+            width: 200px;
             transition: opacity 0.5s ease-in-out;
             z-index: 100;
+            text-align: center;
+            color: white;
+            opacity: 0.6;
+            padding-bottom: 10px;
+            padding-right: 10px;
+        }
+
+        .bg p {
+            text-align: left;
+        }
+        .bg a {
+            color:#BFBFBF;
         }
 
         /* Disable due to improper behaviour in Servo
@@ -122,13 +133,6 @@
             padding-top: 0.5%;
          }
 
-        .vertical-text {
-            position: relative;
-            top: 100%;
-            transform: translateY(-50%) rotate(-90deg);
-            transform-origin: top left 0;
-            width: 100vh;
-        }
         .opacity-40 {
             opacity: 0.4;
         }
@@ -141,6 +145,10 @@
 <a href="http://servo.org">
     <img width="64" src="servo.png" />
 </a>
+    <p>
+    Books credit <a href="http://gutenberg.org">The Gutenberg Project</a>.
+    </p>
+
 </div>
 <section class="books">
 <article data-book-num="1" class="book-tab book-tab-1">
