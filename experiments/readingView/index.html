@@ -1,34 +1,196 @@
 <!doctype html>
 <html>
 <head>
-<title>Reading View</title>
-<script src="js/Readability.js"></script>
-
 <meta charset="utf-8" />
+<title>Reading View</title>
+<script src="js/tween/tween.js"></script>
+<script src="js/Readability.js"></script>
+<script>
+window.addEventListener('load', function() {
 
+ 
+    var loc = document.location;
+    var uri = {
+      spec: loc.href,
+      host: loc.host,
+      prePath: loc.protocol + "//" + loc.host,
+      scheme: loc.protocol.substr(0, loc.protocol.indexOf(":")),
+      pathBase: loc.protocol + "//" + loc.host + loc.pathname.substr(0, loc.pathname.lastIndexOf("/") + 1)
+    };
+    var readingDoc = document.cloneNode(true);
+    var article = new Readability(uri, readingDoc, {debug: false}).parse();
+    
+    var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_ALL, null, false);
+    var nodes = [];
+     while (tw.nextNode()) {
+        nodes.push(tw.currentNode);
+     }
+
+     nodes
+     .forEach((n) => {
+        // console.log(n.tagName, n.textContent); //alerts P, SPAN, and B.
+        if (!n.style) { return; }
+     });
+    
+   
+    setTimeout(function() {
+        document.body.style.transition = '0.5s opacity ease-in-out';
+        document.body.style.opacity = 0;
+
+        setTimeout(() => {
+            document.body.innerHTML = article.content;
+            document.body.style.opacity = 1;
+        }, 500);
+        // document.body.style.opacity = 1;
+    }, 1000);
+/*
+    requestAnimationFrame(update);
+
+    function update(t) {
+        requestAnimationFrame(update);
+        TWEEN.update(t);
+    }*/
+});
+
+/*var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_ALL, () => NodeFilter.ACCEPT, false
+);
+var nodes = [];
+while (tw.nextNode()) {
+  nodes.push(walker.currentNode);
+}
+
+nodes.forEach(function(n) {
+  n.style.position = 'absolute';
+  n.style.top = '-5000px';
+  n.style.left = '-5000px';
+  n.style.backgroundColor = 'red';
+});
+*/
+</script>
+
+<style>
+body {
+}
+.reading-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.page {
+    /*transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;*/
+    /*transform: translateX(0);*/
+    width: 50%;
+    margin: auto;
+}
+</style>
 </head>
 
 <body>
-<script>
-var loc = document.location;
-console.log(loc);
-var uri = {
-  spec: loc.href,
-  host: loc.host,
-  prePath: loc.protocol + "//" + loc.host,
-  scheme: loc.protocol.substr(0, loc.protocol.indexOf(":")),
-  pathBase: loc.protocol + "//" + loc.host + loc.pathname.substr(0, loc.pathname.lastIndexOf("/") + 1)
-};
-console.log(uri);
-var article = new Readability(uri, document);
-console.log(article);
-article._maxElemsToParse = 5000;
-console.log(article.parse());
-</script>
-<div>
-<h1> HI</h1>
-</div>
-<div>Lol</div>
-<h3>Lol</h3>
+
+<header>
+<h1>Welcome to Annoying Website.com</h1>
+<nav>Here are some links for you to enjoy</nav>
+</header>
+
+<main>
+<section>
+<article class="main_article">
+<header><h1>LipSum Article Body Main</h1></header>
+<p>
+<h3>Article subheading</h3>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tellus cursus, dignissim felis id, facilisis neque. Nulla lobortis, elit vitae rutrum luctus, est nunc pulvinar ante, a lobortis odio tellus in nulla. Suspendisse ac sagittis elit, ut fringilla tellus. Quisque id pretium odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi eget mi iaculis, rhoncus massa in, lobortis ante. Suspendisse sagittis feugiat metus at commodo. Suspendisse nec elementum sapien.
+</p>
+<p>
+<h3>Article subheading</h3>
+Suspendisse ut convallis neque. Phasellus imperdiet ullamcorper lectus, vestibulum accumsan nulla dapibus in. Vivamus elementum ante volutpat tortor ullamcorper dapibus. Proin rhoncus dapibus consequat. Nulla vestibulum egestas varius. In interdum congue tellus id egestas. Curabitur vitae urna ut ante laoreet ultricies. Quisque a nunc et risus tempor consectetur vel ac tortor.
+</p>
+<p>
+<h3>Article subheading</h3>
+Nullam id vehicula est. Aliquam tincidunt nunc dui. Quisque pharetra, erat eget accumsan tincidunt, est augue interdum mi, eget dictum massa libero a massa. Sed sed lorem ac velit cursus vulputate. Nam aliquet sit amet mi ac volutpat. Nunc cursus magna et purus egestas, ut mollis urna facilisis. Nam tempus aliquet felis, ut scelerisque nunc sodales non. Aenean at ante vitae arcu pharetra consectetur. Morbi aliquam elit vitae augue feugiat sollicitudin. Praesent faucibus posuere nisl ac malesuada. Etiam posuere blandit nibh eu laoreet. Donec sagittis nibh dui, nec pulvinar diam malesuada non. Praesent euismod, enim ac tristique vestibulum, mauris justo ultricies ex, ut convallis ligula lorem vitae neque. Integer lectus felis, dictum quis nisl non, convallis pulvinar dolor. Sed scelerisque velit vel porttitor laoreet.
+</p>
+<p>
+<h3>Article subheading</h3>
+
+Nullam id sodales ipsum. Aenean nec lacus ac felis pulvinar malesuada. Mauris nec condimentum velit. Vivamus et arcu sodales, posuere tortor in, consectetur eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum vitae neque dapibus, bibendum metus a, ultricies nibh. Nunc ornare congue sapien, vitae tempor lorem tincidunt eget. Duis sed urna lectus. Donec ut neque magna. Suspendisse sodales nisi lacinia condimentum iaculis. Praesent et accumsan eros. Nunc eleifend vel metus et gravida. Duis arcu quam, condimentum sit amet risus nec, egestas ultrices felis. Integer ultricies urna eu placerat pretium.
+</p>
+<p>
+<h3>Article subheading</h3>
+Phasellus mi tortor, laoreet nec rhoncus porta, porta nec nibh. In maximus justo quis nulla ultricies, et mollis odio rhoncus. Donec sem massa, efficitur at ipsum at, faucibus pulvinar ante. Vivamus feugiat libero eget sapien ultricies, eu cursus ante suscipit. Nulla quam dui, rhoncus in diam non, hendrerit placerat orci. In pulvinar diam sed dolor finibus, non ornare nisl dictum. Vivamus tempus tellus sed velit dictum elementum. Aenean elit velit, sagittis sit amet urna vitae, pellentesque congue augue. Mauris auctor sagittis enim. Donec non tellus erat.
+</p>
+</article>
+</section>
+<section>
+<article class="film_review">
+  <header>
+    <h2>Jurassic Park</h2>
+  </header>
+  <section class="main_review">
+    <p>Dinos were great!</p>
+  </section>
+  <section class="user_reviews">
+    <article class="user_review">
+      <p>Way too scary for me.</p>
+      <footer>
+        <p>
+          Posted on <time datetime="2015-05-16 19:00">May 16</time> by Lisa.
+        </p>
+      </footer>
+    </article>
+    <article class="user_review">
+      <p>I agree, dinos are my favorite.</p>
+      <footer>
+        <p>
+          Posted on <time datetime="2015-05-17 19:00">May 17</time> by Tom.
+        </p>
+      </footer>
+    </article>
+  </section>
+  <footer>
+    <p>
+      Posted on <time datetime="2015-05-15 19:00">May 15</time> by Staff.
+    </p>
+  </footer>
+</article>
+</section>
+<section>
+<article class="film_review">
+  <header>
+    <h2>Jurassic Park</h2>
+  </header>
+  <section class="main_review">
+    <p>Dinos were great!</p>
+  </section>
+  <section class="user_reviews">
+    <article class="user_review">
+      <p>Way too scary for me.</p>
+      <footer>
+        <p>
+          Posted on <time datetime="2015-05-16 19:00">May 16</time> by Lisa.
+        </p>
+      </footer>
+    </article>
+    <article class="user_review">
+      <p>I agree, dinos are my favorite.</p>
+      <footer>
+        <p>
+          Posted on <time datetime="2015-05-17 19:00">May 17</time> by Tom.
+        </p>
+      </footer>
+    </article>
+  </section>
+  <footer>
+    <p>
+      Posted on <time datetime="2015-05-15 19:00">May 15</time> by Staff.
+    </p>
+  </footer>
+</article>
+</section>
+</main>
+<footer>
+<h2>This is the footer of annoying website.com</h2>
+</footer>
 </body>
 </html>
