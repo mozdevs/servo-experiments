@@ -1,0 +1,48 @@
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-image: url(http://img14.deviantart.net/9b39/i/2014/016/6/4/film_noir_city_by_silberius-d72eui1.jpg);
+    /*background-image: url(http://img12.deviantart.net/6e6a/i/2010/234/b/4/film_noir_in_tokyo_by_artyjock.jpg);*/
+    background-position: center;
+    background-size: contain;
+}
+
+.servo-stats {
+    font-family: Helvetica, sans;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    background: #666;
+    color: #fff;
+    display: inline-block;
+}
+
+.servo-stats li {
+    list-style: none;
+}
+
+#demo {
+    width: 100vw;
+    height: 100vh;
+}
+
+.block {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background-color: #467FCE;
+    opacity: 0.6;
+    transition: 0.25s background-color ease-in-out;
+}
+
+.block:hover{
+    background-color: #467FCE;
+}
+
+iframe {
+    border: none;
+    width: 200px;
+    height: 200px;
+}
