@@ -14,8 +14,58 @@
         });
     });
 
+    function getAbsolutePosition(el) {
+        var left = 0;
+        var top = 0;
+        if (el.offsetParent) {
+            do {
+                left += el.offsetLeft;
+                top += el.offsetTop;
+            } while (el = el.offsetParent)
+        }
+        return [left, top];
+    }
     function readingView() {
-        var readingContent = document.createElement('div');
+        var layer = document.createElement('div');
+        // layer.setAttribute('class', 'layer');
+        var selectAll = 'h1, h2, h3, h4, h5, h6, img, p, a';
+        Array.from(document.querySelectorAll(selectAll)).forEach((el) => {
+            var copy = el.cloneNode(false);
+            copy.innerHTML = el.innerHTML;
+            var compStyle = getComputedStyle(el);
+            ['width', 'height'].forEach((prop) => {
+                copy.style[prop] = compStyle[prop];
+            });
+      
+            copy.classList.add('copy');
+            let [left, top] = getAbsolutePosition(el);
+            copy.style.position = 'absolute';
+            copy.style.left = left + 'px';
+            copy.style.top = top + 'px';
+            document.body.appendChild(copy);
+
+            el.style.visibility = 'hidden';
+        });
+
+        // Animate out irrelevant images
+        Array.from(document.querySelectorAll('img[class~=copy]'))
+        .filter((el) => !el.classList.contains('take'))
+        .forEach((el) => {
+            el.style.transition = '0.5s top ease-in-out';
+            el.style.top = '-500px';
+        });
+
+        // Animate out everything else
+        Array.from(document.querySelectorAll(selectAll))
+        .filter((el) => !el.classList.contains('take'))
+        .forEach((el) => {
+            el.style.transition = '0.5s top ease-in-out';
+            el.style.top = '-500px';
+        })
+
+
+        // document.body.appendChild(layer);
+       /* var readingContent = document.createElement('div');
         readingContent.setAttribute('class', 'reading-content');
 
         // Fade out everything not needed
@@ -35,8 +85,8 @@
        document.body.appendChild(readingContent);
         setTimeout(() => {
                 readingContent.style.opacity = 1;
-        }, 600);
-        }
+        }, 600);*/
+    }
 </script>
 
 <style>
@@ -45,7 +95,6 @@
         margin: 0;
         padding: 0;
     }
-
 
     .reading-content {
         position: absolute;
@@ -57,8 +106,6 @@
         opacity: 0;
         transition: 2s opacity ease-in-out;
     }
-
- 
 
     nav {
         word-spacing: 500%;
@@ -83,6 +130,20 @@
         float: left;
         margin-right: 30px;
     }
+
+    .copy {
+        color: red;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 0;
+        padding: 0;
+    }
+
+    p {
+       margin: 0;
+       padding: 0;
+    }
 </style>
 </head>
 
@@ -106,12 +167,10 @@
     <main>
         <section>
           <article class="main-article">
-            <header><h2>LipSum Article Body Main</h2></header>
+            <header><h2 class="take">LipSum Article Body Main</h2></header>
           
-              <aside class="ad v-ad">
-              <img src="http://placehold.it/120x600" />
-              </aside>
-              <h3>Article subheading</h3>
+             
+              <h3 class="take">Article subheading</h3>
             <p class="take">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tellus cursus, dignissim felis id, facilisis neque. Nulla lobortis, elit vitae rutrum luctus, est nunc pulvinar ante, a lobortis odio tellus in nulla. Suspendisse ac sagittis elit, ut fringilla tellus. Quisque id pretium odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi eget mi iaculis, rhoncus massa in, lobortis ante. Suspendisse sagittis feugiat metus at commodo. Suspendisse nec elementum sapien.
             </p>
@@ -123,12 +182,12 @@
           <div class="ad">
               <img src="http://placehold.it/800x100" />
           </div>
-              <h3>Article subheading</h3>
+              <h3 class="take">Article subheading</h3>
           <p class="take">
               Nullam id vehicula est. Aliquam tincidunt nunc dui. Quisque pharetra, erat eget accumsan tincidunt, est augue interdum mi, eget dictum massa libero a massa. Sed sed lorem ac velit cursus vulputate. Nam aliquet sit amet mi ac volutpat. Nunc cursus magna et purus egestas, ut mollis urna facilisis. Nam tempus aliquet felis, ut scelerisque nunc sodales non. Aenean at ante vitae arcu pharetra consectetur. Morbi aliquam elit vitae augue feugiat sollicitudin. Praesent faucibus posuere nisl ac malesuada. Etiam posuere blandit nibh eu laoreet. Donec sagittis nibh dui, nec pulvinar diam malesuada non. Praesent euismod, enim ac tristique vestibulum, mauris justo ultricies ex, ut convallis ligula lorem vitae neque. Integer lectus felis, dictum quis nisl non, convallis pulvinar dolor. Sed scelerisque velit vel porttitor laoreet.
           </p>
-          <div class="take center">
-              <img style="margin: auto;" src="http://placehold.it/400x350" />
+          <div class="center">
+              <img class="take" style="margin: auto;" src="http://placehold.it/400x350" />
           </div>
 
             <p class="take">
