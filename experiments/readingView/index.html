@@ -15,48 +15,27 @@
     });
 
     function readingView() {
-        var tw = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT, null, false);
-        var nodes = [];
-        while (tw.nextNode()) {
-            nodes.push(tw.currentNode);
-        }
-
         var readingContent = document.createElement('div');
         readingContent.setAttribute('class', 'reading-content');
 
+        // Fade out everything not needed
         Array.from(document.querySelectorAll('.ad, .remove')).forEach((n) => {
             n.style.transition = '0.5s opacity ease-in-out';
             n.style.opacity = 0;
-            // n.remove();
-            // n.style.display = 'none';            
         });
 
+        // Move all reading view elements to readingContent
         Array.from(document.querySelectorAll('h2, h3, p, .take')).forEach((n) => {
               n.remove();
               readingContent.appendChild(n);
               // n.style.transform = 'perspective(500px) translateZ(100px)';
             });
 
+        // Add reading content and fade it in
+       document.body.appendChild(readingContent);
         setTimeout(() => {
-           document.body.appendChild(readingContent);
-            setTimeout(() => {
                 readingContent.style.opacity = 1;
-            }, 100);
-
-        }, 500);
-
-   /*     ads.forEach((n) => {
-            if (n.style) {
-                n.style.transition = '0.5s opacity ease-in-out';
-                n.style.opacity = 0;
-            }
-        });*/
-
-       /* keep
-            .filter((n) => n.classList.contains('take'))
-            .forEach((n) => {
-                n.style.backgroundColor = 'red';
-            })*/
+        }, 600);
         }
 </script>
 
