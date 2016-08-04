@@ -10,9 +10,14 @@
         window.addEventListener('keydown', function(evt) {
             if (evt.keyCode === 13) {
                 readingView();
+                window.removeEventListener('keydown');
             }
         });
     });
+
+    function transition(time, prop, easing) {
+        return time + 's ' + prop + ' ' + easing;  
+    }
 
     function mirrorComputedStyles(el, srcEl, props) {
         var compStyle = getComputedStyle(srcEl);
@@ -70,7 +75,7 @@
         Array.from(document.querySelectorAll('img[class~=copy]'))
         .filter((el) => !el.classList.contains('keep'))
         .forEach((el) => {
-            el.style.transition = '0.5s top ease-in-out';
+            el.style.transition = transition(0.5, 'top', 'ease-in-out');
             el.style.top = '-500px';
         });
 
@@ -78,15 +83,15 @@
         Array.from(document.querySelectorAll(selectAll))
         .filter((el) => !el.classList.contains('keep'))
         .forEach((el) => {
-            el.style.transition = '0.5s top ease-in-out';
+            el.style.transition = transition(0.5, 'top', 'ease-in-out')
             el.style.top = '-500px';
         })
 
         keepCopies.forEach((pair) => {
             let [copy, target] = pair;
-
+            let t = 2;
             let [left, top] = getAbsolutePosition(target);
-            copy.style.transition = '0.5s top ease-in-out, 0.5s left ease-in-out';
+            copy.style.transition = transition(t, 'top', 'ease-in-out') + ', ' + transition(t, 'left', 'ease-in-out');
             copy.style.top = top + 'px';
             copy.style.left = left + 'px';
             mirrorComputedStyles(copy, target, ['width', 'height', 'transform']);
