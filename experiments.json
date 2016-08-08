@@ -26,6 +26,11 @@
             "name": "duckDuckServo",
             "desc": "a fancy interface for duckDuckGo queries",
             "href": "experiments/duckDuckServo/web/"
+        },
+		{
+            "name": "Testing CSS transformations",
+            "desc": "Repeatedly transform a series of elements to test the various transformations",
+            "href": "experiments/test-transformations/"
         }
     ]
 
