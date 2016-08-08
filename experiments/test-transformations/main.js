@@ -2,7 +2,7 @@
 
 window.onload = function() {
 	var classes = [ 'rotate-x', 'rotate-y', 'rotate-z', 'skew', 'skew-x', 'skew-y' ];
-	var elementFactories = [ getDiv ];
+	var elementFactories = [ getDiv, getIframe ];
 	var container = document.getElementById('container');
 	var delayInc = 200;
 	var interval = 2000;
@@ -48,6 +48,12 @@ window.onload = function() {
 		var img = document.createElement('img');
 		img.src = '../../servo.png';
 		el.appendChild(img);
+		return el;
+	}
+
+	function getIframe() {
+		var el = document.createElement('iframe');
+		el.src = 'iframe.html';
 		return el;
 	}
 };

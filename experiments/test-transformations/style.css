@@ -29,6 +29,13 @@ h1, h2 {
 	height: auto;
 }
 
+#container div iframe {
+	width: 100px;
+	height: 100px;
+	background: yellow;
+	border: 1px dotted blue;
+}
+
 
 /* -- */
 
