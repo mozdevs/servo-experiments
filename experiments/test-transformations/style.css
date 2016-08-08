@@ -1,15 +1,27 @@
+h1, h2 {
+	margin: 0;
+}
+
 .transitions {
 	transition: 1s ease-in-out all;
 }
 
 #container {
-	background: #cacaca;
+	background: #efefef;
 }
 
-#container div {
+#container div.wrapper {
+	display: inline-block;
+	width: 200px;
+	xheight: 200px;
+	border: 1px solid black;
+}
+
+#container div div {
 	width: 200px;
 	height: 200px;
-	border: 1px solid black;
+	border: 1px dotted rgba(128, 0, 0, 0.5);
+	background: rgba(255, 0, 0, 0.5);
 }
 
 
