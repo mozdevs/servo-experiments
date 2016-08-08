@@ -4,9 +4,11 @@
   <meta charset="utf-8" />
   <title>Reading View</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="js/tween/tween.js"></script>
   <script>
     window.addEventListener('load', function() {
-        document.getElementById('readingViewButton').addEventListener('click', _.once(readingView));
+        // document.getElementById('readingViewButton').addEventListener('click', _.once(readingView));
+        readingView();
     });
 
     function transition(time, prop, easing) {
@@ -92,13 +94,13 @@
         }
         function transitionReadingViewContent() {
             // Transition the reading view 'copies' into final positions, using the target divs as reference
+            let transitionTime = 0.8; 
             keepCopies.forEach((pair, i) => {
                 let [copy, target] = pair;
-                let transitionTime = 0.8; 
                 let tst = _.partial(transition, transitionTime, _, 'ease-in-out');
 
                 // Setup transitions
-                copy.style.transition = ['top', 'left', 'width', 'height', 'transform', 'font-size'].map(tst).join(', ');
+                copy.style.transition = ['top', 'left', 'width', 'height', 'transform'].map(tst).join(', ');
                 copy.classList.add('reading');
                 
                 // Calculate position of the intermediate target div
@@ -107,10 +109,37 @@
                 copy.style.top = top + 'px';
                 copy.style.left = left + 'px';
                 copy.style.transform = 'rotateY(360deg)';
+
                 mirrorComputedStyles(copy, target, ['width', 'height']);
+
             });
+
+            /*
+                Manually tween all the font sizes as font-size transition not yet working in Servo
+                It is the same transition for each so it can be done with one tween.
+            */
+            var font = {size: 100};
+            new TWEEN.Tween(font)
+                .to({size: '120'}, transitionTime * 1000)
+                .onUpdate(
+                    () => {
+                        keepCopies.forEach((pair) => 
+                            {
+                                pair[0].style.fontSize = font.size + '%';}
+                        );
+                    }
+                )
+                .easing(TWEEN.Easing.Quadratic.InOut)
+                .start();
         }
 
+    }
+
+    requestAnimationFrame(animate);
+
+    function animate(t) {
+        requestAnimationFrame(animate);
+        TWEEN.update(t);
     }
 </script>
 
@@ -176,8 +205,6 @@
     }
 
     #container h1, h2, h3, h4, h5, h6 {
-        margin: 0;
-        padding: 0;
     }
     #container p {
        margin: 0;
@@ -226,7 +253,7 @@ Reading View
           </p>
 
           <div class="ad">
-            <iframe src="evil_ad/physics/ad.html" width="728" height="90" scrolling="no"></iframe>
+            <!-- <iframe src="evil_ad/physics/ad.html" width="728" height="90" scrolling="no"></iframe> -->
           </div>
 
           <h3 class="keep">Article subheading</h3>
