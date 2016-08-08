@@ -7,8 +7,10 @@
   <script src="js/tween/tween.js"></script>
   <script>
     window.addEventListener('load', function() {
-        // document.getElementById('readingViewButton').addEventListener('click', _.once(readingView));
-        readingView();
+        var activateReadingView = _.once(readingView);
+        document.getElementById('readingViewButton').addEventListener('click',activateReadingView);
+        window.addEventListener('dblclick', activateReadingView);
+        setTimeout(activateReadingView, 1000);
     });
 
     function transition(time, prop, easing) {
@@ -64,6 +66,7 @@
             document.body.appendChild(copy);
 
             // Hide the original
+            el.style.border = '5px solid red'; // Required to force Servo to redraw el - due to an issue with async updates. See https://github.com/servo/servo/issues/11891
             el.style.visibility = 'hidden';
 
             /*
@@ -153,10 +156,10 @@
     #readingViewButton {
         position: fixed;
         top: 5px;
-        left: 20px;
+        left: 5px;
         background-color: #383838;
-        padding: 20px;
-        padding-bottom: 16px;
+        padding: 10px;
+        padding-bottom: 6px;
         color: white;
         opacity: 0.8;
         cursor: pointer;
@@ -201,7 +204,7 @@
         margin-right: 30px;
     }
 
-    #container .copy {
+    .copy {
     }
 
     #container h1, h2, h3, h4, h5, h6 {
