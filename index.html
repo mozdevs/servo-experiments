@@ -7,7 +7,7 @@
             box-sizing: border-box;
         }
         body {
-            font-family: arial; /* TODO: Add lintel.otf and reference here */
+            font-family: georgia; /* TODO: Add lintel.otf and reference here */
             margin: 0;
             padding: 0;
             overflow-x: hidden;
@@ -21,6 +21,7 @@
         header {
             margin: auto;
             text-align: center;
+            font-family: arial;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -54,7 +55,6 @@
             display: inline-block;
             margin: none;
             margin-top: 10px;
-            background-color: #e6e6e6;
             padding: 10px;
             cursor: pointer;
             transition: opacity 0.5s ease-in-out, background-color 0.25s ease-in-out;
@@ -144,10 +144,20 @@
 </header>
 
 <main>
-<h3 class="heading">Latest Experiments</h3>
+
+<article id="featured-experiments">
+<h3 class="heading">Featured Experiments</h3>
 <ul class="experiments-list">
 
 </ul>
+</article>
+
+<article id="other-experiments">
+<h3 class="heading">Other Experiments</h3>
+<ul class="experiments-list">
+
+</ul>
+</article>
 </main>
 
 <li id="experimentPreviewTemplate" class="experiment-preview">

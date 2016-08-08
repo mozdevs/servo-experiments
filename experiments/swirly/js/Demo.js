@@ -6,11 +6,11 @@ var stage = {
 function Demo() {
     var el = document.createElement('div');
 
-    _.times(20, () => {
+   /* _.times(20, () => {
         var frame = document.createElement('iframe');
         frame.src = 'http://en.wikipedia.org';
         el.appendChild(frame);
-    });
+    });*/
 
     var mx = 0,
         my = 0;

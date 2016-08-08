@@ -10,11 +10,14 @@ Http.get = function(url, cb) {
 
 
 window.addEventListener('load', function() {
-    var main = document.querySelector('main .experiments-list');
 
-    var ExperimentPreview = experimentPreviewModule(document.getElementById('experimentPreviewTemplate'));
     Http.get('experiments.json', function(data) {
-        var eps = data.experiments
+        addExperiments(document.querySelector('#featured-experiments .experiments-list'), data.featured);
+        addExperiments(document.querySelector('#other-experiments .experiments-list'), data.experiments);
+    });
+
+    function addExperiments(ul, experiments) {
+        var lis = experiments
             .map((info) => {
                 var li = document.createElement('li');
 
@@ -30,27 +33,19 @@ window.addEventListener('load', function() {
                 li.appendChild(h3);
                 li.appendChild(screen);
                 return li;
-                // new ExperimentPreview(info);
             });
 
-        eps.forEach((li, i) => {
+        lis.forEach((li, i) => {
                 setTimeout(() => {
                     li.style.opacity = '1';
                 }, 150 + ((i + 2) * 150));
             });
 
         // Add the preview elements to dom        
-        eps.forEach((ep) => main.appendChild(ep));
+        lis.forEach((li) => ul.appendChild(li));
 
-        // Consecutively animate all elements in
-        /*eps
-            .map((ep) => ep.animateIn())
-            .reduce((anim, nextAnim) => {
-                anim.onComplete(() => nextAnim.play());
-                return anim;
-            }).play();*/
 
-    });
+    }
 
 
     requestAnimationFrame(animate);
