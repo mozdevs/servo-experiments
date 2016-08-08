@@ -1,0 +1,28 @@
+.transitions {
+	transition: 1s ease-in-out all;
+}
+
+#container {
+	background: #cacaca;
+}
+
+#container div {
+	width: 200px;
+	height: 200px;
+	border: 1px solid black;
+}
+
+
+/* -- */
+
+.rotate-x {
+	transform: rotateX(90deg);
+}
+
+.rotate-y {
+	transform: rotateY(90deg);
+}
+
+.rotate-z {
+	transform: rotateZ(90deg);
+}
