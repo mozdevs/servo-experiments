@@ -1,25 +1,27 @@
 // skew, rotate X Y Z, translate X Y Z
 
 window.onload = function() {
-	var classes = [ 'rotate-x', 'rotate-y', 'rotate-z' ];
+	var classes = [ 'rotate-x', 'rotate-y', 'rotate-z', 'skew', 'skew-x', 'skew-y' ];
+	var elementFactories = [ getDiv ];
 	var container = document.getElementById('container');
 	var delayInc = 200;
 	var interval = 2000;
 	
-	for(var i = 0; i < classes.length; i++) {
-		var c = classes[i];
+	elementFactories.forEach((factory) => {
+		for(var i = 0; i < classes.length; i++) {
+			var c = classes[i];
 
-		var wrapper = makeWrapper(c);
+			var wrapper = makeWrapper(c);
+			var el = factory();
 
-		var el = document.createElement('div');
+			wrapper.appendChild(el);
+			container.appendChild(wrapper);
 
-		wrapper.appendChild(el);
-		container.appendChild(wrapper);
+			el.classList.add('transitions');
 
-		el.classList.add('transitions');
-
-		scheduleToggling(el, c, i * delayInc, interval);
-	}
+			scheduleToggling(el, c, i * delayInc, interval);
+		}
+	});
 
 	function scheduleToggling(el, c, delay, interval) {
 		setTimeout(function() {
@@ -38,6 +40,14 @@ window.onload = function() {
 
 		el.appendChild(h2);
 
+		return el;
+	}
+
+	function getDiv() {
+		var el = document.createElement('div');
+		var img = document.createElement('img');
+		img.src = '../../servo.png';
+		el.appendChild(img);
 		return el;
 	}
 };
