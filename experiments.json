@@ -1,6 +1,16 @@
 {
     "featured": [
         {
+            "name": "Servo Bookshelf",
+            "desc": "Interactive animated bookshelf",
+            "href": "experiments/bookshelf/"
+        },
+        {
+            "name": "Reading View",
+            "desc": "Smoothly transform a busy web page into a simplified view for easy reading",
+            "href": "experiments/readingView/"
+        },
+        {
             "name": "DIVMosaics",
             "desc": "rendering images using <div>'s as pixels",
             "href": "experiments/divMosaics/web/"
@@ -8,14 +18,9 @@
     ], 
     "experiments": [
         {
-            "name": "Servo Bookshelf",
-            "desc": "Interactive animated bookshelf",
-            "href": "experiments/bookshelf/"
-        },
-        {
-            "name": "DIVMosaics",
-            "desc": "rendering images using <div>'s as pixels",
-            "href": "experiments/divMosaics/web/"
+            "name": "DIV Rain",
+            "desc": "Animated rain effect using DIVs",
+            "href": "experiments/swirly/"
         },
         {
             "name": "duckDuckServo",
