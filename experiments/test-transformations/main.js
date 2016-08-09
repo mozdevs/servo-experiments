@@ -1,7 +1,7 @@
 // skew, rotate X Y Z, translate X Y Z
 
 window.onload = function() {
-	var classes = [ 'rotate-x', 'rotate-y', 'rotate-z', 'skew', 'skew-x', 'skew-y' ];
+	var classes = [ 'translate', 'translate-x', 'translate-y', 'translate-z', 'rotate', 'rotate-x', 'rotate-y', 'rotate-z', 'skew', 'skew-x', 'skew-y' ];
 	var elementFactories = [
 		{ title: 'div', func: getDiv },
 		{ title: 'iframe', func: getIframe }

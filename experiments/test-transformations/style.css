@@ -47,6 +47,26 @@ section {
 
 /* -- */
 
+.translate {
+	transform: translate(10px, 10px);
+}
+
+.translate-x {
+	transform: translateX(10px);
+}
+
+.translate-y {
+	transform: translateY(10px);
+}
+
+.translate-z {
+	transform: translateZ(10px);
+}
+
+.rotate {
+	transform: rotate(-45deg);
+}
+
 .rotate-x {
 	transform: rotateX(45deg);
 }
