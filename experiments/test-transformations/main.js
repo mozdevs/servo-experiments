@@ -2,20 +2,28 @@
 
 window.onload = function() {
 	var classes = [ 'rotate-x', 'rotate-y', 'rotate-z', 'skew', 'skew-x', 'skew-y' ];
-	var elementFactories = [ getDiv, getIframe ];
+	var elementFactories = [
+		{ title: 'div', func: getDiv },
+		{ title: 'iframe', func: getIframe }
+	];
+
 	var container = document.getElementById('container');
 	var delayInc = 200;
 	var interval = 2000;
 	
 	elementFactories.forEach((factory) => {
+		
+		var section = getSection(factory.title);
+		container.appendChild(section);
+
 		for(var i = 0; i < classes.length; i++) {
 			var c = classes[i];
 
 			var wrapper = makeWrapper(c);
-			var el = factory();
+			var el = factory.func();
 
 			wrapper.appendChild(el);
-			container.appendChild(wrapper);
+			section.appendChild(wrapper);
 
 			el.classList.add('transitions');
 
@@ -35,12 +43,21 @@ window.onload = function() {
 		var el = document.createElement('div');
 		el.className = 'wrapper';
 
-		var h2 = document.createElement('h2');
-		h2.innerHTML = title;
+		var header = document.createElement('h3');
+		header.innerHTML = title;
 
-		el.appendChild(h2);
+		el.appendChild(header);
 
 		return el;
+	}
+
+	function getSection(title) {
+		var section = document.createElement('section');
+		var header = document.createElement('h2');
+		header.innerHTML = 'Transforming <tt>' + title + '</tt>s';
+		section.appendChild(header);
+
+		return section;
 	}
 
 	function getDiv() {
