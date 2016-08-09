@@ -63,6 +63,10 @@ section {
 	transform: translateZ(10px);
 }
 
+.translate-3d {
+	transform: translate3d(-10px, -10px, -10px);
+}
+
 .rotate {
 	transform: rotate(-45deg);
 }
@@ -91,3 +95,27 @@ section {
 	transform: skewY(-15deg);
 }
 
+.scale {
+	transform: scale(1.2, 1.2);
+}
+
+.scale-x {
+	transform: scaleX(1.2);
+}
+
+.scale-y {
+	transform: scaleY(1.2);
+}
+
+.scale-3d {
+	transform: scale3d(1.2, 1.2, 1.2);
+}
+
+.perspective {
+	transform: rotateY(20deg) perspective(200px);
+	transform-style: preserve-3d;
+}
+
+.matrix {
+	transform: matrix(1, 0, 0, 1, 10, 10);
+}
