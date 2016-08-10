@@ -32,9 +32,6 @@ window.onload = function() {
 
 		container.appendChild(img);
 
-
-
-
 		var originX = Math.random() > 0.5 ? random(-w) : random(w);
 		var originY = Math.random() > 0.5 ? random(-h) : random(h);
 		var sign = Math.random() > 0.5 ? -1 : 1;
@@ -51,7 +48,7 @@ window.onload = function() {
 
 		counterElement.innerHTML = imageCounter;
 
-		setTimeout(addImage, 250);
+		setTimeout(addImage, 125);
 	}
 
 	function random(maxValue) {
