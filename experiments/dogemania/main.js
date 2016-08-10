@@ -25,23 +25,29 @@ window.onload = function() {
 	}
 
 	function addImage() {
-		var w = window.innerWidth - imageWidth;
-		var h = window.innerHeight - imageHeight;
+		var w = window.innerWidth;
+		var h = window.innerHeight;
 		var img = document.createElement('img');
 		img.src = imageURL;
 
 		container.appendChild(img);
-		setPosition(img, random(w), random(h));
+		setTransform(img, 0.01, 0.01, random(360));
+
+		var originX = Math.random() > 0.5 ? random(-w) : random(w);
+		var originY = Math.random() > 0.5 ? random(-h) : random(h);
+		
+		setPosition(img, originX, originY);
 
 		setTimeout(function() {
-			setPosition(img, random(w), random(h));
+			setTransform(img, 0.7, 0.7, 0);
+			setPosition(img, random(w - imageWidth), random(h - imageHeight));
 		}, 500);
 
 		imageCounter++;
 
 		counterElement.innerHTML = imageCounter;
 
-		setTimeout(addImage, 500);
+		setTimeout(addImage, 250);
 	}
 
 	function random(maxValue) {
@@ -51,5 +57,9 @@ window.onload = function() {
 	function setPosition(element, x, y) {
 		element.style.left = x + 'px';
 		element.style.top = y + 'px';
+	}
+
+	function setTransform(element, sx, sy, deg) {
+		element.style.transform = 'rotate(' + deg + 'deg) scale(' + sx + ', ' + sy + ')';
 	}
 };
