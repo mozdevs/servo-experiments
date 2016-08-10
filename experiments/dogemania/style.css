@@ -1,0 +1,17 @@
+* {
+	box-sizing: border-box;
+}
+
+h1 {
+	position: absolute;
+	color: #fff;
+	text-shadow: 1px 1px 3px #000;
+}
+
+img {
+	transition: all 1s ease-in-out;
+}
+
+#container img {
+	position: absolute;
+}
