@@ -13,7 +13,7 @@
         {
             "name": "DIVMosaics",
             "desc": "rendering images using <div>'s as pixels",
-            "href": "experiments/divMosaics/web/"
+            "href": "experiments/divMosaics/"
         }
     ], 
     "experiments": [
