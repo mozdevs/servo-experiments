@@ -31,6 +31,11 @@
             "name": "Testing CSS transformations",
             "desc": "Repeatedly transform a series of elements to test the various transformations",
             "href": "experiments/test-transformations/"
+        },
+        {
+            "name": "Testing CSS filters",
+            "desc": "Repeatedly apply a filter to a series of elements to test the various CSS filters",
+            "href": "experiments/test-filters/"
         }
     ]
 
