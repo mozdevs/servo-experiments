@@ -13,7 +13,7 @@
         {
             "name": "DIVMosaics",
             "desc": "rendering images using <div>'s as pixels",
-            "href": "experiments/divMosaics/web/"
+            "href": "experiments/divMosaics/"
         }
     ], 
     "experiments": [
@@ -25,12 +25,17 @@
         {
             "name": "duckDuckServo",
             "desc": "a fancy interface for duckDuckGo queries",
-            "href": "experiments/duckDuckServo/web/"
+            "href": "experiments/duckDuckServo/"
         },
 		{
             "name": "Testing CSS transformations",
             "desc": "Repeatedly transform a series of elements to test the various transformations",
             "href": "experiments/test-transformations/"
+        },
+        {
+            "name": "Testing CSS filters",
+            "desc": "Repeatedly apply a filter to a series of elements to test the various CSS filters",
+            "href": "experiments/test-filters/"
         }
     ]
 
