@@ -4,10 +4,25 @@ window.onload = function() {
 	var imageHeight = 512;
 	var imageCounter = 0;
 
-	var h1 = document.querySelector('h1');
+	var counterElement = document.querySelector('h1');
 	var container = document.getElementById('container');
 
-	setInterval(addImage, 1000);
+	var stats = new ServoStats();
+	container.appendChild(stats.dom);
+
+	
+	animate();
+
+	addImage();
+
+	function animate() {
+		stats.start();
+
+		requestAnimationFrame(animate);
+		
+		stats.end();
+		stats.update();
+	}
 
 	function addImage() {
 		var w = window.innerWidth - imageWidth;
@@ -24,7 +39,9 @@ window.onload = function() {
 
 		imageCounter++;
 
-		h1.innerHTML = imageCounter;
+		counterElement.innerHTML = imageCounter;
+
+		setTimeout(addImage, 500);
 	}
 
 	function random(maxValue) {
@@ -32,7 +49,6 @@ window.onload = function() {
 	}
 
 	function setPosition(element, x, y) {
-		console.log(x, y);
 		element.style.left = x + 'px';
 		element.style.top = y + 'px';
 	}

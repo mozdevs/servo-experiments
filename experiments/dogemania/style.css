@@ -9,15 +9,25 @@ body {
 }
 
 h1 {
+	font-family: Helvetica, Arial, sans-serif;
 	position: absolute;
-	transform: translate(0%, 30%);
-	height: 100%;
+	transform: translate(0%, 100%);
 	width: 100%;
-	color: #fff;
-	text-shadow: 1px 1px 3px #000;
+	line-height: 30vh;
+	margin: 0;
+	padding: 0;
 	z-index: 999;
 	font-size: 30vh;
 	text-align: center;
+	color: #f0f;
+	text-shadow: 1vh 1vh 0vh #ff0;
+}
+
+.servo-stats {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 999;
 }
 
 img {
