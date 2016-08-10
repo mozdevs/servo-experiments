@@ -1,5 +1,5 @@
 window.onload = function() {
-	var imageURL = '../../servo.png';
+	var imageURL = 'servo.png';
 	var imageWidth = 512;
 	var imageHeight = 512;
 	var imageCounter = 0;
@@ -31,15 +31,19 @@ window.onload = function() {
 		img.src = imageURL;
 
 		container.appendChild(img);
-		setTransform(img, 0.01, 0.01, random(360));
+
+
+
 
 		var originX = Math.random() > 0.5 ? random(-w) : random(w);
 		var originY = Math.random() > 0.5 ? random(-h) : random(h);
+		var sign = Math.random() > 0.5 ? -1 : 1;
 		
+		setTransform(img, 0.01, 0.01, random(360 * 2) * sign);
 		setPosition(img, originX, originY);
 
 		setTimeout(function() {
-			setTransform(img, 0.7, 0.7, 0);
+			setTransform(img, 1, 1, 0);
 			setPosition(img, random(w - imageWidth), random(h - imageHeight));
 		}, 500);
 
