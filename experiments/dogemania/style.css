@@ -24,11 +24,21 @@ h1 {
 }
 
 .servo-stats {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 999;
+    font-family: Helvetica, sans;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    background: #666;
+    color: #fff;
+    display: inline-block;
+    z-index: 999;
 }
+
+.servo-stats li {
+    list-style: none;
+}
+
 
 img {
 	transition: all 1s ease-in-out;
