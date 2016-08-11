@@ -31,8 +31,8 @@ function ServoStats() {
 	};
 
 	this.end = function() {
-		frames++;
 		var now = getNow();
+		frames++;
 		
 		ms = now - startTime;
 
