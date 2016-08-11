@@ -14,6 +14,7 @@ window.addEventListener('load', function() {
     Http.get('experiments.json', function(data) {
         addExperiments(document.querySelector('#featured-experiments .experiments-list'), data.featured);
         addExperiments(document.querySelector('#other-experiments .experiments-list'), data.experiments);
+        addExperiments(document.querySelector('#technical-tests .experiments-list'), data.tests);
     });
 
     function addExperiments(ul, experiments) {
@@ -30,6 +31,7 @@ window.addEventListener('load', function() {
                 var screen = document.createElement('img');
                 screen.src = info.href + 'thumb.png';
                 screen.width = 256;
+                screen.height = 256;
                 li.appendChild(h3);
                 li.appendChild(screen);
                 return li;

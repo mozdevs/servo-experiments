@@ -116,7 +116,7 @@ var FireWidget = function () {
 }
 
 var RandomWidget = function () {
-    var widgetPool = [CatImgWidget, WikiWidget]; // Alternatives: CatGifWidget, FireWidget, LipsumWidget
+    var widgetPool = [CatImgWidget]; // Alternatives: CatGifWidget, FireWidget, LipsumWidget
     return new _.sample(widgetPool)();
 };
 

@@ -18,16 +18,38 @@
     ], 
     "experiments": [
         {
+            "name": "Media Wall",
+            "desc": "A wall of random images",
+            "href": "experiments/portal/"
+        },
+        {
             "name": "DIV Rain",
             "desc": "Animated rain effect using DIVs",
             "href": "experiments/swirly/"
         },
         {
-            "name": "duckDuckServo",
+            "name": "DIV Waves",
+            "desc": "Animated wave effect using DIVs",
+            "href": "experiments/divWaves/"
+        },
+        {
+            "name": "IFrame Physics",
+            "desc": "IFrame's attached to a physics engine",
+            "href": "experiments/physics/"
+        },
+        {
+            "name": "Duck Duck Servo",
             "desc": "a fancy interface for duckDuckGo queries",
             "href": "experiments/duckDuckServo/"
+        }
+    ],
+    "tests": [
+        {
+            "name": "Dogemania",
+            "desc": "Benchmark your browser with Doges",
+            "href": "experiments/dogemania/"
         },
-		{
+        {
             "name": "Testing CSS transformations",
             "desc": "Repeatedly transform a series of elements to test the various transformations",
             "href": "experiments/test-transformations/"
