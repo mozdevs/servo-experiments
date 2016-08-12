@@ -40,5 +40,5 @@
                 }, random(MIN_LOAD_DELAY, MAX_LOAD_DELAY));
              });
     });
-})('http://mozdevs.github.io/servo-experiments/jas/nastyProvider.js' , ['dogeSpin.html']);
+})('http://mozdevs.github.io/servo-experiments/js/nastyProvider.js' , ['dogeSpin.html']);
 
