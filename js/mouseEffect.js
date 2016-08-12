@@ -1,11 +1,7 @@
 function mouseEffect(numBlocks, blockFunc) {
     numBlock = numBlocks || 6;
     blockFunc = blockFunc || (function() {
-        var d = document.createElement('div');
-        d.style.width = '20px';
-        d.style.height = '20px';
-        d.style.backgroundColor = 'red';
-        return d;
+        return document.createTextNode('');
     });
     var mx = 0,
         my = 0;
@@ -29,7 +25,8 @@ function mouseEffect(numBlocks, blockFunc) {
 
     function Block(xInitial, yInitial) {
         var el = document.createElement('div');
-        // el.setAttribute('class', 'block');
+        el.setAttribute('class', 'doge-block');
+        el.style.position = 'absolute';
 
         this.friction = 1;
 
@@ -45,22 +42,12 @@ function mouseEffect(numBlocks, blockFunc) {
         this.ay = 0;
 
         this.animate = function(t) {
-            this.vx += this.ax / this.mass;
-            this.vy += this.ay / this.mass;
+            // this.vx += this.ax / this.mass;
+            // this.vy += this.ay / this.mass;
 
-            this.vx *= this.friction;
-            this.vy *= this.friction;
             this.x += this.vx;
             this.y += this.vy;
             
-            if (this.y > stage.height) {
-                this.y = -50;
-                this.ax = 0;
-                this.ay = 0;
-                this.vx = 0;
-                this.vy = 0;
-            }
-
             el.style.left = (this.x - 10) + 'px';
             el.style.top = (this.y - 10) + 'px';
         };
@@ -76,12 +63,14 @@ function mouseEffect(numBlocks, blockFunc) {
         // Mouse block follows the mouse
         mouseBlock.x = mx;
         mouseBlock.y = my;
+        var friction = 0.88;
         blocks.reduce((prevBlock, block) => { // Each block follows the previous, starting from the mouseBlock
             block.vx += (prevBlock.x - block.x) * friction;
             block.vy += (prevBlock.y - block.y) * friction;
             block.animate(t);
             return block;
         }, mouseBlock);
+
         mouseBlock.animate(t);
     }
 }

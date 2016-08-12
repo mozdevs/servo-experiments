@@ -54,7 +54,6 @@
             padding: 10px;
             cursor: pointer;
             transition: opacity 0.5s ease-in-out, background-color 0.25s ease-in-out;
-            /*transform: translateX(100vw);*/
             margin-left: 10px;
             opacity: 0;
             text-align: center;

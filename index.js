@@ -10,7 +10,6 @@ Http.get = function(url, cb) {
 
 
 window.addEventListener('load', function() {
-
     Http.get('experiments.json', function(data) {
         addExperiments(document.querySelector('#featured-experiments .experiments-list'), data.featured);
         addExperiments(document.querySelector('#other-experiments .experiments-list'), data.experiments);
@@ -48,7 +47,6 @@ window.addEventListener('load', function() {
 
 
     }
-
 
     requestAnimationFrame(animate);
     function animate(t) {
