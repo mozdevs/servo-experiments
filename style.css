@@ -1,0 +1,110 @@
+ * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: georgia; /* TODO: Add lintel.otf and reference here */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        #container {
+            width: 70vw;
+            margin: auto;
+        }
+
+        header {
+            margin: auto;
+            text-align: center;
+            font-family: arial;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            font-weight: lighter;
+        }
+
+        .header-inner {
+            min-width: 320px;
+            max-width: 540px;
+            margin: auto;
+        }
+
+        .header-logo {
+            float: left;
+            margin-top:0.2em;
+        }
+
+        .header-main {
+            font-size:150%;
+        }
+
+        .header-tagline {
+            color: #696969;
+        }
+
+        .experiments-list {
+            list-style-type: none;
+        }
+        .experiments-list li {
+            display: inline-block;
+            margin: none;
+            margin-top: 10px;
+            padding: 10px;
+            cursor: pointer;
+            transition: opacity 0.5s ease-in-out, background-color 0.25s ease-in-out;
+            /*transform: translateX(100vw);*/
+            margin-left: 10px;
+            opacity: 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .experiments-list li h3 {
+            margin-bottom: 10px;
+        }
+
+        .experiments-list li:hover {
+            background-color: #a4e6ff;
+        }
+
+        .experiment-preview {
+            display: block;
+            background-color: #e6e6e6;
+            text-align: center;
+            cursor: pointer;
+            transition:background-color 0.25s ease-in-out;
+            margin-left: 100%;
+            margin-top: 3px;
+        }
+
+        .experiment-preview:hover {
+            background-color: #a4e6ff;
+        }
+
+        main {
+            padding: 2%;
+        }
+
+        main .heading {
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+    
+        #experimentPreviewTemplate {
+            display: none;
+        }
+
+        @media all and (max-width: 520px) {
+            #container {
+                width: 100vw;
+            }
+            .experiment-preview {
+                width: 100%;
+            }
+            .header-logo {
+                display: none;
+            }
+        }
