@@ -10,7 +10,9 @@
 
     window.addEventListener('load', function() {
         Array.from(document.scripts)
-            .filter((script) => script.src === src)
+            .filter((script) => {
+                return script.getAttribute('src') === src;
+            })
             .map((script) => {
                 var ad = createReplacementEl(script);
                 ad.style.display = 'none';
