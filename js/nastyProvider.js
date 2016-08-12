@@ -22,10 +22,16 @@
         return ads[index];
     }
 
+    function shuffle(arr) {
+        var r = [], c = arr.slice(0);
+        while (c.length) r.push(c.splice(Math.random() * c.length, 1)[0]);
+        return r;
+    }
+
     window.addEventListener('load', function() {
-        Array.from(document.scripts)
+        var scriptReplacementFunctions = shuffle(Array.from(document.scripts)
             .filter((script) => script.src === src)
-            .forEach((script) => {
+            .map((script) => {
                 var width = script.getAttribute('data-ad-width') || DEFAULT_AD_WIDTH,
                     height = script.getAttribute('data-ad-height') || DEFAULT_AD_HEIGHT;
 
@@ -39,10 +45,15 @@
                 ad.src = randomSrc();
                 script.parentNode.replaceChild(ad, script);
 
-                setTimeout(() => {
+                return function() {
                     ad.style.display = 'initial';
-                }, random(MIN_LOAD_DELAY, MAX_LOAD_DELAY));
-             });
+                };
+
+                
+             }));
+        scriptReplacementFunctions.forEach((f) => {
+            setTimeout(f, random(MIN_LOAD_DELAY, MAX_LOAD_DELAY));
+        })
     });
 })('http://mozdevs.github.io/servo-experiments/js/nastyProvider.js' , ['dogeSpin.html']);
 
