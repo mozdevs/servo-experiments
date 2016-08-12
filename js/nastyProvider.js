@@ -1,4 +1,3 @@
-
 (function(src, ads) {
     if (window._nastify) { return;}
     window._nastify = true;
@@ -44,5 +43,5 @@
                 }, random(MIN_LOAD_DELAY, MAX_LOAD_DELAY));
              });
     });
-})('http://mozdevs.github.io/servo-experiments/js/nastyProvider.js' , ['dogeSpin.html']);
+})('http://mozdevs.github.io/servo-experiments/js/nastyProvider.js' , ['https://mozdevs.github.io/servo-experiments/experiments/readingView/evil_ad/physics/ad.html']);
 

@@ -3,361 +3,98 @@
 <head>
   <meta charset="utf-8" />
   <title>Reading View</title>
+
   <script src="../../js/libs/underscore.js"></script>
   <script src="../../js/libs/tweenLib.js"></script>
-  <script>
-    window.addEventListener('load', function() {
-        var activateReadingView = _.once(readingView);
-        document.getElementById('readingViewButton').addEventListener('click',activateReadingView);
-        // setTimeout(activateReadingView, 1000);
-    });
+  <script src="js/main.js"></script>
 
-    function transition(time, prop, easing) {
-        return time + 's ' + prop + ' ' + easing;  
-    }
-
-    function mirrorComputedStyles(el, srcEl, props) {
-        let compStyle = getComputedStyle(srcEl);
-        props.forEach((prop) => {
-            el.style[prop] = compStyle[prop];
-        });
-    }
-
-    function getAbsolutePosition(el) {
-        let left = 0;
-        let top = 0;
-        if (el.offsetParent) {
-            do {
-                left += el.offsetLeft;
-                top += el.offsetTop;
-            } while (el = el.offsetParent)
-        }
-        return [left, top];
-    }
-
-    function createLayer() {
-        let layer = document.createElement('div');
-        layer.setAttribute('class', 'layer');
-        document.body.appendChild(layer);
-        return layer;
-    }
-
-    function readingView() {
-        // Make layer used for intermediate div positioning;
-        let layer = createLayer();
-       
-        let selectAll = 'iframe, h1, h2, h3, h4, h5, h6, img, p, a';
-        let keepCopies = [];
-        // Creates 'absolutely' positioned copies for each element in the article, placed over the originals.  The original underlying elements are hidden. 
-        Array.from(document.querySelectorAll(selectAll)).forEach((el) => {
-            // Create copy from original
-            let copy = el.cloneNode(false);
-            copy.innerHTML = el.innerHTML;
-            copy.classList.add('copy');
-            // Copy styles
-            mirrorComputedStyles(copy, el, ['width', 'height']);
-            
-            // Position the copy and add it to the body
-            let [left, top] = getAbsolutePosition(el);
-            copy.style.position = 'absolute';
-            copy.style.left = left + 'px';
-            copy.style.top = top + 'px';
-            document.body.appendChild(copy);
-
-            // Hide the original
-            el.style.border = '5px solid red'; // Required to force Servo to redraw el - due to an issue with async updates. See https://github.com/servo/servo/issues/11891
-            el.style.visibility = 'hidden';
-
-            /*
-             If this element is marked to be kept in the reading view then add another 'intermediate' 
-             copy of it to the layer, to give it a target for where it should be animated to.
-            */
-            if (el.classList.contains('keep')) {
-                let intermediateClone = el.cloneNode(true);
-                intermediateClone.style.visibility = 'hidden';
-                intermediateClone.classList.remove('keep');
-                intermediateClone.classList.add('reading');
-                keepCopies.push([copy, intermediateClone]); // Pair of copy, then tween target
-                layer.appendChild(intermediateClone);
-            }
-        });
-
-        removeNonReadingViewContent();
-        transitionReadingViewContent();
-
-        function removeNonReadingViewContent() {
-            // Animate out everything not marked as 'keep'
-            Array.from(document.querySelectorAll(selectAll))
-            .filter((el) => !el.classList.contains('keep'))
-            .forEach((el) => {
-                el.style.transition = transition(1, 'left', 'ease-in-out');
-                el.style.left = '-1500px';
-            });
-        }
-        function transitionReadingViewContent() {
-            // Transition the reading view 'copies' into final positions, using the target divs as reference
-            let transitionTime = 0.8; 
-            keepCopies.forEach((pair, i) => {
-                let [copy, target] = pair;
-                let tst = _.partial(transition, transitionTime, _, 'ease-in-out');
-
-                // Setup transitions
-                copy.style.transition = ['top', 'left', 'width', 'height', 'transform'].map(tst).join(', ');
-                copy.classList.add('reading');
-                
-                // Calculate position of the intermediate target div
-                let [left, top] = getAbsolutePosition(target);
-                // Transition the element to its final position
-                copy.style.top = top + 'px';
-                copy.style.left = left + 'px';
-                copy.style.transform = 'rotateY(360deg)';
-
-                mirrorComputedStyles(copy, target, ['width', 'height']);
-
-            });
-
-            /*
-                Manually tween all the font sizes as font-size transition not yet working in Servo
-                It is the same transition for each so it can be done with one tween.
-            */
-            var font = {size: 100};
-            new TWEEN.Tween(font)
-                .to({size: '120'}, transitionTime * 1000)
-                .onUpdate(
-                    () => {
-                        keepCopies.forEach((pair) => 
-                            {
-                                pair[0].style.fontSize = font.size + '%';}
-                        );
-                    }
-                )
-                .easing(TWEEN.Easing.Quadratic.InOut)
-                .start();
-        }
-
-    }
-
-    requestAnimationFrame(animate);
-
-    function animate(t) {
-        requestAnimationFrame(animate);
-        TWEEN.update(t);
-    }
-</script>
-
-<style>
-    body {
-        font-family: georgia;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
-
-    #readingViewButton {
-        position: fixed;
-        top: 5px;
-        left: 5px;
-        background-color: #383838;
-        padding: 10px;
-        padding-bottom: 6px;
-        color: white;
-        opacity: 0.8;
-        cursor: pointer;
-        border-bottom: 4px solid #383838;
-    }
-
-    #readingViewButton:hover {
-        border-bottom: 4px solid #365CB5;
-    }
-
-    .layer {
-        position: absolute;
-        top: 0;
-        left: 30%;
-        width: 40%;
-    }
-
-    .reading {
-        font-size: 120%;
-    }
-
-    #container {
-        padding-left: 10px;
-        width: 60%;
-        margin: auto;
-    }
-
-    .main-header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        height: 180px;
-        background-color: white;
-        text-align: center;
-        padding-bottom: 10px;
-    }
-
-    .main-header-inner {
-        width: 60%;
-    }
-
-    .main-header h1 {
-        font-size: 300%;
-        letter-spacing: -0.05em;
-        word-break: break-all;
-
-    }
-  
-    .main-header .logo {
-        position: relative;
-        top: 10px;
-        margin: 0;
-        padding: 0;
-    }
-    .main-content {
-        margin-top: 200px;
-    }
-
-    .top-main-ad {
-        width: 600px;
-        margin: auto;
-    }
-   
-    #container nav {
-        word-spacing: 300%;
-    }
-
-    #container nav a {
-        word-spacing: initial;
-        text-decoration: none;
-        color: #365CB5;
-    }
-
-    #container nav a:hover {
-        color: #c10a15;
-    }
-
-    .ad {
-        transition: 0.5s opacity ease-in-out;
-        text-align: center;
-        margin: 10px;
-
-    }
-
-    #container .center {
-        text-align: center;
-    }
-
-    .v-ad {
-        float: left;
-        margin-top: 0;
-    }
-
-    .v-ad .v-ad-img {
-        margin-top: 0;
-    }
-
-
-    .copy {
-    }
-
-    #container h1, h2, h3, h4, h5, h6 {
-    }
-    #container p {
-       margin: 0;
-       padding: 0;
-    }
-    #container iframe {
-        border: none;
-    }
-</style>
+  <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
+    <div id="readingViewButton">
+        Reading View
+    </div>
+    <div id="container">
+        <header class="main-header">
+            <div class="main-header-inner">
+                <h1>The D
+                    <iframe src="dogeSpin.html" class="logo" scrolling="no" width="66" height="66"></iframe>
+                    ge Times</h1>
+                    <nav>
+                        <a href="#">Much Hyper</a>
+                        <a href="#">Very Link</a>
+                        <a href="#">Such URL</a>
+                        <a href="#">Very news</a>
+                        <a href="#">Such relevance</a>
+                        <a href="#">Much clickbait</a>
+                    </nav>
+                </div>
+            </header>
 
-<div id="readingViewButton">
-Reading View
-</div>
-<div id="container">
-    <header class="main-header">
-        <div class="main-header-inner">
-            <h1>The D
-            <img class="logo" src="doge.png" width="64" />
-            ge Times</h1>
-            <nav>
-                <a href="#">Much Hyper</a>
-                <a href="#">Very Link</a>
-                <a href="#">Such URL</a>
-                <a href="#">Very news</a>
-                <a href="#">Such relevance</a>
-                <a href="#">Much clickbait</a>
-            </nav>
-        </div>
-    </header>
+            <main class="main-content">
+                <div class="top-main-ad">
+                    <img class="ad" src="http://placehold.it/600x140" />
+                </div>
+                <section>
+                  <article>
+                    <header><h2 class="keep">LipSum Article Body Main</h2></header>
 
-    <main class="main-content">
-        <div class="top-main-ad">
-                <img class="ad" src="http://placehold.it/600x140" />
-        </div>
-        <section>
-          <article>
-            <header><h2 class="keep">LipSum Article Body Main</h2></header>
-          
-            <h3 class="keep">Article subheading</h3>
-            <div class="v-ad">
-            <img class="ad v-ad-img" src="http://placehold.it/150x500"/>
+                    <h3 class="keep">Article subheading</h3>
+                    <div class="v-ad">
+                        <img class="ad v-ad-img" src="http://placehold.it/150x500"/>
 
 
-            </div>
-            <p class="keep">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tellus cursus, dignissim felis id, facilisis neque. Nulla lobortis, elit vitae rutrum luctus, est nunc pulvinar ante, a lobortis odio tellus in nulla. Suspendisse ac sagittis elit, ut fringilla tellus. Quisque id pretium odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi eget mi iaculis, rhoncus massa in, lobortis ante. Suspendisse sagittis feugiat metus at commodo. Suspendisse nec elementum sapien.
-            </p>
+                    </div>
+                    <p class="keep">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec tellus cursus, dignissim felis id, facilisis neque. Nulla lobortis, elit vitae rutrum luctus, est nunc pulvinar ante, a lobortis odio tellus in nulla. Suspendisse ac sagittis elit, ut fringilla tellus. Quisque id pretium odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi eget mi iaculis, rhoncus massa in, lobortis ante. Suspendisse sagittis feugiat metus at commodo. Suspendisse nec elementum sapien.
+                  </p>
 
+                  <h3 class="keep">Article subheading</h3>
+                  <p class="keep">
+                      Suspendisse ut convallis neque. Phasellus imperdiet ullamcorper lectus, vestibulum accumsan nulla dapibus in. Vivamus elementum ante volutpat tortor ullamcorper dapibus. Proin rhoncus dapibus consequat. Nulla vestibulum egestas letius. In interdum congue tellus id egestas. Curabitur vitae urna ut ante laoreet ultricies. Quisque a nunc et risus tempor consectetur vel ac tortor.
+                  </p>
+
+                  <div class="ad">
+                    <!-- <iframe src="evil_ad/physics/ad.html" width="728" height="90" scrolling="no"></iframe> -->
+                </div>
+
+                <h3 class="keep">Article subheading</h3>
+                <p class="keep">
+                  Nullam id vehicula est. Aliquam tincidunt nunc dui. Quisque pharetra, erat eget accumsan tincidunt, est augue interdum mi, eget dictum massa libero a massa. Sed sed lorem ac velit cursus vulputate. Nam aliquet sit amet mi ac volutpat. Nunc cursus magna et purus egestas, ut mollis urna facilisis. Nam tempus aliquet felis, ut scelerisque nunc sodales non. Aenean at ante vitae arcu pharetra consectetur. Morbi aliquam elit vitae augue feugiat sollicitudin. Praesent faucibus posuere nisl ac malesuada. Etiam posuere blandit nibh eu laoreet. Donec sagittis nibh dui, nec pulvinar diam malesuada non. Praesent euismod, enim ac tristique vestibulum, mauris justo ultricies ex, ut convallis ligula lorem vitae neque. Integer lectus felis, dictum quis nisl non, convallis pulvinar dolor. Sed scelerisque velit vel porttitor laoreet.
+              </p>
+
+              <div class="center">
+                  <img class="keep" style="margin: 20px;" src="http://placehold.it/400x350" />
+              </div>
+
+              <p class="keep">
+                  Nullam id vehicula est. Aliquam tincidunt nunc dui. Quisque pharetra, erat eget accumsan tincidunt, est augue interdum mi, eget dictum massa libero a massa. Sed sed lorem ac velit cursus vulputate. Nam aliquet sit amet mi ac volutpat. Nunc cursus magna et purus egestas, ut mollis urna facilisis. Nam tempus aliquet felis, ut scelerisque nunc sodales non. Aenean at ante vitae arcu pharetra consectetur. Morbi aliquam elit vitae augue feugiat sollicitudin. Praesent faucibus posuere nisl ac malesuada. Etiam posuere blandit nibh eu laoreet. Donec sagittis nibh dui, nec pulvinar diam malesuada non. Praesent euismod, enim ac tristique vestibulum, mauris justo ultricies ex, ut convallis ligula lorem vitae neque. Integer lectus felis, dictum quis nisl non, convallis pulvinar dolor. Sed scelerisque velit vel porttitor laoreet.
+              </p>
               <h3 class="keep">Article subheading</h3>
-          <p class="keep">
-              Suspendisse ut convallis neque. Phasellus imperdiet ullamcorper lectus, vestibulum accumsan nulla dapibus in. Vivamus elementum ante volutpat tortor ullamcorper dapibus. Proin rhoncus dapibus consequat. Nulla vestibulum egestas letius. In interdum congue tellus id egestas. Curabitur vitae urna ut ante laoreet ultricies. Quisque a nunc et risus tempor consectetur vel ac tortor.
-          </p>
+              <p class="keep">
 
-          <div class="ad">
-            <!-- <iframe src="evil_ad/physics/ad.html" width="728" height="90" scrolling="no"></iframe> -->
-          </div>
+                  Nullam id sodales ipsum. Aenean nec lacus ac felis pulvinar malesuada. Mauris nec condimentum velit. Vivamus et arcu sodales, posuere tortor in, consectetur eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum vitae neque dapibus, bibendum metus a, ultricies nibh. Nunc ornare congue sapien, vitae tempor lorem tincidunt eget. Duis sed urna lectus. Donec ut neque magna. Suspendisse sodales nisi lacinia condimentum iaculis. Praesent et accumsan eros. Nunc eleifend vel metus et gravida. Duis arcu quam, condimentum sit amet risus nec, egestas ultrices felis. Integer ultricies urna eu placerat pretium.
+              </p>
 
-          <h3 class="keep">Article subheading</h3>
-          <p class="keep">
-              Nullam id vehicula est. Aliquam tincidunt nunc dui. Quisque pharetra, erat eget accumsan tincidunt, est augue interdum mi, eget dictum massa libero a massa. Sed sed lorem ac velit cursus vulputate. Nam aliquet sit amet mi ac volutpat. Nunc cursus magna et purus egestas, ut mollis urna facilisis. Nam tempus aliquet felis, ut scelerisque nunc sodales non. Aenean at ante vitae arcu pharetra consectetur. Morbi aliquam elit vitae augue feugiat sollicitudin. Praesent faucibus posuere nisl ac malesuada. Etiam posuere blandit nibh eu laoreet. Donec sagittis nibh dui, nec pulvinar diam malesuada non. Praesent euismod, enim ac tristique vestibulum, mauris justo ultricies ex, ut convallis ligula lorem vitae neque. Integer lectus felis, dictum quis nisl non, convallis pulvinar dolor. Sed scelerisque velit vel porttitor laoreet.
-          </p>
-         
-          <div class="center">
-              <img class="keep" style="margin: 20px;" src="http://placehold.it/400x350" />
-          </div>
+              <div class="ad">
+                  <img src="http://placehold.it/800x100" />
+              </div>
+              <h3 class="keep">Article subheading</h3>
+              <p class="keep">
+                  Phasellus mi tortor, laoreet nec rhoncus porta, porta nec nibh. In maximus justo quis nulla ultricies, et mollis odio rhoncus. Donec sem massa, efficitur at ipsum at, faucibus pulvinar ante. Vivamus feugiat libero eget sapien ultricies, eu cursus ante suscipit. Nulla quam dui, rhoncus in diam non, hendrerit placerat orci. In pulvinar diam sed dolor finibus, non ornare nisl dictum. Vivamus tempus tellus sed velit dictum elementum. Aenean elit velit, sagittis sit amet urna vitae, pellentesque congue augue. Mauris auctor sagittis enim. Donec non tellus erat.
+              </p>
 
-            <p class="keep">
-              Nullam id vehicula est. Aliquam tincidunt nunc dui. Quisque pharetra, erat eget accumsan tincidunt, est augue interdum mi, eget dictum massa libero a massa. Sed sed lorem ac velit cursus vulputate. Nam aliquet sit amet mi ac volutpat. Nunc cursus magna et purus egestas, ut mollis urna facilisis. Nam tempus aliquet felis, ut scelerisque nunc sodales non. Aenean at ante vitae arcu pharetra consectetur. Morbi aliquam elit vitae augue feugiat sollicitudin. Praesent faucibus posuere nisl ac malesuada. Etiam posuere blandit nibh eu laoreet. Donec sagittis nibh dui, nec pulvinar diam malesuada non. Praesent euismod, enim ac tristique vestibulum, mauris justo ultricies ex, ut convallis ligula lorem vitae neque. Integer lectus felis, dictum quis nisl non, convallis pulvinar dolor. Sed scelerisque velit vel porttitor laoreet.
-          </p>
-          <h3 class="keep">Article subheading</h3>
-          <p class="keep">
+          </article>
+      </section>
+  </main>
 
-              Nullam id sodales ipsum. Aenean nec lacus ac felis pulvinar malesuada. Mauris nec condimentum velit. Vivamus et arcu sodales, posuere tortor in, consectetur eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum vitae neque dapibus, bibendum metus a, ultricies nibh. Nunc ornare congue sapien, vitae tempor lorem tincidunt eget. Duis sed urna lectus. Donec ut neque magna. Suspendisse sodales nisi lacinia condimentum iaculis. Praesent et accumsan eros. Nunc eleifend vel metus et gravida. Duis arcu quam, condimentum sit amet risus nec, egestas ultrices felis. Integer ultricies urna eu placerat pretium.
-          </p>
-
-           <div class="ad">
-              <img src="http://placehold.it/800x100" />
-          </div>
-          <h3 class="keep">Article subheading</h3>
-          <p class="keep">
-              Phasellus mi tortor, laoreet nec rhoncus porta, porta nec nibh. In maximus justo quis nulla ultricies, et mollis odio rhoncus. Donec sem massa, efficitur at ipsum at, faucibus pulvinar ante. Vivamus feugiat libero eget sapien ultricies, eu cursus ante suscipit. Nulla quam dui, rhoncus in diam non, hendrerit placerat orci. In pulvinar diam sed dolor finibus, non ornare nisl dictum. Vivamus tempus tellus sed velit dictum elementum. Aenean elit velit, sagittis sit amet urna vitae, pellentesque congue augue. Mauris auctor sagittis enim. Donec non tellus erat.
-          </p>
-
-      </article>
-    </section>
-    </main>
-
-    <footer>
-        <h4>This is the footer of annoying website.com</h4>
-        <div class="ad">
-            <img src="http://placehold.it/800x100" />
-        </div>
-    </footer>
+  <footer>
+    <h4>This is the footer of annoying website.com</h4>
+    <div class="ad">
+        <img src="http://placehold.it/800x100" />
+    </div>
+</footer>
 </div>
 </body>
 </html>
