@@ -38,7 +38,7 @@
         // Make layer used for intermediate div positioning;
         let layer = createLayer();
        
-        let selectAll = 'iframe, h1, h2, h3, h4, h5, h6, img, p, a';
+        let selectAll = 'iframe, h1, h2, h3, h4, h5, h6, img, p, a, .remove';
         let keepCopies = [];
         // Creates 'absolutely' positioned copies for each element in the article, placed over the originals.  The original underlying elements are hidden. 
         Array.from(document.querySelectorAll(selectAll)).forEach((el) => {
@@ -66,7 +66,7 @@
             */
             if (el.classList.contains('keep')) {
                 let intermediateClone = el.cloneNode(true);
-                intermediateClone.style.visibility = 'hidden';
+                // intermediateClone.style.visibility = 'visible';
                 intermediateClone.classList.remove('keep');
                 intermediateClone.classList.add('reading');
                 keepCopies.push([copy, intermediateClone]); // Pair of copy, then tween target
@@ -82,10 +82,15 @@
             Array.from(document.querySelectorAll(selectAll))
             .filter((el) => !el.classList.contains('keep'))
             .forEach((el) => {
-                el.style.transition = transition(1, 'left', 'ease-in-out');
+                var transitionTimeInSeconds = 1;
+                el.style.transition = transition(transitionTimeInSeconds, 'left', 'ease-in-out');
                 el.style.left = '-1500px';
+                setTimeout(() => {
+                    el.remove();
+                }, transitionTimeInSeconds * 1000); // Remove the element once it has finished transitioning
             });
         }
+
         function transitionReadingViewContent() {
             // Transition the reading view 'copies' into final positions, using the target divs as reference
             let transitionTime = 0.8; 
@@ -103,9 +108,7 @@
                 copy.style.top = top + 'px';
                 copy.style.left = left + 'px';
                 copy.style.transform = 'rotateY(360deg)';
-
                 mirrorComputedStyles(copy, target, ['width', 'height']);
-
             });
 
             /*
@@ -117,9 +120,9 @@
                 .to({size: '120'}, transitionTime * 1000)
                 .onUpdate(
                     () => {
-                        keepCopies.forEach((pair) => 
-                            {
-                                pair[0].style.fontSize = font.size + '%';}
+                        keepCopies.forEach((pair) => {
+                                pair[0].style.fontSize = font.size + '%';
+                            }
                         );
                     }
                 )
