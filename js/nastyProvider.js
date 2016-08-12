@@ -23,7 +23,7 @@
                 }, random(MIN_LOAD_DELAY, MAX_LOAD_DELAY));
              });
     });
-})('https://mozdevs.github.io/servo-experiments/js/nastyProvider.js' , getRandomDivAd);
+})('../../js/nastyProvider.js' , getRandomDivAd);
 
 
 function getRandomDivAd(script) {
