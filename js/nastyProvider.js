@@ -34,9 +34,13 @@
                 ad.height = height;
 
                 ad.style.border = '1px solid black';
+                ad.style.display = 'none';
+
                 ad.src = randomSrc();
+                script.parentNode.replaceChild(ad, script);
+
                 setTimeout(() => {
-                    script.parentNode.replaceChild(ad, script);
+                    ad.style.display = 'initial';
                 }, random(MIN_LOAD_DELAY, MAX_LOAD_DELAY));
              });
     });
