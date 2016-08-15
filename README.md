@@ -13,8 +13,6 @@ If running from source we recommend using <br />
 `./mach run -r -w [URL]` <br />
 The `-r` specifies to use the version compiled for release and the `-w` enables WebRender.
 <br />
-<br />
-Optionally, you can also include the `-i` flag to enable [incremental layout](https://github.com/servo/servo/wiki/Layout-Overview#user-content-incremental-layout), which is an experimental new layout algorithm in development.
 
 ##Contribute
 File bugs and discuss demo ideas using the issue tracker. <br />
