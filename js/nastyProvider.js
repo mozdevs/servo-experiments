@@ -19,7 +19,7 @@
                 script.parentNode.replaceChild(ad, script);
 
                 setTimeout(() => {
-                    ad.style.display = 'initial';
+                    ad.style.display = 'block';
                 }, random(MIN_LOAD_DELAY, MAX_LOAD_DELAY));
              });
     });
@@ -28,19 +28,63 @@
 
 function getRandomDivAd(script) {
     var el = document.createElement('div');
-    el.innerHTML = '<h2>TODO: CREATE NASTY AD HERE, with love, nastyProvider.js</h2>'
-    var numDoges = 0;
+    var width = script.getAttribute('data-ad-width'),
+        height = script.getAttribute('data-ad-height');
 
+    el.style.width = width + 'px';
+    el.style.height = height + 'px';
+    el.style.display = 'block';
+    el.style.textAlign = 'center';
+    el.classList.add('remove');
+    var sp = document.createElement('div');
+    sp.style.color = 'red';
+    sp.style.transition = '0.5s background-color ease-in-out';
+    sp.style.padding = '2px';
+    sp.style.width = '100%';
+    sp.style.height = '100%';
+    var inner = document.createElement('span');
+    inner.innerHTML = '<h3>' + (Math.random() > 0.5 ? 'BUY ONE DOGE GET ONE FREE' : 'YOU ARE THE 10th VISITOR TO THIS SITE - CLAIM YOUR FREE DOGE NOW') + '</h3>';
+    inner.style.zIndex = 50;
+    inner.style.transform = 'rotate(0deg)';
+    sp.style.fontFamily = 'arial';
+
+    setTimeout(flashBackground, (Math.random() * 2000) + 1000);
+    function flashBackground() {
+        sp.style.backgroundColor = '#' + Math.round((Math.random() * 0xFF0000)).toString(16);
+        setTimeout(flashBackground, (Math.random() * 1500) + 500);
+    } 
+    el.appendChild(sp);
+
+    var numDoges = 3;
+    var dogeDelay = (Math.random() * 4000) + 1000;
     for (var i = 0; i < numDoges; i++) {
         var img = new Image();
-        img.src = 'doge.png';
+        img.src = 'http://dogetest.com/servo.png';
         img.width = 64;
         img.height = 64;
-        img.style.transform = 'rotate(45deg)';
-        img.style.transition = '1s ease-in-out all';
+        img.style.transition = '2s transform ease-in-out';
+        // img.style.position = 'relative';
+        // img.style.bottom = '90px';
+        // el.appendChild(img);
         
-        el.appendChild(img);
+        // setTimeout(((img) => {
+        //     var shifted = false;
+        //     return function() {
+        //         setInterval(() => {
+        //             if (shifted) {
+        //                 img.style.transform = 'translateX(100px) rotate(360deg)';
+        //             } else {
+        //                 img.style.transform = 'translateX(-100px) rotate(-360deg)';
+        //             }
+        //         shifted = !shifted;
+        //         }, 2000);
+        //     }
+        // })(img), dogeDelay);
+       
     }
+    sp.appendChild(inner);
+    el.style.cursor = 'pointer';
+
     return el;   
 }
 

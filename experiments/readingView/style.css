@@ -47,6 +47,7 @@
         width: 100%;
         background-color: white;
         text-align: center;
+        z-index: 998;
     }
     .main-header-inner {
         width: 60%;
@@ -96,7 +97,6 @@
         transition: 0.5s opacity ease-in-out;
         text-align: center;
         margin: 10px;
-
     }
 
     #container .center {

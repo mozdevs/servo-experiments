@@ -38,7 +38,7 @@
         // Make layer used for intermediate div positioning;
         let layer = createLayer();
        
-        let selectAll = 'iframe, h1, h2, h3, h4, h5, h6, img, p, a, .remove';
+        let selectAll = 'iframe, h1, h2, h3, h4, h5, h6, img, p, a, .remove, .ad';
         let keepCopies = [];
         // Creates 'absolutely' positioned copies for each element in the article, placed over the originals.  The original underlying elements are hidden. 
         Array.from(document.querySelectorAll(selectAll)).forEach((el) => {
