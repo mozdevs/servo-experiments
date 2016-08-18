@@ -13,16 +13,22 @@ function PerspectiveAnimatable(elem, animTime) {
 
     function initCollapse() {
         return new TWEEN.Tween(transform)
-            .to({translateZ: 500}, animTime)
+            .to({translateZ: 520}, animTime)
             .easing(TWEEN.Easing.Sinusoidal.Out)
-            .onUpdate(updateTransform);
+            .onUpdate(updateTransform)
+            .onComplete(() => {
+                elem.style.display = 'none';
+            });
     }
 
     function initExpand() {
         return new TWEEN.Tween(transform)
             .to({translateZ: 0}, animTime)
             .easing(TWEEN.Easing.Sinusoidal.In)
-            .onUpdate(updateTransform);
+            .onUpdate(updateTransform)
+            .onComplete(() => {
+                elem.style.display = 'initial';
+            });
     }
 
     function toggle(onComplete) {

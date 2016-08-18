@@ -14,8 +14,8 @@ function ImageSelector(imageURLs) {
             return img;
         })
         .forEach(el.appendChild.bind(el));      
-    var pa = new PerspectiveAnimatable(el, 150);
+    // var pa = new PerspectiveAnimatable(el, 150);
     this.el = el;
-    this.toggle = pa.toggle.bind(pa);
+    this.toggle = () => {};
     this.addEventListener = el.addEventListener.bind(el);
 }

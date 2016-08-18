@@ -18,7 +18,8 @@ function ServoStats() {
 	var fpsEl = document.createElement('span');
 	var msEl = document.createElement('span');
 	var ul = document.createElement('ul');
-	[['avg fps', avgFpsEl], ['fps', fpsEl], ['ms', msEl]].forEach((pair) => {
+	// ['avg fps', avgFpsEl]
+	[['fps', fpsEl], ['ms', msEl]].forEach((pair) => {
 		var title = document.createElement('span');
 		title.innerHTML = pair[0] + ': ';
 		
@@ -39,20 +40,18 @@ function ServoStats() {
 	this.end = function() {
 		var now = getNow();
 		
-		frames++;
-		totalFrames++;
+		frames += 1;
+		// totalFrames++;
 		ms = now - startTime;
 
-
 		fps = (frames * 1000) / (now - lastTime);
-		fpsSum += fps;
+		// fpsSum += fps;
 		frames = 0;
 
 		if (now > time + 1000) {
 			// Update average fps every second
-			avgFps = fpsSum / totalFrames;
+			// avgFps = fpsSum / totalFrames;
 			time = now;
-			
 		}
 
 		lastTime = now;

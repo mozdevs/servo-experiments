@@ -17,7 +17,7 @@ function Demo(config) {
         return size;
     }();
 
-    var bars = []; // Array to store all 
+    var bars = []; // Array to store all bars
     var barFactory = new BarFactory(); // Provides unused, free, bar elements on demand and handles their reuse
     barFactory.populate(3000); // Create 1000 bars, ready to be used
     var barWidth  = config.resolution,
@@ -32,18 +32,16 @@ function Demo(config) {
         var imgSelector = new ImageSelector(imageURLs);
         el.appendChild(imgSelector.el);
 
-        imgSelector.toggle();
+        // imgSelector.toggle();
         
         // Pressing space toggles the image selector
-        listener.simple_combo('space', () => {
+       /* listener.simple_combo('space', () => {
             imgSelector.toggle();
         });
-
+*/
         // Selecting an image causes the image selector to be hidden and a mosaic of that image to be displayed
         imgSelector.addEventListener('imageSelected', (evt) => {
-            imgSelector.toggle(() => {
-                displayMosaic(evt.detail.image);
-            });
+            displayMosaic(evt.detail.image);
         });
     }
 
