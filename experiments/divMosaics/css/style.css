@@ -3,13 +3,13 @@
 }
 
 body {
-    overflow: hidden;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .servo-stats {
-    font-family: Helvetica, sans;
+    font-family: Helvetica;
     position: absolute;
     top: 0;
     left: 0;
@@ -17,6 +17,16 @@ body {
     background: #666;
     color: #fff;
     display: inline-block;
+}
+
+.help {
+    font-family: Helvetica;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    font-size: 150%;
+    transform: translateX(-50%) translateY(-50%);
+    color: #BDBDBD;
 }
 
 .servo-stats li {
@@ -37,18 +47,19 @@ body {
 
 .imageSelector {
     position: absolute;
-    bottom: 0px;
-    left: 0;
+    top: 0;
+    right: 20px;
     z-index: 9999;
-    width: 100vw;
     text-align: center;
 }
 
 .imageSelector img {
-    border: 1px solid black;
+    border: 1px solid #BDBDBD;
     box-shadow: 1px 1px 1px 1px #ccc;
-    height: 100px;
+    width: 80px;
     cursor: pointer;
+    display: block;    
+    margin-top: 10px;
 }
 
 canvas {

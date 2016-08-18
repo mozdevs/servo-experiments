@@ -59,9 +59,9 @@ function ServoStats() {
 	};
 
 	this.update = function() {
-		avgFpsEl.innerHTML = Math.round(avgFps);
-		fpsEl.innerHTML = Math.round(fps);
-		msEl.innerHTML = Math.round(ms);
+		// avgFpsEl.innerHTML = Math.round(avgFps);
+		// fpsEl.innerHTML = Math.round(fps);
+		// msEl.innerHTML = Math.round(ms);
 	};
 
 

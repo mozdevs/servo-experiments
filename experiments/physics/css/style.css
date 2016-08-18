@@ -7,7 +7,6 @@ body {
     height: 100vh;
 }
 
-
 .help {
     font-family: Helvetica, sans;
     position: absolute;
@@ -16,7 +15,6 @@ body {
     font-size: 200%;
     transform: translateX(-50%) translateY(-50%);
     color: #BDBDBD;
-
 }
 
 .servo-stats {
