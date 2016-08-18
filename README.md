@@ -12,7 +12,10 @@ These demos aim to show off Servo's rendering capabilities.
 If running from source we recommend using <br />
 `./mach run -r -w [URL]` <br />
 The `-r` specifies to use the version compiled for release and the `-w` enables WebRender.
-<br />
+<br /><br />
+To see FPS and other stats, run using <br />
+`./mach run -w -r -- -Z wr-stats [URL]`
+
 
 ##Contribute
 File bugs and discuss demo ideas using the issue tracker. <br />
