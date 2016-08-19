@@ -38,11 +38,25 @@ function Demo(config) {
        /* listener.simple_combo('space', () => {
             imgSelector.toggle();
         });
-*/
+        */
         // Selecting an image causes the image selector to be hidden and a mosaic of that image to be displayed
         imgSelector.addEventListener('imageSelected', (evt) => {
             displayMosaic(evt.detail.image);
         });
+        // Cycle through images, mosaicing each one
+        // AUTO CYCLING DISABLED DUE TO SERVO ISSUE
+       /* var images = imgSelector.images;
+        var currIndex = 0;
+        var displayTime = 5000; // Time spent on each image before changing
+        var displayNextImage = () => {
+            displayMosaic(images[currIndex]);
+            currIndex += 1;
+            currIndex %= images.length;
+        };
+        displayNextImage();
+
+        setInterval(displayNextImage, displayTime);*/
+
     }
 
     function displayMosaic(image) {

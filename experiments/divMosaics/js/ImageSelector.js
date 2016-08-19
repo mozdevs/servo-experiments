@@ -2,7 +2,7 @@
 function ImageSelector(imageURLs) {
     var el = document.createElement('div');
     el.className = 'imageSelector';
-    imageURLs
+    var images = imageURLs
         .map((url) => {
             var img = new Image();
             img.src = url;
@@ -12,10 +12,11 @@ function ImageSelector(imageURLs) {
                 }}));
             })
             return img;
-        })
-        .forEach(el.appendChild.bind(el));      
+        });
+    images.forEach(el.appendChild.bind(el));      
     // var pa = new PerspectiveAnimatable(el, 150);
     this.el = el;
     this.toggle = () => {};
+    this.images = images;
     this.addEventListener = el.addEventListener.bind(el);
 }
