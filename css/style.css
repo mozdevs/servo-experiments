@@ -1,12 +1,17 @@
- * {
+        * {
             box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: lintel;
+            src: local(lintel) url(css/lintel.otf);
         }
 
         body {
             font-family: georgia; /* TODO: Add lintel.otf and reference here */
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            /*overflow-x: hidden;*/
         }
 
         #container {
@@ -14,7 +19,7 @@
             margin: auto;
         }
 
-        header {
+        #mainHeader {
             margin: auto;
             text-align: center;
             font-family: arial;
@@ -44,38 +49,35 @@
             color: #696969;
         }
 
-        .experiments-list {
-            list-style-type: none;
+        .experiments-container {
         }
-        .experiments-list li {
-            display: inline-block;
-            margin: none;
+
+        .experiments-group {
+            margin: auto;
             margin-top: 10px;
+            width: 100%;
+           
+        }
+        .experiment-previews {
+             text-align: center;
+        }
+      
+        .experiment-preview {
+            display: inline-block;
             padding: 10px;
-            cursor: pointer;
+            margin: 20px;
             transition: opacity 0.5s ease-in-out, background-color 0.25s ease-in-out;
-            margin-left: 10px;
-            opacity: 0;
             text-align: center;
             font-weight: bold;
+            box-shadow: 3px 3px 5px #7C7C7C;
         }
 
-        .experiments-list li h3 {
+        .experiment-preview a {
+            text-decoration: none;
+            color: initial;
+        }
+        .experiment-preview h3 {
             margin-bottom: 10px;
-        }
-
-        .experiments-list li:hover {
-            background-color: #a4e6ff;
-        }
-
-        .experiment-preview {
-            display: block;
-            background-color: #e6e6e6;
-            text-align: center;
-            cursor: pointer;
-            transition:background-color 0.25s ease-in-out;
-            margin-left: 100%;
-            margin-top: 3px;
         }
 
         .experiment-preview:hover {
@@ -92,16 +94,9 @@
             margin-bottom: 10px;
         }
     
-        #experimentPreviewTemplate {
-            display: none;
-        }
-
         @media all and (max-width: 520px) {
             #container {
                 width: 100vw;
-            }
-            .experiment-preview {
-                width: 100%;
             }
             .header-logo {
                 display: none;

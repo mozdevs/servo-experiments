@@ -49,7 +49,7 @@ function Demo(config) {
         var currIndex = 0;
         var displayTime = 5000; // Time spent on each image before changing
         var displayNextImage = () => {
-            displayMosaic(images[currIndex]);
+            displayMosaic(ima`ges[currIndex]);
             currIndex += 1;
             currIndex %= images.length;
         };
