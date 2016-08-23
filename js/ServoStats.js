@@ -30,7 +30,7 @@ function ServoStats() {
 	});
 	el.appendChild(ul);
 
-	this.dom = el;
+	this.dom = document.createElement('div') || el; // CURRENTLY DISABLED
 	
 	this.start = function() {
 		startTime = getNow();
