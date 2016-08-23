@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 
     <script src="js/libs/underscore.js"></script>
     <script src="js/libs/tweenLib.js"></script>
@@ -13,7 +13,7 @@
 
 <div id="container">
 
-<header>
+<header id="mainHeader">
     <div class="header-inner">
         <div class="header-logo">
             <a href="http://servo.org"><img width="85" src="servo.png" /></a>
@@ -29,33 +29,31 @@
     </div>
 </header>
 
-<main>
+<main class="experiments-container">
 
-<article id="featured-experiments">
+<section class="experiments-group" id="featured-experiments">
 <h3 class="heading">Featured Experiments</h3>
-<ul class="experiments-list">
+<div class="experiment-previews">
 
-</ul>
-</article>
+</div>
 
-<article id="other-experiments">
+</section>
+
+<section class="experiments-group" id="other-experiments">
 <h3 class="heading">Other Experiments</h3>
-<ul class="experiments-list">
+<div class="experiment-previews">
 
-</ul>
-</article>
+</div>
+</section>
 
-<article id="technical-tests">
+<section class="experiments-group" id="technical-tests">
 <h3 class="heading">Technical Tests</h3>
-<ul class="experiments-list">
+<div class="experiment-previews">
 
-</ul>
-</article>
+</div>
+</section>
 </main>
 
-<li id="experimentPreviewTemplate" class="experiment-preview">
-<h4 class="experiment-text"></h4>
-</li>
 
 </div>
 

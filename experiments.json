@@ -18,11 +18,6 @@
     ], 
     "experiments": [
         {
-            "name": "Media Wall",
-            "desc": "A wall of random images",
-            "href": "experiments/portal/"
-        },
-        {
             "name": "DIV Rain",
             "desc": "Animated rain effect using DIVs",
             "href": "experiments/swirly/"
