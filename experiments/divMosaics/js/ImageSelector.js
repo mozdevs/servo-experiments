@@ -10,13 +10,19 @@ function ImageSelector(imageURLs) {
                 el.dispatchEvent(new CustomEvent('imageSelected', {detail: {
                     image: img
                 }}));
-            })
+            });
             return img;
         });
-    images.forEach(el.appendChild.bind(el));      
+    images.forEach(el.appendChild.bind(el)); 
+
     // var pa = new PerspectiveAnimatable(el, 150);
     this.el = el;
-    this.toggle = () => {};
+   
+    var active = true;
+    this.toggle = () => {
+        active = !active;
+        el.style.visibility = active ? 'visible' : 'hidden';
+    };
     this.images = images;
     this.addEventListener = el.addEventListener.bind(el);
 }
