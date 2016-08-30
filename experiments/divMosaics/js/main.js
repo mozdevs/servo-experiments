@@ -12,8 +12,7 @@ function init() {
              'images/firefox.png',
              'images/chrome.jpg',
              'images/sunset.jpg',
-             'images/sunset3.jpeg',
-             'images/marrakech.jpg'
+             'images/sunset3.jpeg'
              ]
 	});
 

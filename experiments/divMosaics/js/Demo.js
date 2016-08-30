@@ -6,7 +6,7 @@ function Demo(config) {
         // display width and display height - ensure these are a multiple of config.resolution for best display
         var dw = 1020, // Servo default width is 1024
             dh = 740; // Servo default height is 740
-            window.resizeTo(dw, dh);
+            // window.resizeTo(dw, dh);
 
         var size = {width: document.body.clientWidth, height: document.body.clientHeight};
         window.addEventListener('resize', function() {

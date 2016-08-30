@@ -4,6 +4,8 @@ function ImageSelector(imageURLs) {
     el.className = 'imageSelector';
     var images = imageURLs
         .map((url) => {
+            var container = document.createElement('div');
+            container.classList.add('image-container');
             var img = new Image();
             img.src = url;
             img.addEventListener('click', () => {
@@ -11,7 +13,8 @@ function ImageSelector(imageURLs) {
                     image: img
                 }}));
             });
-            return img;
+            container.appendChild(img);
+            return container;
         });
     images.forEach(el.appendChild.bind(el)); 
 
