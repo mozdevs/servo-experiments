@@ -63,24 +63,7 @@ function getRandomDivAd(script) {
         img.width = 64;
         img.height = 64;
         img.style.transition = '2s transform ease-in-out';
-        // img.style.position = 'relative';
-        // img.style.bottom = '90px';
-        // el.appendChild(img);
-        
-        // setTimeout(((img) => {
-        //     var shifted = false;
-        //     return function() {
-        //         setInterval(() => {
-        //             if (shifted) {
-        //                 img.style.transform = 'translateX(100px) rotate(360deg)';
-        //             } else {
-        //                 img.style.transform = 'translateX(-100px) rotate(-360deg)';
-        //             }
-        //         shifted = !shifted;
-        //         }, 2000);
-        //     }
-        // })(img), dogeDelay);
-       
+
     }
     sp.appendChild(inner);
     el.style.cursor = 'pointer';
@@ -89,7 +72,7 @@ function getRandomDivAd(script) {
 }
 
 function getRandomIFrameAd(script) {
-    var ads = ['https://en.wikipedia.org'];
+    var ads = ['../../js/nasty/monkeys/physics/monkeys.html'];
     var width = script.getAttribute('data-ad-width') || DEFAULT_AD_WIDTH,
         height = script.getAttribute('data-ad-height') || DEFAULT_AD_HEIGHT;
 

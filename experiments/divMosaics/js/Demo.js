@@ -6,7 +6,7 @@ function Demo(config) {
         // display width and display height - ensure these are a multiple of config.resolution for best display
         var dw = 1020, // Servo default width is 1024
             dh = 740; // Servo default height is 740
-            window.resizeTo(dw, dh);
+            // window.resizeTo(dw, dh);
 
         var size = {width: document.body.clientWidth, height: document.body.clientHeight};
         window.addEventListener('resize', function() {
@@ -35,13 +35,14 @@ function Demo(config) {
         // imgSelector.toggle();
         
         // Pressing space toggles the image selector
-       /* listener.simple_combo('space', () => {
+        listener.simple_combo('space', () => {
             imgSelector.toggle();
         });
-        */
+        
         // Selecting an image causes the image selector to be hidden and a mosaic of that image to be displayed
         imgSelector.addEventListener('imageSelected', (evt) => {
             displayMosaic(evt.detail.image);
+            // imgSelector.el.style.display = 'none';
         });
         // Cycle through images, mosaicing each one
         // AUTO CYCLING DISABLED DUE TO SERVO ISSUE

@@ -2,39 +2,39 @@
     "featured": [
         {
             "name": "Servo Bookshelf",
-            "desc": "Interactive animated bookshelf",
+            "desc": "Interactive animated bookshelf.",
             "href": "experiments/bookshelf/"
         },
         {
-            "name": "Reading View",
-            "desc": "Smoothly transform a busy web page into a simplified view for easy reading",
-            "href": "experiments/readingView/"
-        },
-        {
             "name": "DIVMosaics",
-            "desc": "rendering images using <div>'s as pixels",
+            "desc": "rendering images using <div>'s as pixels.",
             "href": "experiments/divMosaics/"
         }
     ], 
     "experiments": [
         {
             "name": "DIV Rain",
-            "desc": "Animated rain effect using DIVs",
+            "desc": "Animated rain effect using DIVs.",
             "href": "experiments/swirly/"
         },
         {
+            "name": "Reading View",
+            "desc": "Smoothly transform a busy web page into a simplified view for easy reading.",
+            "href": "experiments/readingView/"
+        },
+        {
             "name": "DIV Waves",
-            "desc": "Animated wave effect using DIVs",
+            "desc": "Animated wave effect using DIVs.",
             "href": "experiments/divWaves/"
         },
         {
             "name": "IFrame Physics",
-            "desc": "IFrame's attached to a physics engine",
+            "desc": "IFrame's attached to a physics engine.",
             "href": "experiments/physics/"
         },
         {
             "name": "Duck Duck Servo",
-            "desc": "a fancy interface for duckDuckGo queries",
+            "desc": "a fancy interface for duckDuckGo queries.",
             "href": "experiments/duckDuckServo/"
         }
     ],
@@ -46,12 +46,12 @@
         },
         {
             "name": "Testing CSS transformations",
-            "desc": "Repeatedly transform a series of elements to test the various transformations",
+            "desc": "Repeatedly transform a series of elements to test the various transformations.",
             "href": "experiments/test-transformations/"
         },
         {
             "name": "Testing CSS filters",
-            "desc": "Repeatedly apply a filter to a series of elements to test the various CSS filters",
+            "desc": "Repeatedly apply a filter to a series of elements to test the various CSS filters.",
             "href": "experiments/test-filters/"
         }
     ]

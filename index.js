@@ -35,8 +35,15 @@ window.addEventListener('load', function() {
                 screen.src = info.href + 'thumb.png';
                 screen.width = 256;
                 screen.height = 256;
+
+
+                var desc = document.createElement('p');
+                desc.classList.add('experiment-desc');
+                desc.textContent = info.desc;
+
                 article.appendChild(hrefWrap(h3, info.href));
                 article.appendChild(hrefWrap(screen, info.href));
+                // article.appendChild(hrefWrap(desc, info.href));
                 return article;
             });
 

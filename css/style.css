@@ -8,7 +8,7 @@
         }
 
         body {
-            font-family: georgia; /* TODO: Add lintel.otf and reference here */
+            font-family: lintel; /* TODO: Add lintel.otf and reference here */
             margin: 0;
             padding: 0;
             /*overflow-x: hidden;*/
@@ -22,7 +22,7 @@
         #mainHeader {
             margin: auto;
             text-align: center;
-            font-family: arial;
+            font-family: lintel, helvetica;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -58,7 +58,7 @@
             width: 100%;
         }
         .experiment-previews {
-             text-align: center;
+             text-align: left;
         }
       
         .experiment-preview {
@@ -67,7 +67,6 @@
             margin: 20px;
             transition: opacity 0.5s ease-in-out, background-color 0.25s ease-in-out;
             text-align: center;
-            font-weight: bold;
             box-shadow: 3px 3px 5px #7C7C7C;
         }
 
@@ -76,11 +75,17 @@
             color: initial;
         }
         .experiment-preview h3 {
+            font-weight: bold;
             margin-bottom: 10px;
         }
 
         .experiment-preview:hover {
             background-color: #a4e6ff;
+        }
+
+        .experiment-preview p {
+            width: 256px;
+            text-align: justify;
         }
 
         main {
