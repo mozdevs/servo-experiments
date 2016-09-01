@@ -120,7 +120,7 @@ window.LiveGraph = window.LiveGraph || (function() {
         ctx.closePath();
 
         this.prevPoint = [canvasX, canvasY];
-        this.updateLabel(y.toFixed(0));
+        this.updateLabel(Math.round(y));
     }
 
     LiveGraph.prototype.timePlotMultiple = function(ys) {

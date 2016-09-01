@@ -1,84 +1,82 @@
 function ServoStats() {
+    // http://stackoverflow.com/a/5111475/4606996
 
-	var getNow = makeGetNowFunction();
-	var startTime = getNow();
-	var lastTime = startTime,
-		time = 0;
-	var frames = 0,
-		totalFrames = 0;
-	var ms = 0;
-	var fps = 0,
-		fpsSum = 0,
-		avgFps = 0;
+    var getNow = makeGetNowFunction();
 
-	var onUpdateCbs = [];
+    // The higher this value, the less the fps will reflect temporary variations
+    // A value of 1 will only keep the last value
+    var filterStrength = 20;
 
-	var el = document.createElement('div');
-	el.className = 'servo-stats';
-	//el.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000;background:#f00;color:#fff;';
-	var avgFpsEl = document.createElement('span');
-	var fpsEl = document.createElement('span');
-	var msEl = document.createElement('span');
-	var ul = document.createElement('ul');
-	// ['avg fps', avgFpsEl]
-	[['fps', fpsEl], ['ms', msEl]].forEach((pair) => {
-		var title = document.createElement('span');
-		title.innerHTML = pair[0] + ': ';
-		
-		var li = document.createElement('li');
-		ul.appendChild(li);
-		li.appendChild(title);
-		li.appendChild(pair[1]);
-	});
-	el.appendChild(ul);
+    var lastTime = getNow(),
+        frameTime = 0,
+        lastRecordTime = getNow();
 
-	this.dom = document.createElement('div') || el; // CURRENTLY DISABLED
-	
-	this.start = function() {
-		startTime = getNow();
-	};
+    var pollTime = 1000; // Poll frequency in ms for taking FPS measurement
 
+    var fps = 0.0;
 
-	this.end = function() {
-		var now = getNow();
-		
-		frames += 1;
-		// totalFrames++;
-		ms = now - startTime;
+    var onUpdateCbs = [];
 
-		fps = (frames * 1000) / (now - lastTime);
-		// fpsSum += fps;
-		frames = 0;
+    var el = document.createElement('div');
+    el.className = 'servo-stats';
+    //el.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000;background:#f00;color:#fff;';
+    var avgFpsEl = document.createElement('span');
+    var fpsEl = document.createElement('span');
+    var msEl = document.createElement('span');
+    var ul = document.createElement('ul');
+    // ['avg fps', avgFpsEl]
+    [['fps', fpsEl], ['ms', msEl]].forEach((pair) => {
+        var title = document.createElement('span');
+        title.innerHTML = pair[0] + ': ';
+        
+        var li = document.createElement('li');
+        ul.appendChild(li);
+        li.appendChild(title);
+        li.appendChild(pair[1]);
+    });
+    el.appendChild(ul);
 
-		if (now > time + 1000) {
-			// Update average fps every second
-			// avgFps = fpsSum / totalFrames;
-			time = now;
-		}
+    this.dom = document.createElement('div') || el; // CURRENTLY DISABLED
+    
+    this.start = function() {
+    
+    };
 
-		lastTime = now;
-		return now;
-	};
+    this.end = function() {
 
-	this.update = function() {
-		// avgFpsEl.innerHTML = Math.round(avgFps);
-		// fpsEl.innerHTML = Math.round(fps);
-		// msEl.innerHTML = Math.round(ms);
+        var currTime = getNow();
 
-		onUpdateCbs.forEach(function(f) {
-			f(fps, avgFps, ms);
-		});
-	};
+        var thisFrameTime = currTime - lastTime;
+        frameTime += (thisFrameTime - frameTime) / filterStrength;
+        
+        lastTime = currTime;
 
-	this.onUpdate = function(f) {
-		onUpdateCbs.push(f);
-	};
+        // Record fps every second
+        if(currTime - lastRecordTime >= pollTime) {
+            fps = (1000 / frameTime).toFixed(1);
+            lastRecordTime = currTime;
+        } 
+    };
 
-	function makeGetNowFunction() {
-		var timerObject = performance || Date;
-		return function() {
-			return timerObject.now();
-		}
-	}
+    this.update = function() {
+        // avgFpsEl.innerHTML = Math.round(avgFps);
+        // fpsEl.innerHTML = Math.round(fps);
+        // msEl.innerHTML = Math.round(ms);
+
+        onUpdateCbs.forEach(function(f) {
+            f(fps);
+        });
+    };
+
+    this.onUpdate = function(f) {
+        onUpdateCbs.push(f);
+    };
+
+    function makeGetNowFunction() {
+        var timerObject = performance || Date;
+        return function() {
+            return timerObject.now();
+        }
+    }
 
 }
