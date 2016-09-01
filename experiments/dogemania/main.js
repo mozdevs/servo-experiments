@@ -1,4 +1,15 @@
 window.onload = function() {
+	//Setup FPS graph
+	var graph = new LiveGraph(document.getElementById('fpsGraph'), {
+		minY: 30,
+		maxY: 90,
+		width: 200,
+		height: 60,
+		label: 'FPS',
+	});
+	var graphSkipCount = 1; // Used so we don't plot on the graph every single frame
+	var graphPlotFrequency = 1; // Plot every 20 frames
+
 	var imageURL = 'servo.png';
 	var imageWidth = 512;
 	var imageHeight = 512;
@@ -8,6 +19,15 @@ window.onload = function() {
 	var container = document.getElementById('container');
 
 	var stats = new ServoStats();
+	stats.onUpdate(function(fps) {
+		if (graphSkipCount % graphPlotFrequency !== 0) {
+			graphSkipCount++;
+			return;
+		}
+
+		graphSkipCount = 1;
+		graph.timePlot(fps);
+	})
 	container.appendChild(stats.dom);
 
 	

@@ -11,6 +11,8 @@ function ServoStats() {
 		fpsSum = 0,
 		avgFps = 0;
 
+	var onUpdateCbs = [];
+
 	var el = document.createElement('div');
 	el.className = 'servo-stats';
 	//el.style.cssText = 'position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000;background:#f00;color:#fff;';
@@ -62,8 +64,15 @@ function ServoStats() {
 		// avgFpsEl.innerHTML = Math.round(avgFps);
 		// fpsEl.innerHTML = Math.round(fps);
 		// msEl.innerHTML = Math.round(ms);
+
+		onUpdateCbs.forEach(function(f) {
+			f(fps, avgFps, ms);
+		});
 	};
 
+	this.onUpdate = function(f) {
+		onUpdateCbs.push(f);
+	};
 
 	function makeGetNowFunction() {
 		var timerObject = performance || Date;

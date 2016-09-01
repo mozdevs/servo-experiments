@@ -55,3 +55,17 @@ img {
 #container img {
 	position: absolute;
 }
+
+#fpsGraph {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 999;
+    box-shadow: 3px 3px 5px #7C7C7C;
+    opacity: 0.9;
+    transition: 0.5s opacity ease-in-out;
+}
+
+#fpsGraph:hover {
+	opacity: 1;
+}
