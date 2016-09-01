@@ -18,5 +18,5 @@ To see FPS and other stats, run using <br />
 
 
 ##Contribute
-File bugs and discuss demo ideas using the issue tracker. <br />
-Add your own demo by branching and then submitting a PR.  Demos are registered on the main page through `experiments.json`.
+All contributions welcome.<br />
+Add a demo by branching and then submitting a PR.  Demos live in the `experiments` directory and are described in `experiments.json`.
