@@ -54,10 +54,8 @@ function Bar(x, y, w, h, color) {
     }    
 
     function tweenPos(newX, newY, animTime) {
-        var animTimeStr = (animTime / 1000) + 's';
         var start = setTimeout.bind(window, () => {
                         setPos(newX, newY);
-                        updatePos();
                     }, 10);
         var onComplete = (cb) => {
             setTimeout(cb, 1000);
@@ -65,9 +63,6 @@ function Bar(x, y, w, h, color) {
         };
         var obj = {start: start, onComplete: onComplete};       
         return obj;
-       /* return new TWEEN.Tween(pos).to({x: newX, y: newY}, animTime)
-        .easing(TWEEN.Easing.Sinusoidal.InOut)
-        .onUpdate(updatePos);*/
     }
 
     function tweenZ(newZ, animTime) {

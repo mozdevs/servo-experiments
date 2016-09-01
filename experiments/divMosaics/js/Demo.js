@@ -117,6 +117,10 @@ function Demo(config) {
         bar.el.style.visibility = 'hidden';
         bar.el.style.background = 'none';
         bar.free(); // Mark the bar as available
+        if (bar.inDOM) {
+            bar.inDOM = false;
+            el.removeChild(bar.el);
+        }
     }
 
     function resetBars(onComplete) {
