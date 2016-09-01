@@ -25,6 +25,7 @@
             font-family: lintel, helvetica;
         }
 
+
         h1, h2, h3, h4, h5, h6 {
             margin: 0;
             font-weight: lighter;
@@ -50,6 +51,15 @@
         }
 
         .experiments-container {
+        }
+
+        .download-link a {
+            color: #365Cb5;
+            text-decoration: none;
+        }
+
+        .download-link a:hover {
+            text-decoration: underline;
         }
 
         .experiments-group {
