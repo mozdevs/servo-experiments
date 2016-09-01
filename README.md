@@ -18,5 +18,5 @@ To see FPS and other stats, run using <br />
 
 
 ##Contribute
-All contributions welcome.
+All contributions welcome.<br />
 Add a demo by branching and then submitting a PR.  Demos live in the `experiments/` directory and are described in `experiments.json`.
