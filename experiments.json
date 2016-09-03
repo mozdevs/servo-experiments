@@ -9,6 +9,11 @@
             "name": "DIVMosaics",
             "desc": "rendering images using <div>'s as pixels.",
             "href": "experiments/divMosaics/"
+        },
+        {
+            "name": "Mosaic Gallery",
+            "desc": "rendering images using <div>'s as pixels.",
+            "href": "experiments/tiles/"
         }
     ], 
     "experiments": [

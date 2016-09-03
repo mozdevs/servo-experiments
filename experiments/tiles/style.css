@@ -1,0 +1,17 @@
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.tile {
+    position: absolute;
+    background-color: #E0E0E0;
+    transition: 0.5s background-color ease-in-out, 0.1s transform ease-in-out;
+}
+
+.skew {
+    transform: skew(45deg, 45deg);
+}

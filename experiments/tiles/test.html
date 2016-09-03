@@ -1,0 +1,47 @@
+<!doctype html>
+<head>
+
+</head>
+<body>
+<style>
+div {
+	width: 200px;
+	height: 200px;
+	background-color: red;
+}
+
+.green {
+	background-color: green;
+}
+</style>
+<script>
+var div = document.createElement('div');
+div.classList.add('tile');
+var tile = {
+	el: div
+};
+document.body.appendChild(div);
+var arr = [[tile]];
+var tiles = {
+				arr: arr,
+				iterate: function(cb) {
+					let tiles = arr;
+					let yMax = tiles.length,
+                    xMax = tiles[0].length;
+                for (let y = 0; y < yMax; y++) {
+                    for (let x = 0; x < xMax; x++) {
+                        cb(tiles[y][x], x, y); // Pass the callback the tile and the position.
+                    }
+                }
+					
+				}
+			};
+			
+tiles.iterate((tile) => {
+	tile.el.addEventListener('mouseover', () => {
+		tile.el.classList.add('green');
+	});
+});
+
+</script>
+</body>
