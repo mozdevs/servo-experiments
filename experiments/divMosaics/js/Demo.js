@@ -39,11 +39,14 @@ function Demo(config) {
         });
     }
 
+
+    // Arrange mosaic tiles to represent a 2D grid of colours
     function paint(grid) {
-        // Caclulate offset required for mosaic to be displayed in centre of screen
+
         var gridWidth = grid[0].length,
             gridHeight = grid.length;
 
+        // Calculate offset required for mosaic to be displayed in centre of screen
         var offsetX = Math.max((size.width - (gridWidth * tileWidth)) / 2, 0);
         var offsetY = Math.max((size.height - (gridHeight * tileHeight)) / 2, 0);
     
@@ -51,18 +54,24 @@ function Demo(config) {
 
             row.forEach((color, x) => {
                 var colorStr = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')';
-
-                // Request and add a tile object from the tile factory
-
-                var startYOffset = Math.sin(((y * gridWidth) + x) / 200)* 200;
-                var startXOffset = Math.abs(startYOffset);
-                var [startX, startY] = _.sample([[-20 - startXOffset, (size.height / 2) + startYOffset], [size.width + 20 + startXOffset, (size.height / 2) + startYOffset]]);            
-
-                var t = tileFactory.tile(startX, startY, tileWidth, tileHeight, colorStr);
-                addTile(t);
-
+                
+                // Calculate final position of the tile
                 var targetX = offsetX + (x * tileWidth),
                     targetY = offsetY + (y * tileHeight);
+               
+                /*
+                    Calculate starting position of tile.
+                    Set the starting position to the opposite edge of the target, to get the 'overlap' effect.
+                */
+                
+                var sinOffset = Math.sin(((y * gridWidth) + x) / 200) * 200;
+                var randomSwitch = _.random(0, 1);
+                var startX = (randomSwitch * size.width) + ((randomSwitch === 0 ? -1 : 1) * (20 + Math.abs(sinOffset))); 
+                var startY = (size.height / 2) + (Math.sin(((y * gridWidth) + x) / 200) * 200); 
+
+                // Request and add a tile object from the tile factory
+                var t = tileFactory.tile(startX, startY, tileWidth, tileHeight, colorStr);
+                addTile(t);
 
                 t.animateToPosition(targetX, targetY);
             });
@@ -96,18 +105,16 @@ function Demo(config) {
 
         var animTime = 1000,
             delayTime = 1000; // 'rest time' between animating out all tiles and displaying the next image 
-
-        var cw = document.body.clientWidth,
-            ch = document.body.clientHeight;
     
-        var waitTime = -1;
         tiles.forEach((tile, i) => {
-            waitTime = Math.max(waitTime, animTime);
-
-            // Move the tile into a random corner.
-            var targetYOffset = Math.sin(i / 200)* 200;
-            var targetXOffset = Math.abs(targetYOffset);
-            var [targetX, targetY] = _.sample([[-20 - targetXOffset, (size.height / 2) + targetYOffset], [size.width + 20 + targetXOffset, (size.height / 2) + targetYOffset]]);            
+              
+            /*
+                    Calculate target position of tile.
+            */
+            var sinOffset = Math.sin(i / 200) * 200;
+            var randomSwitch = _.random(0, 1);
+            var targetX = (randomSwitch * size.width) + ((randomSwitch === 0 ? -1 : 1) * (20 + Math.abs(sinOffset))); 
+            var targetY = (size.height / 2) + sinOffset;
            
             tile.animateToPosition(targetX, targetY, () => {
                 removeTile(tile);
@@ -178,6 +185,8 @@ function MosaicTile(x, y, w, h, color) {
     function show() {
         div.style.visibility = 'visible';
     }
+
+    this.pos = pos;
 
     this.setPos = setPos;
     this.animateToPosition = animateToPosition;
