@@ -46,28 +46,27 @@ function Demo(config) {
 
         var offsetX = Math.max((size.width - (gridWidth * tileWidth)) / 2, 0);
         var offsetY = Math.max((size.height - (gridHeight * tileHeight)) / 2, 0);
+    
+        grid.forEach((row, y) => {
 
-        var cw = size.width,
-            ch = size.height;
-
-        _.times(gridHeight, (y) => {
-            _.times(gridWidth, (x) => {
-                var color = grid[y][x];
-
-                // If the color is transparent, then don't make a tile
-                if (color.a === 0) {
-                    //return;
-                }  
+            row.forEach((color, x) => {
+                var colorStr = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')';
 
                 // Request and add a tile object from the tile factory
-                var t = tileFactory.tile(_.random(0, cw), ch, tileWidth, tileHeight, 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')' );
+
+                var startYOffset = Math.sin(((y * gridWidth) + x) / 200)* 200;
+                var startXOffset = Math.abs(startYOffset);
+                var [startX, startY] = _.sample([[-20 - startXOffset, (size.height / 2) + startYOffset], [size.width + 20 + startXOffset, (size.height / 2) + startYOffset]]);            
+
+                var t = tileFactory.tile(startX, startY, tileWidth, tileHeight, colorStr);
                 addTile(t);
 
-                var dx = offsetX + (x * tileWidth),
-                    dy = offsetY + (y * tileHeight);
+                var targetX = offsetX + (x * tileWidth),
+                    targetY = offsetY + (y * tileHeight);
 
-                t.animateToPosition(dx, dy);
+                t.animateToPosition(targetX, targetY);
             });
+
         });
     }
 
@@ -94,19 +93,23 @@ function Demo(config) {
         if (tiles.length === 0) { // If there are no tiles to remove, do nothing
             return onComplete();
         }
-        // Otherwise, animate out each tile
 
-        var animTime = 500,
-            delayTime = 400; // 'rest time'
+        var animTime = 1000,
+            delayTime = 1000; // 'rest time' between animating out all tiles and displaying the next image 
 
         var cw = document.body.clientWidth,
             ch = document.body.clientHeight;
     
         var waitTime = -1;
-        tiles.forEach((tile) => {
+        tiles.forEach((tile, i) => {
             waitTime = Math.max(waitTime, animTime);
 
-            tile.animateToPosition(_.random(0, cw), ch, () => {
+            // Move the tile into a random corner.
+            var targetYOffset = Math.sin(i / 200)* 200;
+            var targetXOffset = Math.abs(targetYOffset);
+            var [targetX, targetY] = _.sample([[-20 - targetXOffset, (size.height / 2) + targetYOffset], [size.width + 20 + targetXOffset, (size.height / 2) + targetYOffset]]);            
+           
+            tile.animateToPosition(targetX, targetY, () => {
                 removeTile(tile);
             });
         });
@@ -224,8 +227,6 @@ function TileFactory() {
     this.populate = populate;
 }
 
-
-
 // Given a HTML img element, return a grid of colors representing the image.
 function getColorGrid(img, config) {
 
@@ -246,9 +247,10 @@ function getColorGrid(img, config) {
         return Math.round(config.width / ratio);
     })();
 
+
     c.width = width;
     c.height = height;
-    
+
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(img, 0, 0, width, height);
 

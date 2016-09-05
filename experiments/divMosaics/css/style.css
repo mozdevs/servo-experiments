@@ -10,7 +10,7 @@ body {
 .help {
     font-family: Helvetica;
     position: absolute;
-    top: 45%;
+    top: 50%;
     left: 50%;
     font-size: 150%;
     transform: translateX(-50%) translateY(-50%);
@@ -26,8 +26,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    transition: all 0.5s ease-in-out;
-    border: 0.6px solid black;
+    transition: all 1s ease-in-out;
 }
 
 .image-selector {
