@@ -28,8 +28,8 @@ window.onload = function() {
 		graphSkipCount = 1;
 		graph.timePlot(fps);
 	})
-	container.appendChild(stats.dom);
 
+	container.appendChild(stats.dom);
 	
 	animate();
 
