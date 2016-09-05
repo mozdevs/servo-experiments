@@ -7,18 +7,6 @@ body {
     padding: 0;
     overflow: hidden;
 }
-
-.servo-stats {
-    font-family: Helvetica;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 1rem;
-    background: #666;
-    color: #fff;
-    display: inline-block;
-}
-
 .help {
     font-family: Helvetica;
     position: absolute;
@@ -29,16 +17,12 @@ body {
     color: #BDBDBD;
 }
 
-.servo-stats li {
-    list-style: none;
-}
-
 #demo {
     width: 100vw;
     height: 100vh;
 }
 
-.bar {
+.mosaic-tile {
     position: absolute;
     top: 0;
     left: 0;
@@ -46,7 +30,7 @@ body {
     border: 0.6px solid black;
 }
 
-.imageSelector {
+.image-selector {
     position: absolute;
     top: 50%;
     right: 30px;
@@ -56,20 +40,19 @@ body {
     text-align: center;
 }
 
-.imageSelector .image-container {
+.image-selector .image-container {
     cursor: pointer;
     width: 80px;
     margin-top: 10px;
 }
 
-
-.imageSelector .image-container img {
+.image-selector .image-container img {
     width: 100%;
     height: 100%;
     box-shadow: 2px 2px 3px #7C7C7C;
     transition: box-shadow 0.5s ease-in-out;
 }
 
-.imageSelector .image-container img:hover {
+.image-selector .image-container img:hover {
     box-shadow: 2px 2px 5px #4D4D4D;
 }

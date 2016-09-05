@@ -27,8 +27,6 @@ function init() {
 
 		stats.start();
 	
-		demo.animate(t);
-		
 		stats.end();
 		stats.update();
 	}
