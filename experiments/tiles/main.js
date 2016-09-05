@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
 
     let config = getConfig();
         
@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 .map((src) => {
                     let img = new Image();
                     img.src = src;
-                    return img;   
+                    return img;
                 });
 
     let imageTime = 2200; // the delay inbetween image changes.
@@ -76,7 +76,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             tiles.iterate((tile, x, y) => {
                 let colorStr;
-                if (colorGrid[y] && colorGrid[y][x]) { // If colour grid specifies a colour then use that
+                if (colorGrid[y] && colorGrid[y][x]) { // If colour grid specifies a colour then use that.
                     let {r, g, b, a} = colorGrid[y][x];
                     colorStr = `rgba(${r}, ${g}, ${b}, ${a})`;
                 } else {
