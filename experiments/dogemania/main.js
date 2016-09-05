@@ -1,7 +1,7 @@
 window.onload = function() {
 	//Setup FPS graph
 	var graph = new LiveGraph(document.getElementById('fpsGraph'), {
-		minY: 30,
+		minY: 0,
 		maxY: 90,
 		width: 200,
 		height: 60,
