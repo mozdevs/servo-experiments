@@ -34,7 +34,7 @@ window.addEventListener('load', () => {
         };
 
         // Process thhe first elem immediately.
-        f(arr[index]);
+        next();
 
         // Then cycle through them on a delay.
         let interval = setInterval(next, time);
