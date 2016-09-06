@@ -37,69 +37,17 @@ function Demo(config) {
         el.appendChild(selector);
     }
 
+    // Display a HTML img element in a mosaic tile effect.
     function displayMosaic(img) {
+
+        // Get a 2D array of colours representing the image.
         var grid = getColorGrid(img, {height: Math.round(size.height / tileHeight)});
 
-         // Clear the previously displayed tiles and paint the new grid when ready.
+         // Clear whatever tiles were previously displayed and add the new tiles when ready.
         resetDisplay(() => {
+            // Once the tiles have been cleared, animate in the new tiles. 
             paintDisplay(grid);
         });
-    }
-
-    // Arrange mosaic tiles according to a 2D grid of colours.
-    function paintDisplay(grid) {
-
-        var gridWidth = grid[0].length,
-            gridHeight = grid.length;
-
-        // Calculate offset required for mosaic to be displayed in centre of screen.
-        var offsetX = Math.max((size.width - (gridWidth * tileWidth)) / 2, 0);
-        var offsetY = Math.max((size.height - (gridHeight * tileHeight)) / 2, 0);
-    
-        // For each colour in the grid, animate a mosaic tile to represent it.
-        grid.forEach((row, y) => {
-
-            row.forEach((color, x) => {
-                var colorStr = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')';
-                
-                /*
-                    Calculate starting position of tile.
-                */
-                var sinOffset = Math.sin(((y * gridWidth) + x) / 200) * 200;
-                var randomSwitch = randomBit();
-                var startX = (randomSwitch * size.width) + ((randomSwitch === 0 ? -1 : 1) * (20 + Math.abs(sinOffset)));
-                var startY = (size.height / 2) + (Math.sin(((y * gridWidth) + x) / 200) * 200); 
-
-                 // Calculate final position of the tile.
-                var targetX = offsetX + (x * tileWidth),
-                    targetY = offsetY + (y * tileHeight);
-
-                // Request and add a tile object from the tile factory
-                var t = tileFactory.tile(startX, startY, tileWidth, tileHeight, colorStr);
-                addTile(t);
-
-                t.animateToPosition(targetX, targetY);
-            });
-
-        });
-    }
-
-    function addTile(tile) { // Adds tile to dom and tiles list
-        tile.show();
-        tiles.push(tile);
-        if (!tile.inDOM) {
-            tile.inDOM = true;
-            el.appendChild(tile.el);
-        }
-    }
-
-    function removeTile(tile) {
-        tile.hide();
-        tileFactory.markAsAvailable(tile);
-        if (tile.inDOM) {
-            tile.inDOM = false;
-            el.removeChild(tile.el);
-        }
     }
 
     // Clear all the mosaic tiles by animating them offscreen and removing them. Invoke onComplete callback when done.
@@ -133,10 +81,67 @@ function Demo(config) {
             onComplete(); // Signal completion.
         }, animTime + delayTime);
     }
+    
+
+    // Arrange mosaic tiles according to a 2D grid of colours.
+    function paintDisplay(grid) {
+
+        var gridWidth = grid[0].length,
+            gridHeight = grid.length;
+
+        // Calculate offset required for mosaic to be displayed in centre of screen.
+        var offsetX = Math.max((size.width - (gridWidth * tileWidth)) / 2, 0);
+        var offsetY = Math.max((size.height - (gridHeight * tileHeight)) / 2, 0);
+    
+        // For each colour in the grid, animate a mosaic tile to represent it.
+        grid.forEach((row, y) => {
+
+            row.forEach((color, x) => {
+                var colorStr = 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')';
+                
+                /*
+                    Calculate starting position of tile.
+                */
+                var sinOffset = Math.sin(((y * gridWidth) + x) / 200) * 200;
+                var randomSwitch = randomBit();
+                var startX = (randomSwitch * size.width) + ((randomSwitch === 0 ? -1 : 1) * (20 + Math.abs(sinOffset)));
+                var startY = (size.height / 2) + (Math.sin(((y * gridWidth) + x) / 200) * 200); 
+
+                 // Calculate final position of the tile.
+                var targetX = offsetX + (x * tileWidth),
+                    targetY = offsetY + (y * tileHeight);
+
+                // Request and add a tile object from the tile factory.
+                var t = tileFactory.tile(startX, startY, tileWidth, tileHeight, colorStr);
+                addTile(t);
+
+                t.animateToPosition(targetX, targetY);
+            });
+
+        });
+    }
+
+    function addTile(tile) { // Adds tile to dom and tiles list.
+        tile.show();
+        tiles.push(tile);
+        if (!tile.inDOM) {
+            tile.inDOM = true;
+            el.appendChild(tile.el);
+        }
+    }
+
+    function removeTile(tile) { // Remove tile from dom and mark it as available.
+        tile.hide();
+        tileFactory.markAsAvailable(tile);
+        if (tile.inDOM) {
+            tile.inDOM = false;
+            el.removeChild(tile.el);
+        }
+    }
+
 
     this.dom = el;
 }
-
 
 // Gives object that provides up-to-date window dimensions.
 function getWindowSize() {
@@ -149,104 +154,15 @@ function getWindowSize() {
     return size;
 }
 
-// Object representing a single mosaic tile. 
-function MosaicTile(x, y, w, h, color) {
-    var div = document.createElement('div');
-    div.className = 'mosaic-tile';
-    
-    var size = {w: w, h: h};
-    var pos = {x: x, y: y};
-    var animTime = 1000; // as defined in .mosaic-tile CSS
-
-    setPos(pos.x, pos.y);
-    setSize(size.w, size.h);
-    setColor(color);
-
-    function setPos(x, y) {
-        pos.x = x;
-        pos.y = y;
-        div.style.left = pos.x + 'px';
-        div.style.top = pos.y + 'px';
-    }
-
-    function setSize(w, h) {
-        size.w = w;
-        size.h = h;
-        div.style.width = size.w + 'px';
-        div.style.height = size.h + 'px';
-    }
-
-    function setColor(color) {
-        div.style.backgroundColor = color;
-    }
-
-    function animateToPosition(newX, newY, onComplete) {
-        setTimeout(() => { 
-            setPos(newX, newY);
-            setTimeout(onComplete, animTime);
-        }, 10);
-    }
-
-    function hide() {
-        div.style.visibility = 'hidden';
-        div.style.background = 'none';
-    }
-
-    function show() {
-        div.style.visibility = 'visible';
-    }
-
-    this.pos = pos;
-
-    this.setPos = setPos;
-    this.animateToPosition = animateToPosition;
-    
-    this.setSize = setSize;
-    
-    this.setColor = setColor;
-
-    this.hide = hide;
-    this.show = show;
-
-    this.el = div;
+// Returns either 0 or 1 with equal probability.
+function randomBit() {
+    return Math.random() >= 0.5 ? 1 : 0;
 }
 
-// Provides 'available' tiles, reusing ones where possible
-function TileFactory() {
-    var free = []; // List of tiles which are free to be re used
-    var tileCount = 0;
-
-    function tile(x, y, w, h, color) {
-        var tile;
-        if (free.length > 0) { // Re-use a tile, removing it from free list
-            tile = free.shift();
-            tile.setPos(x, y);
-            tile.setSize(w, h);
-            tile.setColor(color);
-        } else {
-            // Create new bar
-            tile = new MosaicTile(x, y, w, h, color);
-        }
-        return tile;
-    }
-
-    // Populate with n readily-availabe tile
-    function populate(n) {
-        for (var i = 0; i < n; i++) {
-            free.push(new Tile(0, 0, 0, 0, 'red'));
-        }
-
-        return this;
-    }
-
-    this.tile = tile;
-    this.markAsAvailable = function(tile) {
-        free.push(tile);
-    }
-    this.populate = populate;
-}
-
-// Given a HTML img element, return a grid of colors representing the image.
+/*
+    Given a HTML img element, return a grid of colours representing the image.
+    Each colour is represent as an object of the form {r: _, g: _, b: _, a: _ }.
+*/
 function getColorGrid(img, config) {
     var c = document.createElement('canvas'),
         ctx = c.getContext('2d');
@@ -255,15 +171,8 @@ function getColorGrid(img, config) {
    
     console.assert(config.width || config.height);
 
-    var width = config.width || (function () {
-        var ratio = img.width / img.height;
-        return Math.round(config.height * ratio);
-    })();
-
-    var height = config.height || (function () {
-        var ratio = img.width / img.height;
-        return Math.round(config.width / ratio);
-    })();
+    var width = config.width || Math.round(config.height * ratio);
+    var height = config.height || Math.round(config.width / ratio);
 
     c.width = width;
     c.height = height;
@@ -288,9 +197,4 @@ function getColorGrid(img, config) {
     }
 
     return grid;
-}
-
-
-function randomBit() {
-    return Math.random() >= 0.5 ? 1 : 0;
 }
