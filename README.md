@@ -3,7 +3,7 @@
 
 These demos aim to show off Servo's rendering capabilities.
 
-<img src="indexScreenshot.png" />
+<img src="screens/indexScreenshot.png" />
 
 ## Running Servo
 * The easiest way to run Servo is to get [Servo nightly](http://download.servo.org).
