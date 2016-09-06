@@ -39,7 +39,7 @@ and the following JSON would be added to `experiments.json`:
   {
      "name": "Super Cool Experiment",
      "desc": "A super cool experiment which does interesting arbitrary things.",
-     "href": "experiments/super-cool-experiment"
+     "href": "experiments/super-cool-experiment/"
   }
   ```
 
