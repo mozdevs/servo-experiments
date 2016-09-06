@@ -32,8 +32,7 @@ Some basic styles for this are defined in the CSS `.tile` rule in  `css/style.cs
 CSS properties which allows thier movement to be animated by altering these with JavaScript.  Mosaic tiles are created using the `MosaicTile` constructor function, found in `js/Tile.js`.
 
 As generating a mosaic typically involves creating a lot of tiles, to avoid unnescessarily creating new tiles between
-different mosaic constructions, there is a simple `TileFactory` object which manages a pool of `MosaicTiles` and re-uses them where possible. This is also defined in `js/Tile.js`.
-Subsequently, all `MosaicTile` objects are 'created' through the `TileFactory` as opposed to directly.
+different mosaic constructions, there is a simple `TileFactory` object which manages a pool of `MosaicTile`s and re-uses them where possible.   Subsequently, all `MosaicTile` objects are 'created' through the `TileFactory` as opposed to directly.
 
 The `TileFactory` object works by storing a list of mosaic tiles which are currently 'free'.
 It exposes a `tile` method which requests a tile with given configuration.
