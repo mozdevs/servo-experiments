@@ -18,16 +18,4 @@ function init() {
 
 	var demoContainer = document.getElementById('demo');
 	demoContainer.appendChild(demo.dom);
-
-	requestAnimationFrame(animate);
-
-	function animate(t) {
-
-		requestAnimationFrame(animate);
-
-		stats.start();
-	
-		stats.end();
-		stats.update();
-	}
 };

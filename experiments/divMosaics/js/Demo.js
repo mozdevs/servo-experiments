@@ -66,7 +66,7 @@ function Demo(config) {
                     Calculate starting position of tile.
                 */
                 var sinOffset = Math.sin(((y * gridWidth) + x) / 200) * 200;
-                var randomSwitch = _.random(0, 1);
+                var randomSwitch = randomBit();
                 var startX = (randomSwitch * size.width) + ((randomSwitch === 0 ? -1 : 1) * (20 + Math.abs(sinOffset)));
                 var startY = (size.height / 2) + (Math.sin(((y * gridWidth) + x) / 200) * 200); 
 
@@ -118,7 +118,7 @@ function Demo(config) {
                     Calculate target position of tile.
             */
             var sinOffset = Math.sin(i / 200) * 200;
-            var randomSwitch = _.random(0, 1);
+            var randomSwitch = randomBit();
             var targetX = (randomSwitch * size.width) + ((randomSwitch === 0 ? -1 : 1) * (20 + Math.abs(sinOffset))); 
             var targetY = (size.height / 2) + sinOffset;
            
@@ -288,4 +288,9 @@ function getColorGrid(img, config) {
     }
 
     return grid;
+}
+
+
+function randomBit() {
+    return Math.random() >= 0.5 ? 1 : 0;
 }
