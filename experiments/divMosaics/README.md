@@ -2,8 +2,9 @@
 
 This experiments converts images into mosaics and then animates their construction.  The mosaics fill the available space on the page and use as many mosaic tiles as needed to do this.
 
-
 Each mosaic tile is created from the `MosaicTile` constructor function in `js/Tile.js` and is represented in the DOM as a small absolutely positioned DIV with a background colour.
+
+<img src="demo.gif" />
 
 ##Entry Point - `js/main.js`
 This file creates the `Demo` object, passing some general configuration parameters.
