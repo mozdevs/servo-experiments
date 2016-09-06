@@ -57,7 +57,7 @@ function createClassTogglingDivs(container, classes) {
 	function getDiv() {
 		var el = document.createElement('div');
 		var img = document.createElement('img');
-		img.src = '../../servo.png';
+		img.src = '../../images/servo.png';
 		el.appendChild(img);
 		return el;
 	}

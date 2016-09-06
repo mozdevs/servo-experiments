@@ -59,7 +59,7 @@ function getRandomDivAd(script) {
     var dogeDelay = (Math.random() * 4000) + 1000;
     for (var i = 0; i < numDoges; i++) {
         var img = new Image();
-        img.src = 'http://dogetest.com/servo.png';
+        img.src = '../images/servo.png';
         img.width = 64;
         img.height = 64;
         img.style.transition = '2s transform ease-in-out';
