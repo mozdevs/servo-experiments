@@ -2,8 +2,7 @@
     "featured": [
         {
             "name": "Servo Bookshelf",
-            "desc": "Interactive animated bookshelf.  This experiment shows how Servo can easily handle multiple IFrames which are changing size.
-                Servo is able to smoothly reflow the page and render the IFrames when their 'width' property is undergoing a CSS transition.",
+            "desc": "Interactive animated bookshelf.  This experiment shows how Servo can easily handle multiple IFrames which are changing size.  Servo is able to smoothly reflow the page and render the IFrames when their 'width' property is undergoing a CSS transition.",
             "href": "experiments/bookshelf/"
         },
         {
