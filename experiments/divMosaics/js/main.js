@@ -1,9 +1,6 @@
 window.addEventListener('load', init);
 
 function init() {
-	var stats = new ServoStats();
-	document.body.appendChild(stats.dom);
-
 	var demo = new Demo({
     	resolution: 20, // Resolution is the width and height of each mosaic tile - the smaller this value, the more demanding the operation
     	images: ['images/banksy1.jpg', 'images/banksy2.jpg', // List of images that can be selected to be mosaic-ified
