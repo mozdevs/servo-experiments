@@ -4,7 +4,7 @@ This experiments converts images into mosaics and then animates their constructi
 
 Each mosaic tile is created from the `MosaicTile` constructor function in `js/Tile.js` and is represented in the DOM as a small absolutely positioned DIV with a background colour.
 
-<img src="demo.gif" />
+<img src="https://mozdevs.github.io/servo-experiments/experiments/divMosaics/demo.gif" />
 
 ##Entry Point - `js/main.js`
 This file creates the `Demo` object, passing some general configuration parameters.
