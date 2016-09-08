@@ -2,18 +2,18 @@
     var noneSelected = {
             el: document.createElement('div'),
             active: true,
-            toggle: () => {}
+            toggle: function() {}
     }; // dummy 
 
     var selected = noneSelected;
 
     Array.from(document.querySelectorAll('.book-tab'))
-        .map((el) => {
+        .map(function (el) {
             var content = el.querySelector('.book-tab-content'),
                 active = false;
 
             return {
-                toggle: function () {
+                toggle: function() {
                     if (active) {
                         el.style.width = '140px';
                         content.style.opacity = '0';
@@ -29,10 +29,9 @@
                 el: el
             };
         })
-        .forEach((tab) => {
-
+        .forEach(function (tab) {
             // Animate in the book tab
-            setTimeout(() => {
+            setTimeout(function() {
                 tab.el.style.transform = 'translateX(0vw)'
             }, 500);
 
