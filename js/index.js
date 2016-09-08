@@ -3,7 +3,9 @@ function Http() {}
 Http.get = function(url, cb) {
     var req = new XMLHttpRequest();
     req.responseType = 'json';
-    req.addEventListener('load', (evt) => {cb(req.response);});
+    req.addEventListener('load', function(evt) {
+         return req.response;
+    });
     req.open('GET', url);
     req.send();
 };
@@ -33,7 +35,7 @@ window.addEventListener('load', function() {
 
     function addExperiments(ul, experiments, showDesc) {
         var lis = experiments
-            .map((info) => {
+            .map(function (info) {
                 var article = document.createElement('article');
                 article.classList.add('experiment-preview');
 
@@ -62,14 +64,14 @@ window.addEventListener('load', function() {
                 return article;
             });
 
-        lis.forEach((li, i) => {
-                setTimeout(() => {
+        lis.forEach(function (li, i) {
+                setTimeout(function () {
                     li.style.opacity = '1';
                 }, 150 + ((i + 2) * 150));
             });
 
         // Add the preview elements to dom        
-        lis.forEach((li) => ul.appendChild(li));
+        lis.forEach(function (li) { ul.appendChild(li); } );
     }
 
     requestAnimationFrame(animate);
