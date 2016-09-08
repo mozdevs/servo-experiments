@@ -4,7 +4,7 @@ Http.get = function(url, cb) {
     var req = new XMLHttpRequest();
     req.responseType = 'json';
     req.addEventListener('load', function(evt) {
-         return req.response;
+       return req.response;
     });
     req.open('GET', url);
     req.send();
@@ -28,30 +28,29 @@ window.addEventListener('load', function() {
         var a = tagWrap('a', el);
         a.href = href;
         return a;
-        return a;
     };
 
     var pWrap = tagWrap.bind(null, 'p');
 
     function addExperiments(ul, experiments, showDesc) {
         var lis = experiments
-            .map(function (info) {
-                var article = document.createElement('article');
-                article.classList.add('experiment-preview');
+        .map(function (info) {
+            var article = document.createElement('article');
+            article.classList.add('experiment-preview');
 
-                var h3 = document.createElement('h3');
-                h3.textContent = info.name;
-                article.appendChild(hrefWrap(h3, info.href));
+            var h3 = document.createElement('h3');
+            h3.textContent = info.name;
+            article.appendChild(hrefWrap(h3, info.href));
 
-                var screen = document.createElement('img');
-                screen.src = info.href + 'thumb.png';
-                screen.width = 256;
-                screen.height = 256;
-                article.appendChild(hrefWrap(screen, info.href));
+            var screen = document.createElement('img');
+            screen.src = info.href + 'thumb.png';
+            screen.width = 256;
+            screen.height = 256;
+            article.appendChild(hrefWrap(screen, info.href));
 
-                if (showDesc) {
-                    var desc = document.createElement('div');
-                    desc.classList.add('experiment-desc');
+            if (showDesc) {
+                var desc = document.createElement('div');
+                desc.classList.add('experiment-desc');
                     if (info.desc.indexOf('<p>') === -1) { // No p tag detected, insert one.
                         desc.appendChild(pWrap(document.createTextNode(info.desc)));
                     } else {
@@ -65,10 +64,10 @@ window.addEventListener('load', function() {
             });
 
         lis.forEach(function (li, i) {
-                setTimeout(function () {
-                    li.style.opacity = '1';
-                }, 150 + ((i + 2) * 150));
-            });
+            setTimeout(function () {
+                li.style.opacity = '1';
+            }, 150 + ((i + 2) * 150));
+        });
 
         // Add the preview elements to dom        
         lis.forEach(function (li) { ul.appendChild(li); } );
