@@ -4,7 +4,7 @@ Http.get = function(url, cb) {
     var req = new XMLHttpRequest();
     req.responseType = 'json';
     req.addEventListener('load', function(evt) {
-       return req.response;
+        cb(req.response);
     });
     req.open('GET', url);
     req.send();
@@ -38,9 +38,9 @@ window.addEventListener('load', function() {
             var article = document.createElement('article');
             article.classList.add('experiment-preview');
 
-            var h3 = document.createElement('h3');
-            h3.textContent = info.name;
-            article.appendChild(hrefWrap(h3, info.href));
+            var h2 = document.createElement('h2');
+            h2.textContent = info.name;
+            article.appendChild(hrefWrap(h2, info.href));
 
             var screen = document.createElement('img');
             screen.src = info.href + 'thumb.png';
@@ -57,17 +57,17 @@ window.addEventListener('load', function() {
                         // Otherwise just use HTML provided.
                         desc.innerHTML = info.desc;
                     }
-                    article.appendChild(hrefWrap(desc, info.href));
-                }
+                article.appendChild(hrefWrap(desc, info.href));
+            }
 
-                return article;
-            });
+            return article;
+        });
 
-        lis.forEach(function (li, i) {
+    /*    lis.forEach(function (li, i) {
             setTimeout(function () {
                 li.style.opacity = '1';
             }, 150 + ((i + 2) * 150));
-        });
+        });*/
 
         // Add the preview elements to dom        
         lis.forEach(function (li) { ul.appendChild(li); } );

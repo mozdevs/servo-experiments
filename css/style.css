@@ -86,9 +86,9 @@
             text-decoration: none;
             color: initial;
         }
-        .experiment-preview h3 {
+        .experiment-preview h2 {
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .experiment-preview:hover {
