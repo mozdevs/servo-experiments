@@ -2,17 +2,17 @@
     "featured": [
         {
             "name": "Servo Bookshelf",
-            "desc": "Interactive animated bookshelf.  This experiment shows how Servo can easily handle multiple IFrames which are changing size.  Servo is able to smoothly reflow the page and render the IFrames when their 'width' property is undergoing a CSS transition.",
+            "desc": "<p>Interactive animated bookshelf.  This experiment shows how Servo can easily handle multiple IFrames which are changing size.</p><p>Servo is able to smoothly reflow the page and render the IFrames when their 'width' property is undergoing a CSS transition.</p>",
             "href": "experiments/bookshelf/"
         },
         {
             "name": "DIVMosaics",
-            "desc": "Displays images in a mosaic effect using multiple <div>'s as the mosaic tiles.  Each mosaic tile is animated using transtions on the top and left properties.  The mosaic effect shows Servo's ability to deal with many DOM elements aswell as their transitions.  The transitions in particular perform very well in Servo thanks to the hardware acceleration provided by Servo's rendering engine, WebRender.",
+            "desc": "<p>Displays images in a mosaic effect using multiple DIV's as the mosaic tiles.  Each mosaic tile is animated using transtions on the top and left properties.</p><p>The mosaic effect shows Servo's ability to deal with many DOM elements aswell as their transitions.  The transitions in particular perform very well in Servo thanks to the hardware acceleration provided by Servo's rendering engine, WebRender.</p>",
             "href": "experiments/divMosaics/"
         },
         {
             "name": "Mosaic Gallery",
-            "desc": "rendering images using <div>'s as pixels.",
+            "desc": "<p>A mosaic gallery.  Here, the DIV tiles representing each pixel are positioned statically and have transitions on their background colour property.</p><p>This is an example of Servo peforming extremely well when transitioning many DOM Elements.</p>",
             "href": "experiments/tiles/"
         }
     ], 
