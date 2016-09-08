@@ -12,7 +12,7 @@
         },
         {
             "name": "Mosaic Gallery",
-            "desc": "<p>A mosaic gallery.  Here, the DIV tiles representing each pixel are positioned statically and have transitions on their background colour property.</p><p>This is an example of Servo peforming extremely well when transitioning many DOM Elements.</p>",
+            "desc": "<p>A gallery of generated DIV mosaics.  Here, the DIV tiles representing each pixel are positioned statically and have transitions on their background colour property.</p>",
             "href": "experiments/tiles/"
         }
     ], 
