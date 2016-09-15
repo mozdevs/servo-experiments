@@ -29,7 +29,7 @@
         },
         {
             "name": "DIV Waves",
-            "desc": "Animated wave effect using DIVs.",
+            "desc": "<p>Animated wave effect using DIVs.</p>",
             "href": "experiments/divWaves/"
         },
         {
@@ -39,7 +39,7 @@
         },
         {
             "name": "Duck Duck Servo",
-            "desc": "a fancy interface for duckDuckGo queries.",
+            "desc": "<p>An animated interface for duckDuckGo queries.</p>",
             "href": "experiments/duckDuckServo/"
         }
     ],
