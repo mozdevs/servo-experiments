@@ -14,8 +14,8 @@ Http.get = function(url, cb) {
 window.addEventListener('load', function() {
     Http.get('experiments.json', function(data) {
         addExperiments(document.querySelector('#featured-experiments .experiment-previews'), data.featured, true);
-        addExperiments(document.querySelector('#other-experiments .experiment-previews'), data.experiments);
-        addExperiments(document.querySelector('#technical-tests .experiment-previews'), data.tests);
+        addExperiments(document.querySelector('#other-experiments .experiment-previews'), data.experiments, true);
+        addExperiments(document.querySelector('#technical-tests .experiment-previews'), data.tests, true);
     });
 
     var tagWrap = function(tagName, el) {
@@ -31,10 +31,11 @@ window.addEventListener('load', function() {
     };
 
     var pWrap = tagWrap.bind(null, 'p');
+    var experimentsPerRow = 3;
 
     function addExperiments(ul, experiments, showDesc) {
         var lis = experiments
-        .map(function (info) {
+        .map(function (info, i) {
             var article = document.createElement('article');
             article.classList.add('experiment-preview');
 
@@ -47,6 +48,10 @@ window.addEventListener('load', function() {
             screen.width = 256;
             screen.height = 256;
             article.appendChild(hrefWrap(screen, info.href));
+
+            if (i % experimentsPerRow === 0) {
+                article.classList.add('clear');
+            }
 
             if (showDesc) {
                 var desc = document.createElement('div');
@@ -62,12 +67,6 @@ window.addEventListener('load', function() {
 
             return article;
         });
-
-    /*    lis.forEach(function (li, i) {
-            setTimeout(function () {
-                li.style.opacity = '1';
-            }, 150 + ((i + 2) * 150));
-        });*/
 
         // Add the preview elements to dom        
         lis.forEach(function (li) { ul.appendChild(li); } );

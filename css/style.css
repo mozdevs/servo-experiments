@@ -70,6 +70,7 @@
         }
         .experiment-previews {
              text-align: left;
+             clear: both;
         }
       
         .experiment-preview {
@@ -101,6 +102,10 @@
         }
 
         #featured-experiments .experiment-preview {
+        }
+
+        .clear {
+            clear: both;
         }
 
 
